@@ -98,6 +98,29 @@ namespace Jun::graphics
 		return true;
 	}
 
+	bool GraphicDevice_Dx11::CreateBuffer(ID3D11Buffer** buffer, D3D11_BUFFER_DESC* desc, D3D11_SUBRESOURCE_DATA* data)
+	{
+		if (FAILED(mDevice->CreateBuffer(desc, data, buffer)))
+			return false;
+
+		return true;
+	}
+
+	bool GraphicDevice_Dx11::CreateShader()
+	{
+		ID3DBlob* vsBlop = nullptr;
+		std::filesystem::path shaderPath = std::filesystem::current_path().parent_path();
+		shaderPath += L"\\Shader_SOURCE\\";
+
+		std::filesystem::path vsPath(shaderPath.c_str());
+		vsPath += L"TriangleVS.hlsl";
+
+		D3DCompileFromFile(vsPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
+		, "main", "vs_5_0", 0, 0, &vsBlop, nullptr);
+
+		return false;
+	}
+
 	bool GraphicDevice_Dx11::CreateTexture(const D3D11_TEXTURE2D_DESC* desc, void* data)
 	{
 		D3D11_TEXTURE2D_DESC dxgiDesc = {};

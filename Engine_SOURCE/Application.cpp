@@ -1,5 +1,7 @@
 #include "Application.h"
-
+#include "Input.h"
+#include "MyTime.h"
+#include "Renderer.h"
 
 namespace Jun
 {
@@ -25,10 +27,16 @@ namespace Jun
 
 	void Application::Initialize()
 	{
+		Time::Initiailize();
+		Input::Initialize();
+
+		renderer::Initialize();
 	}
 
 	void Application::Update()
 	{
+		Time::Update();
+		Input::Update();
 	}
 
 	void Application::LateUpdate()
@@ -37,6 +45,8 @@ namespace Jun
 
 	void Application::Render()
 	{
+		Time::Render();
+
 		graphicDevice->Draw();
 	}
 
@@ -49,6 +59,7 @@ namespace Jun
 			mHeight = height;
 
 			graphicDevice = std::make_unique<Jun::graphics::GraphicDevice_Dx11>();
+			Jun::graphics::GetDevice() = graphicDevice.get();
 		}
 
 		RECT rt = { 0, 0, (LONG)width , (LONG)height };
