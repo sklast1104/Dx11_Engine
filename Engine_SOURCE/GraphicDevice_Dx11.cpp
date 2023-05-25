@@ -1,5 +1,6 @@
 #include "GraphicDevice_Dx11.h"
 #include "Application.h"
+#include "Renderer.h"
 
 extern Jun::Application application;
 
@@ -28,7 +29,8 @@ namespace Jun::graphics
 		swapChainDesc.BufferDesc.Width = application.GetWidth();
 		swapChainDesc.BufferDesc.Height = application.GetHeight();
 
-		if (!CreateSwapChain(&swapChainDesc, hwnd)) return;
+		if (!CreateSwapChain(&swapChainDesc, hwnd))
+			return;
 
 		if (FAILED(mSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D)
 			, (void**)mRenderTarget.GetAddressOf())))
@@ -40,17 +42,35 @@ namespace Jun::graphics
 		// 깊이버퍼 생성
 		D3D11_TEXTURE2D_DESC depthStencilDesc = {};
 		depthStencilDesc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_DEPTH_STENCIL;
-		depthStencilDesc.Format = DXGI_FORMAT::DXGI_FORMAT_D24_UNORM_S8_UINT;
 		depthStencilDesc.Usage = D3D11_USAGE_DEFAULT;
+		depthStencilDesc.CPUAccessFlags = 0;
+
+		depthStencilDesc.Format = DXGI_FORMAT::DXGI_FORMAT_D24_UNORM_S8_UINT;
 		depthStencilDesc.Width = application.GetWidth();
 		depthStencilDesc.Height = application.GetHeight();
 		depthStencilDesc.ArraySize = 1;
+
 		depthStencilDesc.SampleDesc.Count = 1;
+		depthStencilDesc.SampleDesc.Quality = 0;
+
+		depthStencilDesc.MipLevels = 0;
 		depthStencilDesc.MiscFlags = 0;
 
 		D3D11_SUBRESOURCE_DATA data;
 		if (!CreateTexture(&depthStencilDesc, &data)) return;
 
+		RECT winRect = {};
+		GetClientRect(hwnd, &winRect);
+
+		mViewPort =
+		{
+			0.0f, 0.0f
+			, (float)(winRect.right - winRect.left)
+			, (float)(winRect.bottom - winRect.top)
+			, 0.0f, 1.0f
+		};
+
+		BindViewPort(&mViewPort);
 		mContext->OMSetRenderTargets(1, mRenderTargetView.GetAddressOf(), mDepthStencilView.Get());
 	}
 
@@ -108,7 +128,6 @@ namespace Jun::graphics
 
 	bool GraphicDevice_Dx11::CreateShader()
 	{
-		ID3DBlob* vsBlop = nullptr;
 		std::filesystem::path shaderPath = std::filesystem::current_path().parent_path();
 		shaderPath += L"\\Shader_SOURCE\\";
 
@@ -116,9 +135,55 @@ namespace Jun::graphics
 		vsPath += L"TriangleVS.hlsl";
 
 		D3DCompileFromFile(vsPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
-		, "main", "vs_5_0", 0, 0, &vsBlop, nullptr);
+		, "main", "vs_5_0", 0, 0, &Jun::renderer::triangleVSBlob, &Jun::renderer::errorBlob);
 
-		return false;
+		if (Jun::renderer::errorBlob) {
+			OutputDebugStringA((char*)Jun::renderer::errorBlob->GetBufferPointer());
+			Jun::renderer::errorBlob->Release();
+		}
+
+		mDevice->CreateVertexShader(Jun::renderer::triangleVSBlob->GetBufferPointer()
+			, Jun::renderer::triangleVSBlob->GetBufferSize()
+			, nullptr, &Jun::renderer::triangleVSShader);
+
+		std::filesystem::path psPath(shaderPath.c_str());
+		psPath += L"TrianglePS.hlsl";
+
+		D3DCompileFromFile(psPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
+					, "main", "ps_5_0", 0, 0, &Jun::renderer::trianglePSBlob, &Jun::renderer::errorBlob);
+
+		if (Jun::renderer::errorBlob) {
+			OutputDebugStringA((char*)Jun::renderer::errorBlob->GetBufferPointer());
+			Jun::renderer::errorBlob->Release();
+		}
+
+		mDevice->CreatePixelShader(Jun::renderer::trianglePSBlob->GetBufferPointer()
+					, Jun::renderer::trianglePSBlob->GetBufferSize()
+					, nullptr, &Jun::renderer::trianglePSShader);
+
+		// Input Layout 정보
+		D3D11_INPUT_ELEMENT_DESC arrLayout[2] = {};
+
+		arrLayout[0].AlignedByteOffset = 0;
+		arrLayout[0].Format = DXGI_FORMAT_R32G32B32_FLOAT;
+		arrLayout[0].InputSlot = 0;
+		arrLayout[0].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
+		arrLayout[0].SemanticName = "POSITION";
+		arrLayout[0].SemanticIndex = 0;
+
+		arrLayout[1].AlignedByteOffset = 12;
+		arrLayout[1].Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+		arrLayout[1].InputSlot = 0;
+		arrLayout[1].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
+		arrLayout[1].SemanticName = "COLOR";
+		arrLayout[1].SemanticIndex = 0;
+
+		mDevice->CreateInputLayout(arrLayout, 2
+			, Jun::renderer::triangleVSBlob->GetBufferPointer()
+			, Jun::renderer::triangleVSBlob->GetBufferSize()
+			, &Jun::renderer::triangleLayout);
+
+		return true;
 	}
 
 	bool GraphicDevice_Dx11::CreateTexture(const D3D11_TEXTURE2D_DESC* desc, void* data)
@@ -148,11 +213,45 @@ namespace Jun::graphics
 		return true;
 	}
 
+	void GraphicDevice_Dx11::BindViewPort(D3D11_VIEWPORT* viewPort)
+	{
+		mContext->RSSetViewports(1, viewPort);
+	}
+
 	void GraphicDevice_Dx11::Draw()
 	{
 		float clearColor[4] = { 0.2f, 0.2f, 0.2f, 1.0f };
 		mContext->ClearRenderTargetView(mRenderTargetView.Get(), clearColor);
-		mContext->ClearDepthStencilView(mDepthStencilView.Get(), D3D11_CLEAR_FLAG::D3D11_CLEAR_DEPTH, 1.0f, 0);
+		mContext->ClearDepthStencilView(mDepthStencilView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
+
+		// viewport update
+		HWND hWnd = application.GetHwnd();
+		RECT winRect = {};
+		GetClientRect(hWnd, &winRect);
+		mViewPort = {
+			0, 0,
+			(float)winRect.right - winRect.left, (float)winRect.bottom - winRect.top,
+			0.f, 1.f
+		};
+
+		BindViewPort(&mViewPort);
+		mContext->OMSetRenderTargets(1, mRenderTargetView.GetAddressOf(), mDepthStencilView.Get());
+
+		// Input Assembler
+		UINT vertexsize = sizeof(renderer::Vertex);
+		UINT offset = 0;
+
+		mContext->IASetVertexBuffers(0, 1, &renderer::triangleBuffer, &vertexsize, &offset);
+		mContext->IASetInputLayout(renderer::triangleLayout);
+		mContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+		// Bind VS, PS
+
+		mContext->VSSetShader(renderer::triangleVSShader, 0, 0);
+		mContext->PSSetShader(renderer::trianglePSShader, 0, 0);
+
+		// 정점개수 에따라 달라짐;
+		mContext->Draw(3, 0);
 
 		mSwapChain->Present(0, 0);
 	}
