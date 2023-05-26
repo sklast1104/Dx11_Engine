@@ -23,5 +23,7 @@ namespace Jun::renderer {
 	extern ID3D11PixelShader* trianglePSShader;
 
 	void Initialize();
+
+	extern int vertexCount;
 }
 

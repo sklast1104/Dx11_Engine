@@ -251,7 +251,7 @@ namespace Jun::graphics
 		mContext->PSSetShader(renderer::trianglePSShader, 0, 0);
 
 		// 정점개수 에따라 달라짐;
-		mContext->Draw(3, 0);
+		mContext->Draw(Jun::renderer::vertexCount, 0);
 
 		mSwapChain->Present(0, 0);
 	}
