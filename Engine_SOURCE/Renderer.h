@@ -24,6 +24,9 @@ namespace Jun::renderer {
 	extern ID3DBlob* trianglePSBlob;
 	extern ID3D11PixelShader* trianglePSShader;
 
+	extern Vector4 offset;
+
 	void Initialize();
+	void Update();
 }
 

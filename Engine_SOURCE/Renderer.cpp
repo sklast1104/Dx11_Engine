@@ -1,5 +1,7 @@
 #include "Renderer.h"
 
+#include "Input.h"
+
 namespace Jun::renderer {
 
 	Vertex vertexes[3] = {};
@@ -24,6 +26,8 @@ namespace Jun::renderer {
 
 	// Pixel Shader
 	ID3D11PixelShader* trianglePSShader = nullptr;
+
+	Vector4 offset = Vector4(0.f, 0.f, 0.f, 0.f);
 
 	void SetupState() {
 
@@ -67,8 +71,9 @@ namespace Jun::renderer {
 
 		Jun::graphics::GetDevice()->CreateBuffer(&triangleConstantBuffer, &triangleCSDesc, nullptr);
 
-		Vector4 pos(0.3f, 0.0f, 0.0f, 0.0f);
-		Jun::graphics::GetDevice()->SetConstantBuffer(triangleConstantBuffer, &pos, sizeof(Vector4));
+		//Vector4 pos(0.3f, 0.0f, 0.0f, 0.0f);
+		//offset = Vector4(0.f, 0.5f, 0.f, 0.f);
+		Jun::graphics::GetDevice()->SetConstantBuffer(triangleConstantBuffer, &offset, sizeof(Vector4));
 		Jun::graphics::GetDevice()->BindConstantBuffer(eShaderStage::VS, eCBType::Transform, triangleConstantBuffer);
 	}
 
@@ -91,6 +96,34 @@ namespace Jun::renderer {
 		LoadBuffer();
 		LoadShader();
 	}
+	void Update()
+	{
+		if(Input::GetKeyDown(eKeyCode::W)) {
+			offset += Vector4(0.0f, 0.1f, 0.0f, 0.0f);
 
-	
+			Jun::graphics::GetDevice()->SetConstantBuffer(triangleConstantBuffer, &offset, sizeof(Vector4));
+			Jun::graphics::GetDevice()->BindConstantBuffer(eShaderStage::VS, eCBType::Transform, triangleConstantBuffer);
+		}
+
+		if (Input::GetKeyDown(eKeyCode::S)) {
+			offset += Vector4(0.0f, -0.1f, 0.0f, 0.0f);
+
+			Jun::graphics::GetDevice()->SetConstantBuffer(triangleConstantBuffer, &offset, sizeof(Vector4));
+			Jun::graphics::GetDevice()->BindConstantBuffer(eShaderStage::VS, eCBType::Transform, triangleConstantBuffer);
+		}
+
+		if (Input::GetKeyDown(eKeyCode::A)) {
+			offset += Vector4(-0.1f, 0.0f, 0.0f, 0.0f);
+
+			Jun::graphics::GetDevice()->SetConstantBuffer(triangleConstantBuffer, &offset, sizeof(Vector4));
+			Jun::graphics::GetDevice()->BindConstantBuffer(eShaderStage::VS, eCBType::Transform, triangleConstantBuffer);
+		}
+
+		if (Input::GetKeyDown(eKeyCode::D)) {
+			offset += Vector4(0.1f, 0.0f, 0.0f, 0.0f);
+
+			Jun::graphics::GetDevice()->SetConstantBuffer(triangleConstantBuffer, &offset, sizeof(Vector4));
+			Jun::graphics::GetDevice()->BindConstantBuffer(eShaderStage::VS, eCBType::Transform, triangleConstantBuffer);
+		}
+	}
 }
