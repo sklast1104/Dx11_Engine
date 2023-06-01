@@ -132,31 +132,31 @@ namespace Jun::graphics
 		vsPath += L"TriangleVS.hlsl";
 
 		D3DCompileFromFile(vsPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
-		, "main", "vs_5_0", 0, 0, &Jun::renderer::triangleVSBlob, &Jun::renderer::errorBlob);
+		, "main", "vs_5_0", 0, 0, &renderer::triangleVSBlob, &renderer::errorBlob);
 
-		if (Jun::renderer::errorBlob) {
-			OutputDebugStringA((char*)Jun::renderer::errorBlob->GetBufferPointer());
-			Jun::renderer::errorBlob->Release();
+		if (renderer::errorBlob) {
+			OutputDebugStringA((char*)renderer::errorBlob->GetBufferPointer());
+			renderer::errorBlob->Release();
 		}
 
-		mDevice->CreateVertexShader(Jun::renderer::triangleVSBlob->GetBufferPointer()
-			, Jun::renderer::triangleVSBlob->GetBufferSize()
-			, nullptr, &Jun::renderer::triangleVSShader);
+		mDevice->CreateVertexShader(renderer::triangleVSBlob->GetBufferPointer()
+			, renderer::triangleVSBlob->GetBufferSize()
+			, nullptr, &renderer::triangleVSShader);
 
 		std::filesystem::path psPath(shaderPath.c_str());
 		psPath += L"TrianglePS.hlsl";
 
 		D3DCompileFromFile(psPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
-					, "main", "ps_5_0", 0, 0, &Jun::renderer::trianglePSBlob, &Jun::renderer::errorBlob);
+					, "main", "ps_5_0", 0, 0, &renderer::trianglePSBlob, &renderer::errorBlob);
 
-		if (Jun::renderer::errorBlob) {
-			OutputDebugStringA((char*)Jun::renderer::errorBlob->GetBufferPointer());
-			Jun::renderer::errorBlob->Release();
+		if (renderer::errorBlob) {
+			OutputDebugStringA((char*)renderer::errorBlob->GetBufferPointer());
+			renderer::errorBlob->Release();
 		}
 
-		mDevice->CreatePixelShader(Jun::renderer::trianglePSBlob->GetBufferPointer()
-					, Jun::renderer::trianglePSBlob->GetBufferSize()
-					, nullptr, &Jun::renderer::trianglePSShader);
+		mDevice->CreatePixelShader(renderer::trianglePSBlob->GetBufferPointer()
+					, renderer::trianglePSBlob->GetBufferSize()
+					, nullptr, &renderer::trianglePSShader);
 
 		// Input Layout Á¤º¸
 		D3D11_INPUT_ELEMENT_DESC arrLayout[2] = {};
@@ -176,9 +176,9 @@ namespace Jun::graphics
 		arrLayout[1].SemanticIndex = 0;
 
 		mDevice->CreateInputLayout(arrLayout, 2
-			, Jun::renderer::triangleVSBlob->GetBufferPointer()
-			, Jun::renderer::triangleVSBlob->GetBufferSize()
-			, &Jun::renderer::triangleLayout);
+			, renderer::triangleVSBlob->GetBufferPointer()
+			, renderer::triangleVSBlob->GetBufferSize()
+			, &renderer::triangleLayout);
 
 		return true;
 	}

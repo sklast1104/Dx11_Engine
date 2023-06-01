@@ -28,5 +28,6 @@ namespace Jun::renderer {
 
 	void Initialize();
 	void Update();
+	void Release();
 }
 

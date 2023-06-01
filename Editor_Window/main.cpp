@@ -4,6 +4,9 @@
 #include "framework.h"
 #include "Editor_Window.h"
 #include "Application.h"
+#include "Renderer.h"
+
+using namespace Jun;
 
 Jun::Application application;
 
@@ -64,6 +67,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         }
     }
 
+    renderer::Release();
     return (int) msg.wParam;
 }
 
