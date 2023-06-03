@@ -10,19 +10,11 @@ namespace Jun::renderer {
 	ID3D11InputLayout* triangleLayout = nullptr;
 
 	// Vertex Buffer
-	ID3D11Buffer* triangleBuffer = nullptr;
-	ID3D11Buffer* triangleIdxBuffer = nullptr;
+	Jun::Mesh* mesh = nullptr;
+
 	ID3D11Buffer* triangleConstantBuffer = nullptr;
 
-	// error blob
-	ID3DBlob* errorBlob = nullptr;
-
-	ID3DBlob* triangleVSBlob = nullptr;
-
-	// Vertex Shader
-	ID3D11VertexShader* triangleVSShader = nullptr;
-
-	ID3DBlob* trianglePSBlob = nullptr;
+	Jun::Shader* shader = nullptr;
 
 	// Pixel Shader
 	ID3D11PixelShader* trianglePSShader = nullptr;
@@ -36,32 +28,16 @@ namespace Jun::renderer {
 	void LoadBuffer() {
 
 		// Vertex Buffer
-		D3D11_BUFFER_DESC triangleDesc = {};
-		triangleDesc.Usage = D3D11_USAGE::D3D11_USAGE_DYNAMIC;
-		triangleDesc.ByteWidth = sizeof(Vertex) * 3;
-		triangleDesc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_VERTEX_BUFFER;
-		triangleDesc.CPUAccessFlags = D3D11_CPU_ACCESS_FLAG::D3D11_CPU_ACCESS_WRITE;
-
-		D3D11_SUBRESOURCE_DATA triangleData = {};
-		triangleData.pSysMem = vertexes;
-		Jun::graphics::GetDevice()->CreateBuffer(&triangleBuffer, &triangleDesc, &triangleData);
+		mesh = new Jun::Mesh();
+		mesh->CreateVertexBuffer(vertexes, 4);
 
 		std::vector<UINT> indexes = {};
 		indexes.push_back(0);
 		indexes.push_back(1);
 		indexes.push_back(2);
 
-		// Index Buffer
-		D3D11_BUFFER_DESC triangleIdxDesc = {};
-		triangleIdxDesc.ByteWidth = sizeof(UINT) * indexes.size();
-		triangleIdxDesc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_INDEX_BUFFER;
-		triangleIdxDesc.Usage = D3D11_USAGE_DEFAULT;
-		triangleIdxDesc.CPUAccessFlags = 0;
-
-		D3D11_SUBRESOURCE_DATA triangleIdxData = {};
-		triangleIdxData.pSysMem = indexes.data();
-		Jun::graphics::GetDevice()->CreateBuffer(&triangleIdxBuffer, &triangleIdxDesc, &triangleIdxData);
-
+		mesh->CreateIndexBuffer(indexes.data(), indexes.size());
+			
 		// Constant Buffer
 		D3D11_BUFFER_DESC triangleCSDesc = {};
 		triangleCSDesc.ByteWidth = sizeof(Vector4);
@@ -71,14 +47,16 @@ namespace Jun::renderer {
 
 		Jun::graphics::GetDevice()->CreateBuffer(&triangleConstantBuffer, &triangleCSDesc, nullptr);
 
-		//Vector4 pos(0.3f, 0.0f, 0.0f, 0.0f);
-		//offset = Vector4(0.f, 0.5f, 0.f, 0.f);
-		Jun::graphics::GetDevice()->SetConstantBuffer(triangleConstantBuffer, &offset, sizeof(Vector4));
+		Vector4 pos(0.0f, 0.0f, 0.0f, 1.0f);
+		Jun::graphics::GetDevice()->SetConstantBuffer(triangleConstantBuffer, &pos, sizeof(Vector4));
 		Jun::graphics::GetDevice()->BindConstantBuffer(eShaderStage::VS, eCBType::Transform, triangleConstantBuffer);
 	}
 
 	void LoadShader() {
-		Jun::graphics::GetDevice()->CreateShader();
+		
+		shader = new Jun::Shader();
+		shader->Create(eShaderStage::VS, L"TriangleVS.hlsl", "main");
+		shader->Create(eShaderStage::PS, L"TrianglePS.hlsl", "main");
 	}
 
 	void Initialize() {
@@ -131,26 +109,8 @@ namespace Jun::renderer {
 		if (triangleLayout != nullptr)
 			triangleLayout->Release();
 
-		if (triangleBuffer != nullptr)
-			triangleBuffer->Release();
-
-		if (triangleIdxBuffer != nullptr)
-			triangleIdxBuffer->Release();
-
 		if (triangleConstantBuffer != nullptr)
 			triangleConstantBuffer->Release();
-
-		if (errorBlob != nullptr)
-			errorBlob->Release();
-
-		if (triangleVSBlob != nullptr)
-			triangleVSBlob->Release();
-
-		if (triangleVSShader != nullptr)
-			triangleVSShader->Release();
-
-		if (trianglePSBlob != nullptr)
-			trianglePSBlob->Release();
 
 		if (trianglePSShader != nullptr)
 			trianglePSShader->Release();
