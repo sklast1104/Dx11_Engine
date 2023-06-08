@@ -197,6 +197,11 @@ namespace Jun::graphics
 		mContext->RSSetViewports(1, viewPort);
 	}
 
+	void GraphicDevice_Dx11::DrawIndexed(UINT indexCount, UINT startIndexLocation, INT baseVertexLocation)
+	{
+		mContext->DrawIndexed(indexCount, startIndexLocation, baseVertexLocation);
+	}
+
 	void GraphicDevice_Dx11::BindInputLayout(ID3D11InputLayout* pInputLayout)
 	{
 		mContext->IASetInputLayout(pInputLayout);
@@ -291,16 +296,11 @@ namespace Jun::graphics
 		};
 
 		BindViewPort(&mViewPort);
-		mContext->OMSetRenderTargets(1, mRenderTargetView.GetAddressOf(), mDepthStencilView.Get());
+		mContext->OMSetRenderTargets(1, mRenderTargetView.GetAddressOf(), mDepthStencilView.Get());		
+	}
 
-		renderer::mesh->BindBuffer();
-
-		mContext->IASetInputLayout(renderer::shader->GetInputLayout());
-
-		renderer::shader->Binds();
-		
-		mContext->DrawIndexed(renderer::mesh->GetIndexCount(), 0, 0);
-
+	void GraphicDevice_Dx11::Present()
+	{
 		mSwapChain->Present(0, 0);
 	}
 

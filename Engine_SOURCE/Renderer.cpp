@@ -4,6 +4,8 @@
 
 namespace Jun::renderer {
 
+	using namespace Jun;
+	using namespace Jun::graphics;
 	Vertex vertexes[4] = {};
 	Jun::Mesh* mesh = nullptr;
 	Jun::Shader* shader = nullptr;
@@ -52,7 +54,7 @@ namespace Jun::renderer {
 		mesh->CreateIndexBuffer(indexes.data(), indexes.size());
 			
 		// Constant Buffer
-		constantBuffer = new Jun::graphics::ConstantBuffer(eCBType::Transform);
+		constantBuffer = new ConstantBuffer(eCBType::Transform);
 		constantBuffer->Create(sizeof(Vector4));
 
 		Vector4 pos(0.0f, 0.0f, 0.0f, 1.0f);
