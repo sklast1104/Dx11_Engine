@@ -115,70 +115,48 @@ namespace Jun::graphics
 		return true;
 	}
 
-	bool GraphicDevice_Dx11::CreateBuffer(ID3D11Buffer** buffer, D3D11_BUFFER_DESC* desc, D3D11_SUBRESOURCE_DATA* data)
+	bool GraphicDevice_Dx11::CreateTexture(const D3D11_TEXTURE2D_DESC* desc, void* data)
 	{
-		if (FAILED(mDevice->CreateBuffer(desc, data, buffer)))
+		D3D11_TEXTURE2D_DESC dxgiDesc = {};
+		dxgiDesc.BindFlags = desc->BindFlags;
+		dxgiDesc.Usage = desc->Usage;
+		dxgiDesc.CPUAccessFlags = 0;
+
+		dxgiDesc.Format = desc->Format;
+		dxgiDesc.Width = desc->Width;
+		dxgiDesc.Height = desc->Height;
+		dxgiDesc.ArraySize = desc->ArraySize;
+
+		dxgiDesc.SampleDesc.Count = desc->SampleDesc.Count;
+		dxgiDesc.SampleDesc.Quality = 0;
+
+		dxgiDesc.MipLevels = desc->MipLevels;
+		dxgiDesc.MiscFlags = desc->MiscFlags;
+
+		if (FAILED(mDevice->CreateTexture2D(&dxgiDesc, nullptr, mDepthStencilBuffer.ReleaseAndGetAddressOf())))
+			return false;
+
+		if (FAILED(mDevice->CreateDepthStencilView(mDepthStencilBuffer.Get(), nullptr, mDepthStencilView.GetAddressOf())))
 			return false;
 
 		return true;
 	}
 
-	bool GraphicDevice_Dx11::CreateShader()
+	bool GraphicDevice_Dx11::CreateInputLayout(const D3D11_INPUT_ELEMENT_DESC* pInputElementDescs, UINT NumElements, ID3DBlob* byteCode, ID3D11InputLayout** ppInputLayout)
 	{
-		//std::filesystem::path shaderPath = std::filesystem::current_path().parent_path();
-		//shaderPath += L"\\Shader_SOURCE\\";
+		if (FAILED(mDevice->CreateInputLayout(pInputElementDescs, NumElements
+			, byteCode->GetBufferPointer()
+			, byteCode->GetBufferSize()
+			, ppInputLayout)))
+			return false;
 
-		//std::filesystem::path vsPath(shaderPath.c_str());
-		//vsPath += L"TriangleVS.hlsl";
+		return true;
+	}
 
-		//D3DCompileFromFile(vsPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
-		//, "main", "vs_5_0", 0, 0, &renderer::triangleVSBlob, &renderer::errorBlob);
-
-		//if (renderer::errorBlob) {
-		//	OutputDebugStringA((char*)renderer::errorBlob->GetBufferPointer());
-		//	renderer::errorBlob->Release();
-		//}
-
-		//mDevice->CreateVertexShader(renderer::triangleVSBlob->GetBufferPointer()
-		//	, renderer::triangleVSBlob->GetBufferSize()
-		//	, nullptr, &renderer::triangleVSShader);
-
-		//std::filesystem::path psPath(shaderPath.c_str());
-		//psPath += L"TrianglePS.hlsl";
-
-		//D3DCompileFromFile(psPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
-		//			, "main", "ps_5_0", 0, 0, &renderer::trianglePSBlob, &renderer::errorBlob);
-
-		//if (renderer::errorBlob) {
-		//	OutputDebugStringA((char*)renderer::errorBlob->GetBufferPointer());
-		//	renderer::errorBlob->Release();
-		//}
-
-		//mDevice->CreatePixelShader(renderer::trianglePSBlob->GetBufferPointer()
-		//			, renderer::trianglePSBlob->GetBufferSize()
-		//			, nullptr, &renderer::trianglePSShader);
-
-		//// Input Layout 정보
-		//D3D11_INPUT_ELEMENT_DESC arrLayout[2] = {};
-
-		//arrLayout[0].AlignedByteOffset = 0;
-		//arrLayout[0].Format = DXGI_FORMAT_R32G32B32_FLOAT;
-		//arrLayout[0].InputSlot = 0;
-		//arrLayout[0].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
-		//arrLayout[0].SemanticName = "POSITION";
-		//arrLayout[0].SemanticIndex = 0;
-
-		//arrLayout[1].AlignedByteOffset = 12;
-		//arrLayout[1].Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
-		//arrLayout[1].InputSlot = 0;
-		//arrLayout[1].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
-		//arrLayout[1].SemanticName = "COLOR";
-		//arrLayout[1].SemanticIndex = 0;
-
-		//mDevice->CreateInputLayout(arrLayout, 2
-		//	, renderer::triangleVSBlob->GetBufferPointer()
-		//	, renderer::triangleVSBlob->GetBufferSize()
-		//	, &renderer::triangleLayout);
+	bool GraphicDevice_Dx11::CreateBuffer(ID3D11Buffer** buffer, D3D11_BUFFER_DESC* desc, D3D11_SUBRESOURCE_DATA* data)
+	{
+		if (FAILED(mDevice->CreateBuffer(desc, data, buffer)))
+			return false;
 
 		return true;
 	}
@@ -214,36 +192,19 @@ namespace Jun::graphics
 		return true;
 	}
 
-	bool GraphicDevice_Dx11::CreateTexture(const D3D11_TEXTURE2D_DESC* desc, void* data)
-	{
-		D3D11_TEXTURE2D_DESC dxgiDesc = {};
-		dxgiDesc.BindFlags = desc->BindFlags;
-		dxgiDesc.Usage = desc->Usage;
-		dxgiDesc.CPUAccessFlags = 0;
-
-		dxgiDesc.Format = desc->Format;
-		dxgiDesc.Width = desc->Width;
-		dxgiDesc.Height = desc->Height;
-		dxgiDesc.ArraySize = desc->ArraySize;
-
-		dxgiDesc.SampleDesc.Count = desc->SampleDesc.Count;
-		dxgiDesc.SampleDesc.Quality = 0;
-
-		dxgiDesc.MipLevels = desc->MipLevels;
-		dxgiDesc.MiscFlags = desc->MiscFlags;
-
-		if (FAILED(mDevice->CreateTexture2D(&dxgiDesc, nullptr, mDepthStencilBuffer.ReleaseAndGetAddressOf())))
-			return false;
-
-		if (FAILED(mDevice->CreateDepthStencilView(mDepthStencilBuffer.Get(), nullptr, mDepthStencilView.GetAddressOf())))
-			return false;
-
-		return true;
-	}
-
 	void GraphicDevice_Dx11::BindViewPort(D3D11_VIEWPORT* viewPort)
 	{
 		mContext->RSSetViewports(1, viewPort);
+	}
+
+	void GraphicDevice_Dx11::BindInputLayout(ID3D11InputLayout* pInputLayout)
+	{
+		mContext->IASetInputLayout(pInputLayout);
+	}
+
+	void GraphicDevice_Dx11::BindPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY topology)
+	{
+		mContext->IASetPrimitiveTopology(topology);
 	}
 
 	void GraphicDevice_Dx11::BindVertexBuffer(UINT startSlot, ID3D11Buffer* const* ppVertexBuffers, const UINT* pStrides, const UINT* pOffsets)
@@ -323,32 +284,23 @@ namespace Jun::graphics
 		RECT winRect = {};
 		GetClientRect(hWnd, &winRect);
 		mViewPort = {
-			0, 0,
-			(float)winRect.right - winRect.left, (float)winRect.bottom - winRect.top,
+			0, 0
+			, (float)winRect.right - winRect.left
+			, (float)winRect.bottom - winRect.top,
 			0.f, 1.f
 		};
 
 		BindViewPort(&mViewPort);
 		mContext->OMSetRenderTargets(1, mRenderTargetView.GetAddressOf(), mDepthStencilView.Get());
 
-		// Input Assembler
-		UINT vertexsize = sizeof(renderer::Vertex);
-		UINT offset = 0;
-
 		renderer::mesh->BindBuffer();
 
-		mContext->IASetInputLayout(renderer::triangleLayout);
-		mContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-
-		// Bind VS, PS
+		mContext->IASetInputLayout(renderer::shader->GetInputLayout());
 
 		renderer::shader->Binds();
 		
-		mContext->PSSetShader(renderer::trianglePSShader, 0, 0);
-
 		mContext->DrawIndexed(renderer::mesh->GetIndexCount(), 0, 0);
 
-		// 렌더 타겟에 있는 이미지를 화면에 그려준다
 		mSwapChain->Present(0, 0);
 	}
 

@@ -37,9 +37,6 @@ namespace Jun
 	{
 		Time::Update();
 		Input::Update();
-
-		// 여기서 컨스턴트 버퍼 바꿀수 있나?
-		renderer::Update();
 	}
 
 	void Application::LateUpdate()
