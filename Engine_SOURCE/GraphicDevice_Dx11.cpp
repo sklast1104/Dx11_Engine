@@ -297,6 +297,10 @@ namespace Jun::graphics
 
 		BindViewPort(&mViewPort);
 		mContext->OMSetRenderTargets(1, mRenderTargetView.GetAddressOf(), mDepthStencilView.Get());		
+
+		renderer::mesh->BindBuffer();
+		renderer::shader->Binds();
+		mContext->DrawIndexed(renderer::mesh->GetIndexCount(), 0, 0);
 	}
 
 	void GraphicDevice_Dx11::Present()

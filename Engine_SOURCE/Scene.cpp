@@ -16,19 +16,22 @@ namespace Jun {
 
 	void Scene::Update()
 	{
-		for (GameObject* gameObj : mGameObjects) {
-			gameObj->Update();
+		for (Layer* layer : mLayers) {
+			layer->Update();
 		}
 	}
 
 	void Scene::LateUpdate()
 	{
+		for (Layer* layer : mLayers) {
+			layer->LateUpdate();
+		}
 	}
 
 	void Scene::Render()
 	{
-		for (GameObject* gameObj : mGameObjects) {
-			gameObj->Render();
+		for (Layer* layer : mLayers) {
+			layer->Render();
 		}
 	}
 

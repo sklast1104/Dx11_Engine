@@ -43,6 +43,12 @@
     <Filter Include="Scene\Layer">
       <UniqueIdentifier>{1519664c-bd9b-4c9c-bb04-b5ae7aaff345}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scene\Base">
+      <UniqueIdentifier>{3ba76948-620b-4178-ab68-22b8d41e7f76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Manager">
+      <UniqueIdentifier>{998d71f4-0466-4379-a465-190a4ed14e89}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h">
@@ -102,15 +108,16 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Script.h">
       <Filter>GameObject\Component\Script</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Scene.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)SceneManager.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Layer.h">
       <Filter>Scene\Layer</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Scene.h">
+      <Filter>Scene\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SceneManager.h">
+      <Filter>Scene\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)PlayScene.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)MyMath.cpp">
@@ -158,15 +165,16 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Script.cpp">
       <Filter>GameObject\Component\Script</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Scene.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)SceneManager.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Layer.cpp">
       <Filter>Scene\Layer</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Scene.cpp">
+      <Filter>Scene\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)SceneManager.cpp">
+      <Filter>Scene\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)PlayScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)Math.inl">
