@@ -8,6 +8,14 @@ namespace Jun {
 
 	Layer::~Layer()
 	{
+		for (GameObject* gameObj : mGameObjects)
+		{
+			if (gameObj == nullptr)
+				continue;
+
+			delete gameObj;
+			gameObj = nullptr;
+		}
 	}
 
 	void Layer::Initialize()
@@ -33,6 +41,11 @@ namespace Jun {
 		for (GameObject* gameObj : mGameObjects) {
 			gameObj->Render();
 		}
+	}
+
+	void Layer::AddGameObject(GameObject* gameObject)
+	{
+		mGameObjects.push_back(gameObject);
 	}
 
 }

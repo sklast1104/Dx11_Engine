@@ -118,6 +118,14 @@
       <Filter>Scene\Manager</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)PlayScene.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)MeshRenderer.h">
+      <Filter>GameObject\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Transform.h">
+      <Filter>GameObject\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Texture.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Material.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)MyMath.cpp">
@@ -175,6 +183,14 @@
       <Filter>Scene\Manager</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)PlayScene.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)MeshRenderer.cpp">
+      <Filter>GameObject\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Transform.cpp">
+      <Filter>GameObject\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Texture.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Material.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)Math.inl">

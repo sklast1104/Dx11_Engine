@@ -4,6 +4,7 @@ namespace Jun {
 
 	Scene::Scene()
 	{
+		mLayers.resize((int) Jun::enums::eLayerType::End);
 	}
 
 	Scene::~Scene()
@@ -16,23 +17,38 @@ namespace Jun {
 
 	void Scene::Update()
 	{
-		for (Layer* layer : mLayers) {
-			layer->Update();
+		for (Layer& layer : mLayers) {
+			layer.Update();
 		}
 	}
 
 	void Scene::LateUpdate()
 	{
-		for (Layer* layer : mLayers) {
-			layer->LateUpdate();
+		for (Layer& layer : mLayers)
+		{
+			layer.LateUpdate();
 		}
 	}
 
 	void Scene::Render()
 	{
-		for (Layer* layer : mLayers) {
-			layer->Render();
+		for (Layer& layer : mLayers)
+		{
+			layer.Render();
 		}
+	}
+
+	void Scene::OnEnter()
+	{
+	}
+
+	void Scene::OnExit()
+	{
+	}
+
+	void Scene::AddGameObject(eLayerType type, GameObject* gameObject)
+	{
+		mLayers[(int)type].AddGameObject(gameObject);
 	}
 
 }

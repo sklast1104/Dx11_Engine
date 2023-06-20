@@ -4,7 +4,8 @@
 namespace Jun {
 
     Mesh::Mesh()
-        : mVertexBuffer(nullptr)
+        : Resource(enums::eResourceType::Mesh)
+        , mVertexBuffer(nullptr)
         , mIndexBuffer(nullptr)
         , mVBDesc{}
         , mIBDesc{}
@@ -61,6 +62,11 @@ namespace Jun {
 		
         GetDevice()->BindVertexBuffer(0, mVertexBuffer.GetAddressOf(), &stride, &offset);
         GetDevice()->BindIndexBuffer(mIndexBuffer.Get(), DXGI_FORMAT_R32_UINT, 0);
+    }
+
+    void Mesh::Render()
+    {
+        GetDevice()->DrawIndexed(mIndexCount, 0, 0);
     }
 
 }

@@ -19,6 +19,13 @@ namespace Jun::graphics {
 
 	enum class eCBType {
 		Transform,
+		Material,
+		End,
+	};
+
+	enum class eSamplerType {
+		Point,
+		Anisotropic,
 		End,
 	};
 

@@ -24,7 +24,7 @@ namespace Jun {
 		template <typename T>
 		T* GetComponent() {
 			T* component;
-			for (T* comp : mComponents) {
+			for (Component* comp : mComponents) {
 				component = dynamic_cast<T*>(comp);
 				if (component != nullptr)
 					return component;
@@ -43,6 +43,7 @@ namespace Jun {
 			if (buff == nullptr) return nullptr;
 
 			mComponents.push_back(buff);
+			comp->SetOwner(this);
 
 			return comp;
 		}

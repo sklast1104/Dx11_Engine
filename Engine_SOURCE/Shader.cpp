@@ -3,7 +3,8 @@
 namespace Jun {
 
 	Shader::Shader()
-		: mInputLayout{nullptr}
+		: Resource(enums::eResourceType::Shader)
+		, mInputLayout{nullptr}
 		, mTopology{D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST}
 	{
 	}
@@ -28,13 +29,13 @@ namespace Jun {
 
 		ID3DBlob* errorBlob = nullptr;
 		if (stage == eShaderStage::VS) {
-			GetDevice()->CompileFromFile(fullPath, funcName, "vs_5_0", mVSBlob.GetAddressOf());
+			GetDevice()->CompileFromfile(fullPath, funcName, "vs_5_0", mVSBlob.GetAddressOf());
 			GetDevice()->CreateVertexShader(mVSBlob->GetBufferPointer(),
 				mVSBlob->GetBufferSize(), mVS.GetAddressOf());
 		}
 		else if (stage == eShaderStage::PS) {
 
-			GetDevice()->CompileFromFile(fullPath, funcName, "ps_5_0", mPSBlob.GetAddressOf());
+			GetDevice()->CompileFromfile(fullPath, funcName, "ps_5_0", mPSBlob.GetAddressOf());
 			GetDevice()->CreatePixelShader(mPSBlob->GetBufferPointer()
 				,mPSBlob->GetBufferSize(), mPS.GetAddressOf());
 		}

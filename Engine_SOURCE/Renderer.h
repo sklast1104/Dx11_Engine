@@ -7,20 +7,19 @@
 #include "ConstantBuffer.h"
 
 using namespace Jun::math;
+using namespace Jun::graphics;
 
-namespace Jun::renderer {
+namespace renderer {
 
 	struct Vertex
 	{
 		Vector3 pos;
 		Vector4 color;
+		Vector2 uv;
 	};
 
 	extern Vertex vertexes[];
-	extern Jun::Mesh* mesh;
-
-	extern Jun::Shader* shader;
-	extern Jun::ConstantBuffer* constantBuffer;
+	extern Jun::graphics::ConstantBuffer* constantBuffer[(UINT)eCBType::End];
 
 	void Initialize();
 	void Release();

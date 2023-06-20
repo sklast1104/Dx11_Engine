@@ -15,8 +15,13 @@ namespace Jun {
 		virtual void LateUpdate();
 		virtual void Render();
 
+		virtual void OnEnter();
+		virtual void OnExit();
+
+		void AddGameObject(eLayerType type, GameObject* gameObject);
+
 	private :
-		std::vector<Layer*> mLayers;
+		std::vector<Layer> mLayers;
 
 	};
 }

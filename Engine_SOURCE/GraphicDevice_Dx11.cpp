@@ -8,35 +8,31 @@ namespace Jun::graphics
 {
 	GraphicDevice_Dx11::GraphicDevice_Dx11()
 	{
-		// Device, Context 생성
-		HWND hwnd = application.GetHwnd();
+		HWND hWnd = application.GetHwnd();
 		UINT deviceFlag = D3D11_CREATE_DEVICE_DEBUG;
 		D3D_FEATURE_LEVEL featureLevel = (D3D_FEATURE_LEVEL)0;
 
-		// 디바이스 및 컨텍스트 생성
 		D3D11CreateDevice(nullptr, D3D_DRIVER_TYPE_HARDWARE, nullptr
 			, deviceFlag, nullptr, 0
 			, D3D11_SDK_VERSION
 			, mDevice.GetAddressOf(), &featureLevel
 			, mContext.GetAddressOf());
 
-		// 스왑체인 초기화
 		DXGI_SWAP_CHAIN_DESC swapChainDesc = {};
 		swapChainDesc.BufferCount = 2;
 		swapChainDesc.BufferDesc.Width = application.GetWidth();
 		swapChainDesc.BufferDesc.Height = application.GetHeight();
 
-		if (!CreateSwapChain(&swapChainDesc, hwnd))
+		if (!CreateSwapChain(&swapChainDesc, hWnd))
 			return;
 
 		if (FAILED(mSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D)
 			, (void**)mRenderTarget.GetAddressOf())))
 			return;
 
-		mDevice->CreateRenderTargetView((ID3D11Resource*)mRenderTarget.Get(), nullptr
-			, mRenderTargetView.GetAddressOf());
+		mDevice->CreateRenderTargetView((ID3D11Resource*)mRenderTarget.Get()
+			, nullptr, mRenderTargetView.GetAddressOf());
 
-		// 깊이버퍼 생성
 		D3D11_TEXTURE2D_DESC depthStencilDesc = {};
 		depthStencilDesc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_DEPTH_STENCIL;
 		depthStencilDesc.Usage = D3D11_USAGE_DEFAULT;
@@ -54,11 +50,11 @@ namespace Jun::graphics
 		depthStencilDesc.MiscFlags = 0;
 
 		D3D11_SUBRESOURCE_DATA data;
-		if (!CreateTexture(&depthStencilDesc, &data)) return;
+		if (!CreateTexture(&depthStencilDesc, &data))
+			return;
 
 		RECT winRect = {};
-		GetClientRect(hwnd, &winRect);
-
+		GetClientRect(hWnd, &winRect);
 		mViewPort =
 		{
 			0.0f, 0.0f
@@ -73,8 +69,8 @@ namespace Jun::graphics
 
 	GraphicDevice_Dx11::~GraphicDevice_Dx11()
 	{
-	}
 
+	}
 	bool GraphicDevice_Dx11::CreateSwapChain(const DXGI_SWAP_CHAIN_DESC* desc, HWND hWnd)
 	{
 		DXGI_SWAP_CHAIN_DESC dxgiDesc = {};
@@ -142,7 +138,10 @@ namespace Jun::graphics
 		return true;
 	}
 
-	bool GraphicDevice_Dx11::CreateInputLayout(const D3D11_INPUT_ELEMENT_DESC* pInputElementDescs, UINT NumElements, ID3DBlob* byteCode, ID3D11InputLayout** ppInputLayout)
+	bool GraphicDevice_Dx11::CreateInputLayout(const D3D11_INPUT_ELEMENT_DESC* pInputElementDescs
+		, UINT NumElements
+		, ID3DBlob* byteCode
+		, ID3D11InputLayout** ppInputLayout)
 	{
 		if (FAILED(mDevice->CreateInputLayout(pInputElementDescs, NumElements
 			, byteCode->GetBufferPointer()
@@ -161,22 +160,24 @@ namespace Jun::graphics
 		return true;
 	}
 
-	bool GraphicDevice_Dx11::CompileFromFile(const std::wstring& fileName, const std::string& funcName, const std::string& version, ID3DBlob** ppCode)
+	bool GraphicDevice_Dx11::CompileFromfile(const std::wstring& fileName, const std::string& funcName, const std::string& version, ID3DBlob** ppCode)
 	{
 		ID3DBlob* errorBlob = nullptr;
 		D3DCompileFromFile(fileName.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
-					, funcName.c_str(), version.c_str(), 0, 0, ppCode, &errorBlob);
+			, funcName.c_str(), version.c_str(), 0, 0, ppCode, &errorBlob);
 
-		if (errorBlob) {
-			OutputDebugStringA((char*)errorBlob->GetBufferPointer());
+		if (errorBlob)
+		{
+			OutputDebugStringA((char*)(errorBlob->GetBufferPointer()));
 			errorBlob->Release();
 			errorBlob = nullptr;
 		}
 
 		return false;
 	}
-
-	bool GraphicDevice_Dx11::CreateVertexShader(const void* pShaderBytecode, SIZE_T BytecodeLength, ID3D11VertexShader** ppVertexShader)
+	bool GraphicDevice_Dx11::CreateVertexShader(const void* pShaderBytecode
+		, SIZE_T BytecodeLength
+		, ID3D11VertexShader** ppVertexShader)
 	{
 		if (FAILED(mDevice->CreateVertexShader(pShaderBytecode, BytecodeLength, nullptr, ppVertexShader)))
 			return false;
@@ -184,9 +185,19 @@ namespace Jun::graphics
 		return true;
 	}
 
-	bool GraphicDevice_Dx11::CreatePixelShader(const void* pShaderBytecode, SIZE_T BytecodeLength, ID3D11PixelShader** ppPixelShader)
+	bool GraphicDevice_Dx11::CreatePixelShader(const void* pShaderBytecode
+		, SIZE_T BytecodeLength
+		, ID3D11PixelShader** ppPixelShader)
 	{
 		if (FAILED(mDevice->CreatePixelShader(pShaderBytecode, BytecodeLength, nullptr, ppPixelShader)))
+			return false;
+
+		return true;
+	}
+
+	bool GraphicDevice_Dx11::CreateSampler(const D3D11_SAMPLER_DESC* pSamplerDesc, ID3D11SamplerState** ppSamplerState)
+	{
+		if (FAILED(mDevice->CreateSamplerState(pSamplerDesc, ppSamplerState)))
 			return false;
 
 		return true;
@@ -197,9 +208,9 @@ namespace Jun::graphics
 		mContext->RSSetViewports(1, viewPort);
 	}
 
-	void GraphicDevice_Dx11::DrawIndexed(UINT indexCount, UINT startIndexLocation, INT baseVertexLocation)
+	void GraphicDevice_Dx11::DrawIndexed(UINT IndexCount, UINT StartIndexLocation, INT BaseVertexLocation)
 	{
-		mContext->DrawIndexed(indexCount, startIndexLocation, baseVertexLocation);
+		mContext->DrawIndexed(IndexCount, StartIndexLocation, BaseVertexLocation);
 	}
 
 	void GraphicDevice_Dx11::BindInputLayout(ID3D11InputLayout* pInputLayout)
@@ -207,24 +218,30 @@ namespace Jun::graphics
 		mContext->IASetInputLayout(pInputLayout);
 	}
 
-	void GraphicDevice_Dx11::BindPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY topology)
+	void GraphicDevice_Dx11::BindPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY Topology)
 	{
-		mContext->IASetPrimitiveTopology(topology);
+		mContext->IASetPrimitiveTopology(Topology);
 	}
 
-	void GraphicDevice_Dx11::BindVertexBuffer(UINT startSlot, ID3D11Buffer* const* ppVertexBuffers, const UINT* pStrides, const UINT* pOffsets)
+	void GraphicDevice_Dx11::BindVertexBuffer(UINT StartSlot
+		, ID3D11Buffer* const* ppVertexBuffers
+		, const UINT* pStrides
+		, const UINT* pOffsets)
 	{
-		mContext->IASetVertexBuffers(startSlot, 1, ppVertexBuffers, pStrides, pOffsets);
+		mContext->IASetVertexBuffers(StartSlot, 1, ppVertexBuffers, pStrides, pOffsets);
 	}
 
-	void GraphicDevice_Dx11::BindIndexBuffer(ID3D11Buffer* pIndexBuffer, DXGI_FORMAT Format, UINT Offset)
+	void GraphicDevice_Dx11::BindIndexBuffer(ID3D11Buffer* pIndexBuffer
+		, DXGI_FORMAT Format
+		, UINT Offset)
 	{
 		mContext->IASetIndexBuffer(pIndexBuffer, Format, Offset);
 	}
 
-	void GraphicDevice_Dx11::BindVertexShader(ID3D11VertexShader* pVertexShader)
+	void GraphicDevice_Dx11::BindVertexShader(ID3D11VertexShader* pVetexShader)
 	{
-		mContext->VSSetShader(pVertexShader, 0, 0);
+		mContext->VSSetShader(pVetexShader, 0, 0);
+
 	}
 
 	void GraphicDevice_Dx11::BindPixelShader(ID3D11PixelShader* pPixelShader)
@@ -242,28 +259,29 @@ namespace Jun::graphics
 
 	void GraphicDevice_Dx11::BindConstantBuffer(eShaderStage stage, eCBType type, ID3D11Buffer* buffer)
 	{
-		switch (stage) {
-		case eShaderStage::VS :
+		switch (stage)
+		{
+		case eShaderStage::VS:
 			mContext->VSSetConstantBuffers((UINT)type, 1, &buffer);
 			break;
-		case eShaderStage::HS :
+		case eShaderStage::HS:
 			mContext->HSSetConstantBuffers((UINT)type, 1, &buffer);
 			break;
-		case eShaderStage::DS :
+		case eShaderStage::DS:
 			mContext->DSSetConstantBuffers((UINT)type, 1, &buffer);
 			break;
-		case eShaderStage::GS :
+		case eShaderStage::GS:
 			mContext->GSSetConstantBuffers((UINT)type, 1, &buffer);
 			break;
-		case eShaderStage::PS :
+		case eShaderStage::PS:
 			mContext->PSSetConstantBuffers((UINT)type, 1, &buffer);
 			break;
-		case eShaderStage::CS :
+		case eShaderStage::CS:
 			mContext->CSSetConstantBuffers((UINT)type, 1, &buffer);
 			break;
-		case eShaderStage::End :
+		case eShaderStage::End:
 			break;
-		default :
+		default:
 			break;
 		}
 	}
@@ -278,34 +296,97 @@ namespace Jun::graphics
 		mContext->CSSetConstantBuffers((UINT)type, 1, &buffer);
 	}
 
-	void GraphicDevice_Dx11::Draw()
+	void GraphicDevice_Dx11::BindShaderResource(eShaderStage stage, UINT startSlot, ID3D11ShaderResourceView** ppSRV)
 	{
-		float clearColor[4] = { 0.2f, 0.2f, 0.2f, 1.0f };
-		mContext->ClearRenderTargetView(mRenderTargetView.Get(), clearColor);
-		mContext->ClearDepthStencilView(mDepthStencilView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
+		switch (stage)
+		{
+		case eShaderStage::VS:
+			mContext->VSSetShaderResources(startSlot, 1, ppSRV);
+			break;
+		case eShaderStage::HS:
+			mContext->HSSetShaderResources(startSlot, 1, ppSRV);
+			break;
+		case eShaderStage::DS:
+			mContext->DSSetShaderResources(startSlot, 1, ppSRV);
+			break;
+		case eShaderStage::GS:
+			mContext->GSSetShaderResources(startSlot, 1, ppSRV);
+			break;
+		case eShaderStage::PS:
+			mContext->PSSetShaderResources(startSlot, 1, ppSRV);
+			break;
+		case eShaderStage::CS:
+			mContext->CSSetShaderResources(startSlot, 1, ppSRV);
+			break;
+		case eShaderStage::End:
+			break;
+		default:
+			break;
+		}
+	}
 
+	void GraphicDevice_Dx11::BindSampler(eShaderStage stage, UINT StartSlot, ID3D11SamplerState** ppSamplers)
+	{
+		switch (stage)
+		{
+		case eShaderStage::VS:
+			mContext->VSSetSamplers(StartSlot, 1, ppSamplers);
+			break;
+		case eShaderStage::HS:
+			mContext->HSSetSamplers(StartSlot, 1, ppSamplers);
+			break;
+		case eShaderStage::DS:
+			mContext->DSSetSamplers(StartSlot, 1, ppSamplers);
+			break;
+		case eShaderStage::GS:
+			mContext->GSSetSamplers(StartSlot, 1, ppSamplers);
+			break;
+		case eShaderStage::PS:
+			mContext->PSSetSamplers(StartSlot, 1, ppSamplers);
+			break;
+		case eShaderStage::CS:
+			mContext->CSSetSamplers(StartSlot, 1, ppSamplers);
+			break;
+		case eShaderStage::End:
+			break;
+		default:
+			break;
+		}
+	}
+
+	void GraphicDevice_Dx11::ClearTarget()
+	{
+		// render target clear
+		FLOAT bgColor[4] = { 0.2f, 0.2f, 0.2f, 1.0f };
+		mContext->ClearRenderTargetView(mRenderTargetView.Get(), bgColor);
+		mContext->ClearDepthStencilView(mDepthStencilView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0.0f);
+		mContext->OMSetRenderTargets(1, mRenderTargetView.GetAddressOf(), mDepthStencilView.Get());
+	}
+
+	void GraphicDevice_Dx11::UpdateViewPort()
+	{
 		// viewport update
 		HWND hWnd = application.GetHwnd();
 		RECT winRect = {};
 		GetClientRect(hWnd, &winRect);
-		mViewPort = {
-			0, 0
-			, (float)winRect.right - winRect.left
-			, (float)winRect.bottom - winRect.top,
-			0.f, 1.f
+		mViewPort =
+		{
+			0.0f, 0.0f
+			, (float)(winRect.right - winRect.left)
+			, (float)(winRect.bottom - winRect.top)
+			, 0.0f, 1.0f
 		};
 
 		BindViewPort(&mViewPort);
-		mContext->OMSetRenderTargets(1, mRenderTargetView.GetAddressOf(), mDepthStencilView.Get());		
+	}
 
-		renderer::mesh->BindBuffer();
-		renderer::shader->Binds();
-		mContext->DrawIndexed(renderer::mesh->GetIndexCount(), 0, 0);
+	void GraphicDevice_Dx11::Draw()
+	{
+
 	}
 
 	void GraphicDevice_Dx11::Present()
 	{
 		mSwapChain->Present(0, 0);
 	}
-
 }
