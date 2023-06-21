@@ -1,16 +1,18 @@
 #pragma once
 #include "Entity.h"
 #include "Component.h"
+#include "Script.h"
 
-namespace Jun {
-
+namespace Jun
+{
 	class GameObject : public Entity
 	{
-	public :
-		enum eState {
+	public:
+		enum eState
+		{
 			Active,
 			Paused,
-			Dead
+			Dead,
 		};
 
 		GameObject();
@@ -22,10 +24,19 @@ namespace Jun {
 		virtual void Render();
 
 		template <typename T>
-		T* GetComponent() {
+		T* GetComponent()
+		{
 			T* component;
-			for (Component* comp : mComponents) {
+			for (Component* comp : mComponents)
+			{
 				component = dynamic_cast<T*>(comp);
+				if (component != nullptr)
+					return component;
+			}
+
+			for (Script* script : mScripts)
+			{
+				component = dynamic_cast<T*>(script);
 				if (component != nullptr)
 					return component;
 			}
@@ -34,25 +45,31 @@ namespace Jun {
 		}
 
 		template <typename T>
-		T* AddComponent() {
-
+		T* AddComponent()
+		{
 			T* comp = new T();
 
-			Component* buff = dynamic_cast<Component*>(comp);
+			Component* buff
+				= dynamic_cast<Component*>(comp);
+			Script* script
+				= dynamic_cast<Script*>(buff);
 
-			if (buff == nullptr) return nullptr;
+			if (buff == nullptr)
+				return nullptr;
 
-			mComponents.push_back(buff);
+			if (script == nullptr)
+				mComponents.push_back(buff);
+			else
+				mScripts.push_back(script);
+
 			comp->SetOwner(this);
 
 			return comp;
 		}
 
-	private :
+	private:
 		eState mState;
 		std::vector<Component*> mComponents;
+		std::vector<Script*> mScripts;
 	};
 }
-
-
-

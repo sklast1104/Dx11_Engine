@@ -2,7 +2,7 @@
 #include "Transform.h"
 #include "MeshRenderer.h"
 #include "Resources.h"
-
+#include "CameraScript.h"
 
 namespace Jun {
 
@@ -21,6 +21,8 @@ namespace Jun {
 		MeshRenderer* mr = player->AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		mr->SetMaterial(Resources::Find<Material>(L"SpriteMaterial"));
+
+		player->AddComponent<CameraScript>();
 	}
 
 	void PlayScene::Update()
