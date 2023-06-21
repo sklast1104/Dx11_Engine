@@ -8,14 +8,20 @@
 
 using namespace Jun::math;
 using namespace Jun::graphics;
-
-namespace renderer {
-
+namespace renderer
+{
 	struct Vertex
 	{
 		Vector3 pos;
 		Vector4 color;
 		Vector2 uv;
+	};
+
+	CBUFFER(TransformCB, CBSLOT_TRANSFORM)
+	{
+		Matrix mWorld;
+		Matrix mView;
+		Matrix mProjection;
 	};
 
 	extern Vertex vertexes[];
@@ -24,4 +30,3 @@ namespace renderer {
 	void Initialize();
 	void Release();
 }
-
