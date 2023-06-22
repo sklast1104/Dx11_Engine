@@ -2,13 +2,15 @@
 
 namespace Jun::enums {
 
-	enum class eComponentType {
+	enum class eComponentType
+	{
 		None,
 		Transform,
 		Mesh,
 		Particle,
 		MeshRenderer,
 		Script,
+		Camera,
 		End,
 	};
 

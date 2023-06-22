@@ -24,4 +24,9 @@ namespace Jun::graphics {
 		mShader->Binds();
 	}
 
+	void Material::Clear()
+	{
+		mTexture->Clear();
+	}
+
 }

@@ -1,6 +1,7 @@
 #include "Transform.h"
 #include "Renderer.h"
 #include "ConstantBuffer.h"
+#include "Camera.h"
 
 namespace Jun
 {
@@ -57,9 +58,8 @@ namespace Jun
 	{
 		renderer::TransformCB trCB = {};
 		trCB.mWorld = mWorld;
-
-		//trCB.mView = mWorld;
-		//trCB.mProjection = mWorld;
+		trCB.mView = Camera::GetViewMatrix();
+		trCB.mProjection = Camera::GetProjectionMatrix();
 		ConstantBuffer* cb = renderer::constantBuffer[(UINT)eCBType::Transform];
 		cb->SetData(&trCB);
 		cb->Bind(eShaderStage::VS);
