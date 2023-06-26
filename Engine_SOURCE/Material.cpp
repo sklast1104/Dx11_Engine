@@ -20,8 +20,11 @@ namespace Jun::graphics {
 
 	void Material::Binds()
 	{
-		mTexture->BindShader(eShaderStage::PS, 0);
-		mShader->Binds();
+		if (mTexture)
+			mTexture->BindShader(eShaderStage::PS, 0);
+
+		if (mShader)
+			mShader->Binds();
 	}
 
 	void Material::Clear()
