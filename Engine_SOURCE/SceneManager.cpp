@@ -1,17 +1,13 @@
 #include "SceneManager.h"
-#include "PlayScene.h"
 
-namespace Jun{
-
+namespace Jun
+{
 	Scene* SceneManager::mActiveScene = nullptr;
 	std::map<std::wstring, Scene*> SceneManager::mScenes;
 
 	void SceneManager::Initialize()
 	{
-		mActiveScene = new PlayScene();
-		mScenes.insert(std::make_pair(L"PlayScene", mActiveScene));
 
-		mActiveScene->Initialize();
 	}
 	void SceneManager::Update()
 	{
@@ -25,13 +21,16 @@ namespace Jun{
 	{
 		mActiveScene->Render();
 	}
+
 	void SceneManager::Release()
 	{
-		for (auto iter : mScenes) {
+		for (auto& iter : mScenes)
+		{
 			delete iter.second;
 			iter.second = nullptr;
 		}
 	}
+
 	Scene* SceneManager::LoadScene(std::wstring name)
 	{
 		std::map<std::wstring, Scene*>::iterator iter

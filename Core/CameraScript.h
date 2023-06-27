@@ -1,19 +1,14 @@
 #pragma once
-#include "Script.h"
+#include <Script.h>
 
-namespace Jun {
-
+namespace Jun
+{
 	class CameraScript : public Script
 	{
-	public :
-
+	public:
 		virtual void Update() override;
 
-	private :
-
+	private:
 
 	};
 }
-
-
-

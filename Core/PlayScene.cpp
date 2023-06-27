@@ -2,19 +2,19 @@
 #include "Transform.h"
 #include "MeshRenderer.h"
 #include "Resources.h"
+#include "Mesh.h"
 #include "CameraScript.h"
 #include "Camera.h"
+#include "SceneManager.h"
 
-namespace Jun {
-
+namespace Jun
+{
 	PlayScene::PlayScene()
 	{
 	}
-
 	PlayScene::~PlayScene()
 	{
 	}
-
 	void PlayScene::Initialize()
 	{
 		{
@@ -66,5 +66,4 @@ namespace Jun {
 	{
 		Scene::Render();
 	}
-
 }

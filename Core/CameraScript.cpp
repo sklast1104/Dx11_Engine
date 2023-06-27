@@ -4,8 +4,8 @@
 #include "MyTime.h"
 #include "Input.h"
 
-namespace Jun {
-
+namespace Jun
+{
 	void CameraScript::Update()
 	{
 		Transform* tr = GetOwner()->GetComponent<Transform>();
@@ -44,5 +44,4 @@ namespace Jun {
 		}
 
 	}
-
 }

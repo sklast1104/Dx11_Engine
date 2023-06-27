@@ -6,7 +6,7 @@
 #include "Application.h"
 #include "Renderer.h"
 #include "Resources.h"
-#include "SceneManager.h"
+#include "LoadScenes.h"
 
 using namespace Jun;
 
@@ -85,7 +85,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 //
 ATOM MyRegisterClass(HINSTANCE hInstance)
 {
-    WNDCLASSEXW wcex;
+    WNDCLASSEXW wcex = {};
 
     wcex.cbSize = sizeof(WNDCLASSEX);
 
@@ -131,6 +131,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    UpdateWindow(hWnd);
 
    application.Initialize();
+   Jun::InitializeScenes();
 
    return TRUE;
 }

@@ -2,8 +2,37 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="Core.cpp" />
+    <ClCompile Include="PlayScene.cpp">
+      <Filter>Contents\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraScript.cpp">
+      <Filter>Contents\Script</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
+    <ClInclude Include="LoadScenes.h">
+      <Filter>Contents\Load</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayScene.h">
+      <Filter>Contents\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraScript.h">
+      <Filter>Contents\Script</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Contents">
+      <UniqueIdentifier>{e859fb1a-7a94-4b7b-9ac7-979fd0a2c2d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Load">
+      <UniqueIdentifier>{0df73bbb-3b20-4518-8bd4-b6075b1f8304}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script">
+      <UniqueIdentifier>{ad1804f5-5d17-49d5-bcd2-5ef2efee809a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene">
+      <UniqueIdentifier>{26df5010-d5e1-4ed3-9b8b-ad716c76e190}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

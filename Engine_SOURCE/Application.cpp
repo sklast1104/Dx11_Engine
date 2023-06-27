@@ -53,6 +53,7 @@ namespace Jun
 
 		graphicDevice->ClearTarget();
 		graphicDevice->UpdateViewPort();
+
 		SceneManager::Render();
 
 		graphicDevice->Present();

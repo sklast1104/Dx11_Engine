@@ -149,10 +149,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CameraScript.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="LoadScenes.h" />
+    <ClInclude Include="PlayScene.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CameraScript.cpp" />
     <ClCompile Include="Core.cpp" />
+    <ClCompile Include="PlayScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Update="C:\Users\apolo\Desktop\Dx11 Engine\Engine_SOURCE\Math.inl">

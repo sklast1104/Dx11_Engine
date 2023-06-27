@@ -1,11 +1,12 @@
 #pragma once
+
 #include "Scene.h"
 
-namespace Jun {
-
+namespace Jun
+{
 	class PlayScene : public Scene
 	{
-	public :
+	public:
 		PlayScene();
 		virtual ~PlayScene();
 
@@ -14,11 +15,7 @@ namespace Jun {
 		virtual void LateUpdate() override;
 		virtual void Render() override;
 
-	private :
-
+	private:
 
 	};
-
 }
-
-
