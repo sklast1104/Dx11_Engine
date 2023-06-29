@@ -8,7 +8,11 @@
 #include "Resources.h"
 #include "LoadScenes.h"
 
-using namespace Jun;
+#ifdef _DEBUG
+#pragma comment(lib, "..\\x64\\Debug\\YamYamEngine.lib")
+#else
+#pragma comment(lib, "..\\x64\\Release\\YamYamEngine.lib")
+#endif
 
 Jun::Application application;
 

@@ -23,6 +23,7 @@ namespace Jun {
 	}
 	void MeshRenderer::Render()
 	{
+
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		tr->BindConstantBuffer();
 
