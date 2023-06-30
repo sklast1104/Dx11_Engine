@@ -3,14 +3,23 @@
 #include "GameObject.h"
 #include "Application.h"
 #include "Renderer.h"
-#include "SceneManager.h"
 #include "Scene.h"
+#include "SceneManager.h"
 #include "MeshRenderer.h"
 
 extern Jun::Application application;
 
 namespace Jun
 {
+	bool CompareZSort(GameObject* a, GameObject* b)
+	{
+		if (a->GetComponent<Transform>()->GetPosition().z
+			< b->GetComponent<Transform>()->GetPosition().z)
+			return false;
+
+		return true;
+	}
+
 	Matrix Camera::View = Matrix::Identity;
 	Matrix Camera::Projection = Matrix::Identity;
 
@@ -37,7 +46,7 @@ namespace Jun
 
 	void Camera::Initialize()
 	{
-		
+
 	}
 
 	void Camera::Update()
@@ -56,11 +65,14 @@ namespace Jun
 		View = mView;
 		Projection = mProjection;
 
-		SortGameObjects();
-
+		AlphaSortGameObjects();
+		ZSortTransparencyGameObjects();
 		RenderOpaque();
+
+		DisableDepthStencilState();
 		RenderCutOut();
 		RenderTransparent();
+		EnableDepthStencilState();
 	}
 
 	bool Camera::CreateViewMatrix()
@@ -107,7 +119,6 @@ namespace Jun
 			mProjection = Matrix::CreatePerspectiveFieldOfViewLH(XM_2PI / 6.0f, mAspectRatio, mNear, mFar);
 		}
 
-
 		return true;
 	}
 
@@ -121,12 +132,13 @@ namespace Jun
 		mLayerMask.set((UINT)type, enable);
 	}
 
-	void Camera::SortGameObjects()
+	void Camera::AlphaSortGameObjects()
 	{
 		mOpaqueGameObjects.clear();
 		mCutOutGameObjects.clear();
 		mTransparentGameObjects.clear();
 
+		//alpha sorting
 		Scene* scene = SceneManager::GetActiveScene();
 		for (size_t i = 0; i < (UINT)eLayerType::End; i++)
 		{
@@ -137,31 +149,46 @@ namespace Jun
 					= layer.GetGameObjects();
 				// layer에 있는 게임오브젝트를 들고온다.
 
-				for (GameObject* obj : gameObjs)
-				{
-					//렌더러 컴포넌트가 없다면?
-					MeshRenderer* mr
-						= obj->GetComponent<MeshRenderer>();
-					if (mr == nullptr)
-						continue;
+				DivideAlphaBlendGameObjects(gameObjs);
+			}
+		}
+	}
 
-					std::shared_ptr<Material> mt = mr->GetMaterial();
-					eRenderingMode mode = mt->GetRenderingMode();
-					switch (mode)
-					{
-					case Jun::graphics::eRenderingMode::Opaque:
-						mOpaqueGameObjects.push_back(obj);
-						break;
-					case Jun::graphics::eRenderingMode::CutOut:
-						mCutOutGameObjects.push_back(obj);
-						break;
-					case Jun::graphics::eRenderingMode::Transparent:
-						mTransparentGameObjects.push_back(obj);
-						break;
-					default:
-						break;
-					}
-				}
+	void Camera::ZSortTransparencyGameObjects()
+	{
+		std::sort(mCutOutGameObjects.begin()
+			, mCutOutGameObjects.end()
+			, CompareZSort);
+		std::sort(mTransparentGameObjects.begin()
+			, mTransparentGameObjects.end()
+			, CompareZSort);
+	}
+
+	void Camera::DivideAlphaBlendGameObjects(const std::vector<GameObject*> gameObjs)
+	{
+		for (GameObject* obj : gameObjs)
+		{
+			//렌더러 컴포넌트가 없다면?
+			MeshRenderer* mr
+				= obj->GetComponent<MeshRenderer>();
+			if (mr == nullptr)
+				continue;
+
+			std::shared_ptr<Material> mt = mr->GetMaterial();
+			eRenderingMode mode = mt->GetRenderingMode();
+			switch (mode)
+			{
+			case Jun::graphics::eRenderingMode::Opaque:
+				mOpaqueGameObjects.push_back(obj);
+				break;
+			case Jun::graphics::eRenderingMode::CutOut:
+				mCutOutGameObjects.push_back(obj);
+				break;
+			case Jun::graphics::eRenderingMode::Transparent:
+				mTransparentGameObjects.push_back(obj);
+				break;
+			default:
+				break;
 			}
 		}
 	}
@@ -199,4 +226,17 @@ namespace Jun
 		}
 	}
 
+	void Camera::EnableDepthStencilState()
+	{
+		Microsoft::WRL::ComPtr<ID3D11DepthStencilState> dsState
+			= renderer::depthStencilStates[(UINT)eDSType::Less];
+		GetDevice()->BindDepthStencilState(dsState.Get());
+	}
+
+	void Camera::DisableDepthStencilState()
+	{
+		Microsoft::WRL::ComPtr<ID3D11DepthStencilState> dsState
+			= renderer::depthStencilStates[(UINT)eDSType::None];
+		GetDevice()->BindDepthStencilState(dsState.Get());
+	}
 }

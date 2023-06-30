@@ -20,6 +20,16 @@ using namespace DirectX::PackedVector;
 
 namespace Jun::math
 {
+    // -------------------- MyMath
+    static double Deg2Rad(double degree) {
+        return degree * (XM_PI / 180.0);
+    }
+
+    static double Rad2Deg(double radian) {
+		return radian * (180.0 / XM_PI);
+	}
+
+
     struct Vector2;
     struct Vector4;
     struct Matrix;
