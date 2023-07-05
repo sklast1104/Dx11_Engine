@@ -56,6 +56,12 @@ namespace renderer
 		Jun::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
 			, shader->GetVSCode()
 			, shader->GetInputLayoutAddressOf());
+
+		shader = Jun::Resources::Find<Shader>(L"GridShader");
+		Jun::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
+			, shader->GetVSCode()
+			, shader->GetInputLayoutAddressOf());
+
 #pragma endregion
 #pragma region Sampler State
 		//Sampler State
@@ -170,6 +176,26 @@ namespace renderer
 
 	}
 
+	void LoadMesh()
+	{
+		//RECT
+		vertexes[0].pos = Vector3(-0.5f, 0.5f, 0.0f);
+		vertexes[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
+		vertexes[0].uv = Vector2(0.0f, 0.0f);
+
+		vertexes[1].pos = Vector3(0.5f, 0.5f, 0.0f);
+		vertexes[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
+		vertexes[1].uv = Vector2(1.0f, 0.0f);
+
+		vertexes[2].pos = Vector3(0.5f, -0.5f, 0.0f);
+		vertexes[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
+		vertexes[2].uv = Vector2(1.0f, 1.0f);
+
+		vertexes[3].pos = Vector3(-0.5f, -0.5f, 0.0f);
+		vertexes[3].color = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
+		vertexes[3].uv = Vector2(0.0f, 1.0f);
+	}
+
 	void LoadBuffer()
 	{
 		// Vertex Buffer
@@ -191,6 +217,10 @@ namespace renderer
 		// Constant Buffer
 		constantBuffer[(UINT)eCBType::Transform] = new ConstantBuffer(eCBType::Transform);
 		constantBuffer[(UINT)eCBType::Transform]->Create(sizeof(TransformCB));
+
+		// Grid Buffer
+		constantBuffer[(UINT)eCBType::Grid] = new ConstantBuffer(eCBType::Grid);
+		constantBuffer[(UINT)eCBType::Grid]->Create(sizeof(TransformCB));
 	}
 
 	void LoadShader()
@@ -205,55 +235,50 @@ namespace renderer
 		spriteShader->Create(eShaderStage::PS, L"SpritePS.hlsl", "main");
 		Jun::Resources::Insert(L"SpriteShader", spriteShader);
 
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"Link", L"..\\Resources\\Texture\\Link.png");
+		std::shared_ptr<Shader> girdShader = std::make_shared<Shader>();
+		girdShader->Create(eShaderStage::VS, L"GridVS.hlsl", "main");
+		girdShader->Create(eShaderStage::PS, L"GridPS.hlsl", "main");
+		Jun::Resources::Insert(L"GridShader", girdShader);
+	}
 
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"SpriteMaterial", spriteMateiral);
-		}
+	void LoadMaterial()
+	{
+		std::shared_ptr<Shader> spriteShader
+			= Resources::Find<Shader>(L"SpriteShader");
 
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"Smile", L"..\\Resources\\Texture\\Smile.png");
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			spriteMateiral->SetRenderingMode(eRenderingMode::Transparent);
-			Resources::Insert(L"SpriteMaterial02", spriteMateiral);
-		}
+
+		std::shared_ptr<Texture> texture
+			= Resources::Load<Texture>(L"Link", L"..\\Resources\\Texture\\Link.png");
+
+		std::shared_ptr<Material> material = std::make_shared<Material>();
+		material->SetShader(spriteShader);
+		material->SetTexture(texture);
+		Resources::Insert(L"SpriteMaterial", material);
+
+		texture = Resources::Load<Texture>(L"Smile", L"..\\Resources\\Texture\\Smile.png");
+		material = std::make_shared<Material>();
+		material->SetShader(spriteShader);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert(L"SpriteMaterial02", material);
+
+		std::shared_ptr<Shader> gridShader
+			= Resources::Find<Shader>(L"GridShader");
+
+		material = std::make_shared<Material>();
+		material->SetShader(gridShader);
+		Resources::Insert(L"GridMaterial", material);
+
 	}
 
 	void Initialize()
 	{
-		vertexes[0].pos = Vector3(-0.5f, 0.5f, 0.0f);
-		vertexes[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
-		vertexes[0].uv = Vector2(0.0f, 0.0f);
 
-		vertexes[1].pos = Vector3(0.5f, 0.5f, 0.0f);
-		vertexes[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
-		vertexes[1].uv = Vector2(1.0f, 0.0f);
-
-		vertexes[2].pos = Vector3(0.5f, -0.5f, 0.0f);
-		vertexes[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
-		vertexes[2].uv = Vector2(1.0f, 1.0f);
-
-		vertexes[3].pos = Vector3(-0.5f, -0.5f, 0.0f);
-		vertexes[3].color = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
-		vertexes[3].uv = Vector2(0.0f, 1.0f);
-
+		LoadMesh();
 		LoadBuffer();
 		LoadShader();
 		SetupState();
-
-		std::shared_ptr<Texture> texture
-			= Resources::Load<Texture>(L"Smile", L"..\\Resources\\Texture\\Smile.png");
-		texture
-			= Resources::Load<Texture>(L"Link", L"..\\Resources\\Texture\\Link.png");
-
-		texture->BindShader(eShaderStage::PS, 0);
+		LoadMaterial();
 	}
 
 	void Render()

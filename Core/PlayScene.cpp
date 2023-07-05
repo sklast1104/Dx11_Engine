@@ -1,4 +1,6 @@
 #include "PlayScene.h"
+#include "PlayScene.h"
+#include "PlayScene.h"
 #include "Transform.h"
 #include "MeshRenderer.h"
 #include "Resources.h"
@@ -6,13 +8,10 @@
 #include "CameraScript.h"
 #include "Camera.h"
 #include "SceneManager.h"
-#include "MyMath.h"
+#include "GridScript.h"
 
 namespace Jun
 {
-
-	using namespace Jun::math;
-
 	PlayScene::PlayScene()
 	{
 	}
@@ -21,6 +20,11 @@ namespace Jun
 	}
 	void PlayScene::Initialize()
 	{
+
+
+
+
+
 		{
 			GameObject* player = new GameObject();
 			player->SetName(L"Zelda");
@@ -42,8 +46,11 @@ namespace Jun
 			player2->GetComponent<Transform>()->SetParent(player->GetComponent<Transform>());
 			//player->AddComponent<CameraScript>();
 
+			const float pi = 3.141592f;
+			float degree = pi / 2.0f;
+
 			player->GetComponent<Transform>()->SetPosition(Vector3(-3.0f, 0.0f, 1.0001f));
-			player->GetComponent<Transform>()->SetRotation(Vector3(0.0f, 0.0f, Deg2Rad(90)));
+			player->GetComponent<Transform>()->SetRotation(Vector3(0.0f, 0.0f, degree));
 		}
 
 		{
@@ -69,11 +76,12 @@ namespace Jun
 		}
 
 		//Main Camera
+		Camera* cameraComp = nullptr;
 		{
 			GameObject* camera = new GameObject();
 			AddGameObject(eLayerType::Player, camera);
 			camera->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -10.0f));
-			Camera* cameraComp = camera->AddComponent<Camera>();
+			cameraComp = camera->AddComponent<Camera>();
 			cameraComp->TurnLayerMask(eLayerType::UI, false);
 			camera->AddComponent<CameraScript>();
 		}
@@ -87,6 +95,18 @@ namespace Jun
 			cameraComp->TurnLayerMask(eLayerType::Player, false);
 			//camera->AddComponent<CameraScript>();
 		}
+
+		{
+			GameObject* grid = new GameObject();
+			grid->SetName(L"Grid");
+			AddGameObject(eLayerType::Grid, grid);
+			MeshRenderer* mr = grid->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"GridMaterial"));
+			GridScript* gridSc = grid->AddComponent<GridScript>();
+			gridSc->SetCamera(cameraComp);
+		}
+
 
 		//GameObject* player2 = new GameObject();
 		//AddGameObject(eLayerType::Player, player2);
@@ -103,6 +123,19 @@ namespace Jun
 
 	void PlayScene::LateUpdate()
 	{
+		//Vector3 pos(600, 450, 0.0f);
+		//Vector3 pos2(600, 450, 1000.0f);
+		//Viewport viewport;
+		//viewport.width = 1600.0f;
+		//viewport.height = 900.0f;
+		//viewport.x = 0;
+		//viewport.y = 0;
+		//viewport.minDepth = 0.0f;
+		//viewport.maxDepth = 1.0f;
+
+		//pos = viewport.Unproject(pos, Camera::GetProjectionMatrix(), Camera::GetViewMatrix(), Matrix::Identity);
+		//pos2 = viewport.Unproject(pos2, Camera::GetProjectionMatrix(), Camera::GetViewMatrix(), Matrix::Identity);
+
 		Scene::LateUpdate();
 	}
 

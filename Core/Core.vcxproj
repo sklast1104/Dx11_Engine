@@ -151,12 +151,14 @@
   <ItemGroup>
     <ClInclude Include="CameraScript.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="GridScript.h" />
     <ClInclude Include="LoadScenes.h" />
     <ClInclude Include="PlayScene.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CameraScript.cpp" />
     <ClCompile Include="Core.cpp" />
+    <ClCompile Include="GridScript.cpp" />
     <ClCompile Include="PlayScene.cpp" />
   </ItemGroup>
   <ItemGroup>
