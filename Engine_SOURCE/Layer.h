@@ -13,6 +13,7 @@ namespace Jun {
 		virtual void Update();
 		virtual void LateUpdate();
 		virtual void Render();
+		virtual void Destory();
 
 		void AddGameObject(GameObject* gameObject);
 		const std::vector<GameObject*> GetGameObjects()

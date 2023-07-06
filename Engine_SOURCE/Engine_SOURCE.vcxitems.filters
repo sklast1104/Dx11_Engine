@@ -82,6 +82,9 @@
     <Filter Include="GameObject\Component\Transform">
       <UniqueIdentifier>{748e45e1-25bc-4890-b8d9-a2cb4e930e47}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Common\Object">
+      <UniqueIdentifier>{75d2eace-a7db-410b-a4dd-4baa20a7c2a1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h">
@@ -164,6 +167,9 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Transform.h">
       <Filter>GameObject\Component\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Object.h">
+      <Filter>Common\Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

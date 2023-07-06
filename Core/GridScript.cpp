@@ -5,6 +5,8 @@
 #include "Application.h"
 #include "GameObject.h"
 #include "Renderer.h"
+#include "MyTime.h"
+#include "Object.h"
 
 extern Jun::Application application;
 
@@ -22,12 +24,19 @@ namespace Jun
 	}
 	void GridScript::Update()
 	{
+		//static float chTime = 0.0f;
+		//chTime += Time::DeltaTime();
+
+		//if (chTime > 3.0f)
+		//{
+		//	object::Destroy(GetOwner());
+		//}
+
 		if (mCamera == nullptr)
 			return;
 
 
 		GameObject* gameObj = mCamera->GetOwner();
-
 
 		Transform* tr = gameObj->GetComponent<Transform>();
 		Vector3 pos = tr->GetPosition();

@@ -38,6 +38,14 @@ namespace Jun {
 		}
 	}
 
+	void Scene::Destroy()
+	{
+		for (Layer& layer : mLayers)
+		{
+			layer.Destory();
+		}
+	}
+
 	void Scene::OnEnter()
 	{
 	}
