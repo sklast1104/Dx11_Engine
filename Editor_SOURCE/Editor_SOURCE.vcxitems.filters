@@ -1,3 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Editor">
+      <UniqueIdentifier>{9a2bdd24-270a-463a-be90-47999de6dec7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)guiWidget.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)guiEditorObject.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)guiDebugObject.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)guiEditor.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)guiWidget.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)guiEditorObject.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)guiDebugObject.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)guiEditor.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+  </ItemGroup>
 </Project>

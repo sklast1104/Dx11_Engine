@@ -7,6 +7,7 @@ namespace Jun::enums {
 		None,
 		Transform,
 		Mesh,
+		Collider2D,
 		Particle,
 		MeshRenderer,
 		Script,
@@ -27,6 +28,15 @@ namespace Jun::enums {
 		Shader,
 		Material,
 		Mesh,
+		End,
+	};
+
+	enum class eColliderType
+	{
+		Rect,
+		Circle,
+		Sphere,
+		Cube,
 		End,
 	};
 }
