@@ -18,6 +18,7 @@ namespace renderer
 	Microsoft::WRL::ComPtr<ID3D11DepthStencilState> depthStencilStates[(UINT)eDSType::End] = {};
 	Microsoft::WRL::ComPtr<ID3D11BlendState> blendStates[(UINT)eBSType::End] = {};
 
+	Jun::Camera* mainCamera = nullptr;
 	std::vector<Jun::Camera*> cameras = {};
 	std::vector<DebugMesh> debugMeshs = {};
 
@@ -359,7 +360,7 @@ namespace renderer
 		LoadMaterial();
 	}
 
-	void PushDebugMeshInfo(DebugMesh& mesh)
+	void PushDebugMeshAttribute(DebugMesh mesh)
 	{
 		debugMeshs.push_back(mesh);
 	}
