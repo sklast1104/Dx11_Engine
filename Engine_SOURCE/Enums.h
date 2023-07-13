@@ -20,7 +20,7 @@ namespace Jun::enums {
 		Player,
 		Monster,
 		UI,
-		End,
+		End = 16,
 	};
 
 	enum class eResourceType {
