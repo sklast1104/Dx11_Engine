@@ -3,6 +3,7 @@
 #include "MyTime.h"
 #include "Renderer.h"
 #include "SceneManager.h"
+#include "CollisionManager.h"
 
 namespace Jun
 {
@@ -31,7 +32,7 @@ namespace Jun
 	{
 		Time::Initiailize();
 		Input::Initialize();
-
+		CollisionManager::Initialize();
 		renderer::Initialize();
 		SceneManager::Initialize();
 	}
@@ -40,6 +41,7 @@ namespace Jun
 	{
 		Time::Update();
 		Input::Update();
+		CollisionManager::Update();
 		SceneManager::Update();
 	}
 

@@ -9,10 +9,18 @@
 #include "LoadScenes.h"
 #include "guiEditor.h"
 
-#ifdef _DEBUG
-#pragma comment(lib, "..\\x64\\Debug\\YamYamEngine.lib")
+
+
+#ifdef UNICODE
+#pragma comment(linker, "/entry:wWinMainCRTStartup /subsystem:console")
 #else
-#pragma comment(lib, "..\\x64\\Release\\YamYamEngine.lib")
+#pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
+#endif
+
+#ifdef _DEBUG
+#pragma comment(lib, "..\\x64\\Debug\\Core.lib")
+#else
+#pragma comment(lib, "..\\x64\\Release\\Core.lib")
 #endif
 
 Jun::Application application;

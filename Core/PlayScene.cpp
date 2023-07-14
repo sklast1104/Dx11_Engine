@@ -27,6 +27,7 @@ namespace Jun
 
 			player->SetName(L"Zelda");
 
+
 			Collider2D* cd = player->AddComponent<Collider2D>();
 
 			MeshRenderer* mr = player->AddComponent<MeshRenderer>();
@@ -43,6 +44,10 @@ namespace Jun
 		{
 			GameObject* player = new GameObject();
 			player->SetName(L"Smile");
+
+			Collider2D* cd = player->AddComponent<Collider2D>();
+			cd->SetType(eColliderType::Circle);
+
 			AddGameObject(eLayerType::Player, player);
 			MeshRenderer* mr = player->AddComponent<MeshRenderer>();
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -50,17 +55,6 @@ namespace Jun
 			player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 1.0f));
 			//player->AddComponent<CameraScript>();
 		}
-
-		//{
-		//	GameObject* player = new GameObject();
-		//	player->SetName(L"Smile");
-		//	AddGameObject(eLayerType::UI, player);
-		//	MeshRenderer* mr = player->AddComponent<MeshRenderer>();
-		//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		//	mr->SetMaterial(Resources::Find<Material>(L"SpriteMaterial02"));
-		//	player->GetComponent<Transform>()->SetPosition(Vector3(0.2f, 0.0f, 0.0f));
-		//	//player->AddComponent<CameraScript>();
-		//}
 
 		//Main Camera
 		Camera* cameraComp = nullptr;
@@ -85,24 +79,7 @@ namespace Jun
 			//camera->AddComponent<CameraScript>();
 		}
 
-		//{
-		//	GameObject* grid = new GameObject();
-		//	grid->SetName(L"Grid");
-		//	AddGameObject(eLayerType::Grid, grid);
-		//	MeshRenderer* mr = grid->AddComponent<MeshRenderer>();
-		//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		//	mr->SetMaterial(Resources::Find<Material>(L"GridMaterial"));
-		//	GridScript* gridSc = grid->AddComponent<GridScript>();
-		//	gridSc->SetCamera(cameraComp);
-		//}
 
-
-		//GameObject* player2 = new GameObject();
-		//AddGameObject(eLayerType::Player, player2);
-		//player2->AddComponent<MeshRenderer>();
-
-		//Transform* tr = player->GetComponent<Transform>();
-		//tr->SetPosition(Vector3(0.5f, 0.5f, 0.0f));
 	}
 
 	void PlayScene::Update()

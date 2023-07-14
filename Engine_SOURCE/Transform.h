@@ -32,6 +32,8 @@ namespace Jun
 		Vector3 Right() { return mRight; }
 		Vector3 Up() { return mUp; }
 
+		Matrix& GetWorldMatrix() { return mWorld; }
+
 		void SetParent(Transform* transform) { mParent = transform; }
 		Transform* GetParent() { return mParent; }
 
