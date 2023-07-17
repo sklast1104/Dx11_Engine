@@ -11,6 +11,9 @@
     <ClCompile Include="GridScript.cpp">
       <Filter>Contents\Script</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerScript.cpp">
+      <Filter>Contents\Script</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -24,6 +27,9 @@
       <Filter>Contents\Script</Filter>
     </ClInclude>
     <ClInclude Include="GridScript.h">
+      <Filter>Contents\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerScript.h">
       <Filter>Contents\Script</Filter>
     </ClInclude>
   </ItemGroup>

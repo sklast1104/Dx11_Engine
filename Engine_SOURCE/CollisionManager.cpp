@@ -22,7 +22,7 @@ namespace Jun
 		{
 			for (UINT row = 0; row < (UINT)eLayerType::End; row++)
 			{
-				if (mMatrix[row] == true)
+				if (mMatrix[column][row] == true)
 				{
 					LayerCollision((eLayerType)column, (eLayerType)row);
 				}

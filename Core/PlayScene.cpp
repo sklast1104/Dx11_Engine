@@ -10,6 +10,8 @@
 #include "Object.h"
 #include "Renderer.h"
 #include "Collider2D.h"
+#include "CollisionManager.h"
+#include "PlayerScript.h"
 
 namespace Jun
 {
@@ -21,6 +23,8 @@ namespace Jun
 	}
 	void PlayScene::Initialize()
 	{
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
+
 		{
 			GameObject* player
 				= object::Instantiate<GameObject>(Vector3(0.0f, 0.0f, 1.0001f), eLayerType::Player);
@@ -29,6 +33,7 @@ namespace Jun
 
 
 			Collider2D* cd = player->AddComponent<Collider2D>();
+			cd->SetSize(Vector2(1.2f, 1.2f));
 
 			MeshRenderer* mr = player->AddComponent<MeshRenderer>();
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -48,12 +53,12 @@ namespace Jun
 			Collider2D* cd = player->AddComponent<Collider2D>();
 			cd->SetType(eColliderType::Circle);
 
-			AddGameObject(eLayerType::Player, player);
+			AddGameObject(eLayerType::Monster, player);
 			MeshRenderer* mr = player->AddComponent<MeshRenderer>();
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			mr->SetMaterial(Resources::Find<Material>(L"SpriteMaterial02"));
 			player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 1.0f));
-			//player->AddComponent<CameraScript>();
+			player->AddComponent<PlayerScript>();
 		}
 
 		//Main Camera
