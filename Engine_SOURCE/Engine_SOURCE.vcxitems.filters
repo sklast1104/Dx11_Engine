@@ -88,6 +88,12 @@
     <Filter Include="GameObject\Component\Collider">
       <UniqueIdentifier>{d7e51e9a-9501-4b86-8968-faeb0d7759d4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource\Animation">
+      <UniqueIdentifier>{6c06400f-8902-43dc-b736-cc42df8d6863}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Component\Animator">
+      <UniqueIdentifier>{ba7ed230-a260-4a58-87b3-90af6707b78c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h">
@@ -180,6 +186,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)CollisionManager.h">
       <Filter>Scene\Manager</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Animation.h">
+      <Filter>Resource\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Animator.h">
+      <Filter>GameObject\Component\Animator</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)MyMath.cpp">
@@ -256,6 +268,12 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)CollisionManager.cpp">
       <Filter>Scene\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Animation.cpp">
+      <Filter>Resource\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Animator.cpp">
+      <Filter>GameObject\Component\Animator</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
