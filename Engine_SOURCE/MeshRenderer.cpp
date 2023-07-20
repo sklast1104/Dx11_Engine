@@ -2,7 +2,7 @@
 #include "GameObject.h"
 #include "Transform.h"
 #include "Renderer.h"
-
+#include "Animator.h"
 
 namespace Jun {
 	MeshRenderer::MeshRenderer()
@@ -29,6 +29,13 @@ namespace Jun {
 
 		mMesh->BindBuffer();
 		mMaterial->Binds();
+
+		Animator* animator = GetOwner()->GetComponent<Animator>();
+		if (animator)
+		{
+			animator->Binds();
+		}
+
 		mMesh->Render();
 
 		mMaterial->Clear();

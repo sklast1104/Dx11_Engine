@@ -38,6 +38,7 @@ namespace renderer
 		Vector2 spriteSize;
 		Vector2 spriteOffset;
 		Vector2 atlasSize;
+		UINT animationType;
 	};
 
 	extern Jun::graphics::ConstantBuffer* constantBuffer[(UINT)eCBType::End];
