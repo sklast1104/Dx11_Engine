@@ -1,6 +1,7 @@
 #pragma once
 #include "SceneManager.h"
 #include "PlayScene.h"
+#include "MainScene.h"
 
 #ifdef _DEBUG
 #pragma comment(lib, "..\\x64\\Debug\\Core.lib")
@@ -11,6 +12,6 @@
 namespace Jun {
 
 	void InitializeScenes() {
-		SceneManager::CreateScene<PlayScene>(L"PlayScene");
+		SceneManager::CreateScene<MainScene>(L"PlayScene");
 	}
 }

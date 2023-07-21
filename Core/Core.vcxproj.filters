@@ -14,6 +14,9 @@
     <ClCompile Include="PlayerScript.cpp">
       <Filter>Contents\Script</Filter>
     </ClCompile>
+    <ClCompile Include="MainScene.cpp">
+      <Filter>Contents\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -31,6 +34,9 @@
     </ClInclude>
     <ClInclude Include="PlayerScript.h">
       <Filter>Contents\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="MainScene.h">
+      <Filter>Contents\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
