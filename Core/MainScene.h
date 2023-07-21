@@ -4,8 +4,6 @@
 
 namespace Jun {
 
-	class VideoPlayer;
-
 	class MainScene : public Scene
 	{
 	public:
@@ -18,7 +16,6 @@ namespace Jun {
 		virtual void Render() override;
 
 	private:
-		VideoPlayer* videoPlayer;
 	};
 }
 

@@ -17,6 +17,9 @@
     <ClCompile Include="MainScene.cpp">
       <Filter>Contents\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="MenuScene.cpp">
+      <Filter>Contents\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -36,6 +39,9 @@
       <Filter>Contents\Script</Filter>
     </ClInclude>
     <ClInclude Include="MainScene.h">
+      <Filter>Contents\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuScene.h">
       <Filter>Contents\Scene</Filter>
     </ClInclude>
   </ItemGroup>

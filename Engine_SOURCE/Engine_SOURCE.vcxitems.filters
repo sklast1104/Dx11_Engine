@@ -94,6 +94,9 @@
     <Filter Include="GameObject\Component\Animator">
       <UniqueIdentifier>{ba7ed230-a260-4a58-87b3-90af6707b78c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\Component\VideoPlayer">
+      <UniqueIdentifier>{ef26c272-301b-4da2-85f7-e5a00cc4a44b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h">
@@ -192,6 +195,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Animator.h">
       <Filter>GameObject\Component\Animator</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)RenderTexture.h">
+      <Filter>Resource\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)VideoPlayer.h">
+      <Filter>GameObject\Component\VideoPlayer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)MyMath.cpp">
@@ -274,6 +283,12 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Animator.cpp">
       <Filter>GameObject\Component\Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)RenderTexture.cpp">
+      <Filter>Resource\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)VideoPlayer.cpp">
+      <Filter>GameObject\Component\VideoPlayer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

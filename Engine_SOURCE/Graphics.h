@@ -39,6 +39,7 @@ namespace Jun::graphics {
 	enum class eSamplerType {
 		Point,
 		Anisotropic,
+		Video,
 		End,
 	};
 

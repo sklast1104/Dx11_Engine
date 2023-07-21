@@ -9,6 +9,7 @@ namespace Jun::graphics {
 		, mTexture(nullptr)
 		, mSRV(nullptr)
 		, mDesc()
+		, slotNum{ 0 }
 	{
 	}
 

@@ -4,6 +4,7 @@
 #include "Renderer.h"
 #include "SceneManager.h"
 #include "CollisionManager.h"
+#include "VideoPlayer.h"
 
 namespace Jun
 {
@@ -18,6 +19,7 @@ namespace Jun
 
 	Application::~Application()
 	{
+		VideoPlayer::DestoryAPI();
 	}
 
 	void Application::Run()
@@ -33,6 +35,7 @@ namespace Jun
 		Time::Initiailize();
 		Input::Initialize();
 		CollisionManager::Initialize();
+		VideoPlayer::CreateAPI();
 		renderer::Initialize();
 		SceneManager::Initialize();
 	}

@@ -12,6 +12,8 @@ namespace Jun::graphics
 
 		bool CreateSwapChain(const DXGI_SWAP_CHAIN_DESC* desc, HWND hWnd);
 		bool CreateTexture(const D3D11_TEXTURE2D_DESC* desc, void* data);
+		bool CreateTexture2D(const D3D11_TEXTURE2D_DESC* desc, D3D11_SUBRESOURCE_DATA* data, ID3D11Texture2D** texture);
+		bool CreateShaderResourceView(ID3D11Resource* pResource, const D3D11_SHADER_RESOURCE_VIEW_DESC* pDesc, ID3D11ShaderResourceView** ppSRView);
 		bool CreateInputLayout(const D3D11_INPUT_ELEMENT_DESC* pInputElementDescs, UINT NumElements, ID3DBlob* byteCode, ID3D11InputLayout** ppInputLayout);
 		bool CreateBuffer(ID3D11Buffer** buffer, D3D11_BUFFER_DESC* desc, D3D11_SUBRESOURCE_DATA* data);
 		bool CompileFromfile(const std::wstring& fileName, const std::string& funcName, const std::string& version, ID3DBlob** ppCode);
@@ -48,6 +50,7 @@ namespace Jun::graphics
 
 
 		ID3D11Device* GetID3D11Device() { return mDevice.Get(); }
+		ID3D11DeviceContext* GetID3D11DeviceContext() { return mContext.Get(); }
 
 	private:
 		Microsoft::WRL::ComPtr<ID3D11Device> mDevice;

@@ -138,6 +138,22 @@ namespace Jun::graphics
 		return true;
 	}
 
+	bool GraphicDevice_Dx11::CreateTexture2D(const D3D11_TEXTURE2D_DESC* desc, D3D11_SUBRESOURCE_DATA* data, ID3D11Texture2D** texture)
+	{
+		if (FAILED(mDevice->CreateTexture2D(desc, data, texture)))
+			return false;
+
+		return true;
+	}
+
+	bool GraphicDevice_Dx11::CreateShaderResourceView(ID3D11Resource* pResource, const D3D11_SHADER_RESOURCE_VIEW_DESC* pDesc, ID3D11ShaderResourceView** ppSRView)
+	{
+		if (FAILED(mDevice->CreateShaderResourceView(pResource, pDesc, ppSRView)))
+			return false;
+
+		return true;
+	}
+
 	bool GraphicDevice_Dx11::CreateInputLayout(const D3D11_INPUT_ELEMENT_DESC* pInputElementDescs
 		, UINT NumElements
 		, ID3DBlob* byteCode

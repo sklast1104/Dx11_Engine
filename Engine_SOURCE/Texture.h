@@ -27,11 +27,15 @@ namespace Jun::graphics {
 		size_t GetWidth() { return mImage.GetMetadata().width; }
 		size_t GetHeight() { return mImage.GetMetadata().height; }
 
-	private :
+		UINT GetSlotNum() { return slotNum; }
+		void SetSlotNum(UINT num) { slotNum = num; }
+
+	protected :
 		ScratchImage mImage;
 		Microsoft::WRL::ComPtr<ID3D11Texture2D> mTexture;
 		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> mSRV;
 		D3D11_TEXTURE2D_DESC mDesc;
+		UINT slotNum;
 	};
 }
 

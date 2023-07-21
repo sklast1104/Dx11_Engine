@@ -2,8 +2,7 @@
 #include "Resources.h"
 #include "Texture.h"
 #include "Material.h"
-
-
+#include "RenderTexture.h"
 
 namespace renderer
 {
@@ -69,6 +68,11 @@ namespace renderer
 			, shader->GetVSCode()
 			, shader->GetInputLayoutAddressOf());
 
+		shader = Jun::Resources::Find<Shader>(L"VideoShader");
+		Jun::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
+			, shader->GetVSCode()
+			, shader->GetInputLayoutAddressOf());
+
 #pragma endregion
 #pragma region Sampler State
 		//Sampler State
@@ -83,6 +87,20 @@ namespace renderer
 		samplerDesc.Filter = D3D11_FILTER_ANISOTROPIC;
 		GetDevice()->CreateSamplerState(&samplerDesc, samplerState[(UINT)eSamplerType::Anisotropic].GetAddressOf());
 		GetDevice()->BindSampler(eShaderStage::PS, 1, samplerState[(UINT)eSamplerType::Anisotropic].GetAddressOf());
+
+		{
+			D3D11_SAMPLER_DESC sampDesc = {};
+			sampDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+			sampDesc.AddressU = D3D11_TEXTURE_ADDRESS_CLAMP;
+			sampDesc.AddressV = D3D11_TEXTURE_ADDRESS_CLAMP;
+			sampDesc.AddressW = D3D11_TEXTURE_ADDRESS_CLAMP;
+			sampDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
+			sampDesc.MinLOD = 0;
+			sampDesc.MaxLOD = D3D11_FLOAT32_MAX;
+			GetDevice()->CreateSamplerState(&samplerDesc, samplerState[(UINT)eSamplerType::Video].GetAddressOf());
+			GetDevice()->BindSampler(eShaderStage::PS, 2, samplerState[(UINT)eSamplerType::Video].GetAddressOf());
+		}
+
 #pragma endregion
 #pragma region Rasterizer State
 		D3D11_RASTERIZER_DESC rasterizerDesc = {};
@@ -316,6 +334,11 @@ namespace renderer
 		debugShader->SetRSState(eRSType::WireframeNone);
 		//debugShader->SetDSState(eDSType::NoWrite);
 		Jun::Resources::Insert(L"DebugShader", debugShader);
+
+		std::shared_ptr<Shader> videoShader = std::make_shared<Shader>();
+		videoShader->Create(eShaderStage::VS, L"VideoVS.hlsl", "main");
+		videoShader->Create(eShaderStage::PS, L"VideoPS.hlsl", "main");
+		Jun::Resources::Insert(L"VideoShader", videoShader);
 	}
 
 	void LoadMaterial()
@@ -352,6 +375,45 @@ namespace renderer
 		material = std::make_shared<Material>();
 		material->SetShader(debugShader);
 		Resources::Insert(L"DebugMaterial", material);
+
+		LoadTitle();
+		LoadMenuRes();
+	}
+
+	void LoadTitle() {
+
+		std::shared_ptr<Shader> spriteShader
+			= Resources::Find<Shader>(L"SpriteShader");
+
+		std::shared_ptr<RenderTexture> renderTexture = std::make_shared<RenderTexture>();
+		renderTexture->SetSlotNum(1);
+		Resources::Insert(L"RenderTexture", renderTexture);
+
+		std::shared_ptr<Shader> videoShader
+			= Resources::Find<Shader>(L"VideoShader");
+
+		std::shared_ptr<Material> material = std::make_shared<Material>();
+		material->SetShader(videoShader);
+		material->SetTexture(renderTexture);
+		Resources::Insert(L"VideoMaterial", material);
+
+		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"Title_Btns", L"..\\Resources\\Texture\\Title\\11-1.png");
+		material = std::make_shared<Material>();
+		material->SetShader(spriteShader);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert(L"Title_Btn_Material", material);
+
+		texture = Resources::Load<Texture>(L"Title", L"..\\Resources\\Texture\\Title\\Title.png");
+		material = std::make_shared<Material>();
+		material->SetShader(spriteShader);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert(L"Title_Material", material);
+	}
+
+	void LoadMenuRes() {
+
 	}
 
 	void Initialize()

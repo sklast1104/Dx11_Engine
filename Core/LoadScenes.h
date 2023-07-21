@@ -2,6 +2,7 @@
 #include "SceneManager.h"
 #include "PlayScene.h"
 #include "MainScene.h"
+#include "MenuScene.h"
 
 #ifdef _DEBUG
 #pragma comment(lib, "..\\x64\\Debug\\Core.lib")
@@ -12,6 +13,9 @@
 namespace Jun {
 
 	void InitializeScenes() {
-		SceneManager::CreateScene<MainScene>(L"PlayScene");
+		
+		
+		SceneManager::CreateScene<MenuScene>(L"MenuScene");
+		SceneManager::CreateScene<MainScene>(L"MainScene");
 	}
 }

@@ -21,19 +21,38 @@ namespace Jun {
 
 	void MainScene::Initialize()
 	{
-		GameObject* player
-			= object::Instantiate<GameObject>(Vector3(0.0f, 0.0f, 1.0001f), eLayerType::Player);
+		GameObject* backGround
+			= object::Instantiate<GameObject>(Vector3(0.0f, 0.0f, 1.0001f), eLayerType::UI);
 
-		MeshRenderer* mr = player->AddComponent<MeshRenderer>();
+		MeshRenderer* mr = backGround->AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		mr->SetMaterial(Resources::Find<Material>(L"VideoMaterial"));
 
-		videoPlayer = player->AddComponent<VideoPlayer>();
-		videoPlayer->Create("../data/demo.mp4");
+		VideoPlayer* videoPlayer = backGround->AddComponent<VideoPlayer>();
+		videoPlayer->Create("../data/Title.mp4");
 
-		player->GetComponent<Transform>()->SetPosition(Vector3(-2.0f, 0.0f, 1.0001f));
-		Transform* transform = player->GetComponent<Transform>();
-		transform->SetScale(Vector3(8.0f, 6.0f, 1.0f));
+		backGround->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 1.0001f));
+		Transform* transform = backGround->GetComponent<Transform>();
+		transform->SetScale(Vector3(16.0f, 9.0f, 1.0f) * 0.4);
+
+		GameObject* titleUI
+			= object::Instantiate<GameObject>(Vector3(0.0f, 0.0f, 1.f), eLayerType::UI);
+
+		mr = titleUI->AddComponent<MeshRenderer>();
+		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		mr->SetMaterial(Resources::Find<Material>(L"Title_Btn_Material"));
+
+		titleUI->GetComponent<Transform>()->SetScale(Vector3(16.0f, 9.0f, 1.f) * 0.4f);
+
+		GameObject* title
+			= object::Instantiate<GameObject>(Vector3(0.0f, 0.0f, 1.f), eLayerType::UI);
+
+		mr = title->AddComponent<MeshRenderer>();
+		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		mr->SetMaterial(Resources::Find<Material>(L"Title_Material"));
+
+		title->GetComponent<Transform>()->SetPosition(Vector3(0, -0.83, 0.9f));
+		title->GetComponent<Transform>()->SetScale(Vector3(4.61f, 1.6f, 1.f) * 0.8f);
 
 		//Main Camera
 		Camera* cameraComp = nullptr;

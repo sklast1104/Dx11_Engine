@@ -10,6 +10,7 @@ namespace Jun::enums {
 		Collider2D,
 		Particle,
 		MeshRenderer,
+		VideoPlayer,
 		Animator,
 		Script,
 		Camera,
