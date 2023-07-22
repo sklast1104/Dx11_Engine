@@ -68,6 +68,11 @@ namespace renderer
 			, shader->GetVSCode()
 			, shader->GetInputLayoutAddressOf());
 
+		shader = Jun::Resources::Find<Shader>(L"SpriteAnimationShader");
+		Jun::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
+			, shader->GetVSCode()
+			, shader->GetInputLayoutAddressOf());
+
 		shader = Jun::Resources::Find<Shader>(L"VideoShader");
 		Jun::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
 			, shader->GetVSCode()
@@ -322,6 +327,11 @@ namespace renderer
 		spriteShader->Create(eShaderStage::PS, L"SpritePS.hlsl", "main");
 		Jun::Resources::Insert(L"SpriteShader", spriteShader);
 
+		std::shared_ptr<Shader> spriteAniShader = std::make_shared<Shader>();
+		spriteAniShader->Create(eShaderStage::VS, L"SpriteAnimationVS.hlsl", "main");
+		spriteAniShader->Create(eShaderStage::PS, L"SpriteAnimationPS.hlsl", "main");
+		Jun::Resources::Insert(L"SpriteAnimationShader", spriteAniShader);
+
 		std::shared_ptr<Shader> girdShader = std::make_shared<Shader>();
 		girdShader->Create(eShaderStage::VS, L"GridVS.hlsl", "main");
 		girdShader->Create(eShaderStage::PS, L"GridPS.hlsl", "main");
@@ -339,45 +349,6 @@ namespace renderer
 		videoShader->Create(eShaderStage::VS, L"VideoVS.hlsl", "main");
 		videoShader->Create(eShaderStage::PS, L"VideoPS.hlsl", "main");
 		Jun::Resources::Insert(L"VideoShader", videoShader);
-	}
-
-	void LoadMaterial()
-	{
-		std::shared_ptr<Shader> spriteShader
-			= Resources::Find<Shader>(L"SpriteShader");
-
-
-		std::shared_ptr<Texture> texture
-			= Resources::Load<Texture>(L"Link", L"..\\Resources\\Texture\\Link.png");
-
-		std::shared_ptr<Material> material = std::make_shared<Material>();
-		material->SetShader(spriteShader);
-		material->SetTexture(texture);
-		Resources::Insert(L"SpriteMaterial", material);
-
-		texture = Resources::Load<Texture>(L"Smile", L"..\\Resources\\Texture\\Smile.png");
-		material = std::make_shared<Material>();
-		material->SetShader(spriteShader);
-		material->SetTexture(texture);
-		material->SetRenderingMode(eRenderingMode::Transparent);
-		Resources::Insert(L"SpriteMaterial02", material);
-
-		std::shared_ptr<Shader> gridShader
-			= Resources::Find<Shader>(L"GridShader");
-
-		material = std::make_shared<Material>();
-		material->SetShader(gridShader);
-		Resources::Insert(L"GridMaterial", material);
-
-		std::shared_ptr<Shader> debugShader
-			= Resources::Find<Shader>(L"DebugShader");
-
-		material = std::make_shared<Material>();
-		material->SetShader(debugShader);
-		Resources::Insert(L"DebugMaterial", material);
-
-		LoadTitle();
-		LoadMenuRes();
 	}
 
 	void LoadTitle() {
@@ -414,6 +385,52 @@ namespace renderer
 
 	void LoadMenuRes() {
 
+	}
+
+	void LoadMaterial()
+	{
+		std::shared_ptr<Shader> spriteShader
+			= Resources::Find<Shader>(L"SpriteShader");
+
+
+		std::shared_ptr<Texture> texture
+			= Resources::Load<Texture>(L"Link", L"..\\Resources\\Texture\\Link.png");
+
+		std::shared_ptr<Material> material = std::make_shared<Material>();
+		material->SetShader(spriteShader);
+		material->SetTexture(texture);
+		Resources::Insert(L"SpriteMaterial", material);
+
+		texture = Resources::Load<Texture>(L"Smile", L"..\\Resources\\Texture\\Smile.png");
+		material = std::make_shared<Material>();
+		material->SetShader(spriteShader);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert(L"SpriteMaterial02", material);
+
+		spriteShader
+			= Resources::Find<Shader>(L"SpriteAnimationShader");
+		material = std::make_shared<Material>();
+		material->SetShader(spriteShader);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert(L"SpriteAnimaionMaterial", material);
+
+		std::shared_ptr<Shader> gridShader
+			= Resources::Find<Shader>(L"GridShader");
+
+		material = std::make_shared<Material>();
+		material->SetShader(gridShader);
+		Resources::Insert(L"GridMaterial", material);
+
+		std::shared_ptr<Shader> debugShader
+			= Resources::Find<Shader>(L"DebugShader");
+
+		material = std::make_shared<Material>();
+		material->SetShader(debugShader);
+		Resources::Insert(L"DebugMaterial", material);
+
+		LoadTitle();
+		LoadMenuRes();
 	}
 
 	void Initialize()

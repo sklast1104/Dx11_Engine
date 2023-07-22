@@ -55,17 +55,17 @@ namespace Jun {
 		title->GetComponent<Transform>()->SetScale(Vector3(4.61f, 1.6f, 1.f) * 0.8f);
 
 		//Main Camera
-		Camera* cameraComp = nullptr;
-		{
-			GameObject* camera = new GameObject();
-			AddGameObject(eLayerType::Player, camera);
-			camera->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -10.0f));
-			cameraComp = camera->AddComponent<Camera>();
-			cameraComp->TurnLayerMask(eLayerType::UI, false);
-			camera->AddComponent<CameraScript>();
-			renderer::cameras.push_back(cameraComp);
-			renderer::mainCamera = cameraComp;
-		}
+		//Camera* cameraComp = nullptr;
+		//{
+		//	GameObject* camera = new GameObject();
+		//	AddGameObject(eLayerType::Player, camera);
+		//	camera->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -10.0f));
+		//	cameraComp = camera->AddComponent<Camera>();
+		//	cameraComp->TurnLayerMask(eLayerType::UI, false);
+		//	camera->AddComponent<CameraScript>();
+		//	renderer::cameras.push_back(cameraComp);
+		//	renderer::mainCamera = cameraComp;
+		//}
 
 		//UI Camera
 		{
