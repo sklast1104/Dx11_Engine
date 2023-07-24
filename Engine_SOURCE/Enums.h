@@ -22,6 +22,7 @@ namespace Jun::enums {
 		Player,
 		Monster,
 		UI,
+		Camera,
 		End = 16,
 	};
 

@@ -46,6 +46,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)SceneManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Script.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Shader.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)SkeletonMecanim.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)SpineAnimation.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Texture.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Transform.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)VideoPlayer.h" />
@@ -77,6 +79,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)SceneManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Script.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Shader.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)SkeletonMecanim.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)SpineAnimation.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Texture.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Transform.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)VideoPlayer.cpp" />

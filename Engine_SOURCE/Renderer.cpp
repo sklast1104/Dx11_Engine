@@ -385,6 +385,77 @@ namespace renderer
 
 	void LoadMenuRes() {
 
+		std::shared_ptr<Shader> spriteShader
+			= Resources::Find<Shader>(L"SpriteShader");
+
+		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"MenuBG", L"..\\Resources\\Texture\\Menu\\MainBg.png");
+		std::shared_ptr<Material> material = std::make_shared<Material>();
+		material->SetShader(spriteShader);
+		material->SetTexture(texture);
+		Resources::Insert(L"MenuBG_Material", material);
+
+		texture = Resources::Load<Texture>(L"Pecorinne", L"..\\Resources\\Texture\\Menu\\Pecorinne.png");
+		material = std::make_shared<Material>();
+		material->SetShader(spriteShader);
+		material->SetTexture(texture);
+		Resources::Insert(L"Pecorinne_Material", material);
+
+		texture = Resources::Load<Texture>(L"UI2", L"..\\Resources\\Texture\\Menu\\UI2.png");
+		material = std::make_shared<Material>();
+		material->SetShader(spriteShader);
+		material->SetTexture(texture);
+		Resources::Insert(L"UI2_Material", material);
+
+		texture = Resources::Load<Texture>(L"Bottom_nav_tex", L"..\\Resources\\Texture\\Menu\\Bottom_nav2.png");
+		material = std::make_shared<Material>();
+		material->SetShader(spriteShader);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert(L"Bottom_nav_mat", material);
+	}
+
+	void LoadQuestRes() {
+
+		std::shared_ptr<Shader> spriteShader
+			= Resources::Find<Shader>(L"SpriteShader");
+
+		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"QuestBtns_Tex", L"..\\Resources\\Texture\\Quest\\QuestBtnsAlpha.png");
+		std::shared_ptr<Material> material = std::make_shared<Material>();
+		material->SetShader(spriteShader);
+		material->SetTexture(texture);
+		Resources::Insert(L"QuestBtns_Material", material);
+
+		texture = Resources::Load<Texture>(L"Quest_MainPanel_Tex", L"..\\Resources\\Texture\\Quest\\QuestPnal2.png");
+		material = std::make_shared<Material>();
+		material->SetShader(spriteShader);
+		material->SetTexture(texture);
+		Resources::Insert(L"Quest_MainPanel_Material", material);
+
+		texture = Resources::Load<Texture>(L"Quest_TopNav_Alpha_Tex", L"..\\Resources\\Texture\\Quest\\TopNav_Alpha.png");
+		material = std::make_shared<Material>();
+		material->SetShader(spriteShader);
+		material->SetTexture(texture);
+		Resources::Insert(L"Quest_TopNav_Alpha_Material", material);
+	}
+
+	void LoadBattleRes() {
+
+		std::shared_ptr<Shader> spriteShader
+			= Resources::Find<Shader>(L"SpriteShader");
+
+		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"Battle_BattleBG_Tex", L"..\\Resources\\Texture\\Battle\\BattleBGTex.png");
+		std::shared_ptr<Material> material = std::make_shared<Material>();
+		material->SetShader(spriteShader);
+		material->SetTexture(texture);
+		Resources::Insert(L"Battle_BattleBG_Material", material);
+
+		texture = Resources::Load<Texture>(L"Battle_BattleBaseUI_Tex", L"..\\Resources\\Texture\\Battle\\BattleBaseUI.png");
+		material = std::make_shared<Material>();
+		material->SetShader(spriteShader);
+		material->SetTexture(texture);
+		
+		Resources::Insert(L"Battle_BattleBaseUI_Material", material);
+
 	}
 
 	void LoadMaterial()
@@ -431,6 +502,8 @@ namespace renderer
 
 		LoadTitle();
 		LoadMenuRes();
+		LoadQuestRes();
+		LoadBattleRes();
 	}
 
 	void Initialize()

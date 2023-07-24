@@ -37,7 +37,7 @@ namespace Jun
 		virtual void LateUpdate();
 		virtual void Render();
 
-		void Create(const std::wstring& name
+		virtual void Create(const std::wstring& name
 			, std::shared_ptr<graphics::Texture> atlas
 			, Vector2 leftTop
 			, Vector2 size
@@ -53,7 +53,7 @@ namespace Jun
 		std::function<void()>& CompleteEvent(const std::wstring key);
 		std::function<void()>& EndEvent(const std::wstring key);
 
-	private:
+	protected:
 		std::map<std::wstring, Animation*> mAnimations;
 		std::map<std::wstring, Events*> mEvents;
 		Animation* mActiveAnimation;

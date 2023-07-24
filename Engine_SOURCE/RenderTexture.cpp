@@ -14,6 +14,13 @@ namespace Jun::graphics {
 
 	bool RenderTexture::create(uint32_t new_xres, uint32_t new_yres, DXGI_FORMAT new_format, bool is_dynamic)
 	{
+
+		if(mTexture)
+			mTexture.Reset();
+
+		if (mSRV)
+			mSRV.Reset();
+
 		xres = new_xres;
 		yres = new_yres;
 		format = new_format;

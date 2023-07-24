@@ -201,6 +201,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)VideoPlayer.h">
       <Filter>GameObject\Component\VideoPlayer</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SkeletonMecanim.h">
+      <Filter>GameObject\Component\Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SpineAnimation.h">
+      <Filter>Resource\Animation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)MyMath.cpp">
@@ -289,6 +295,12 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)VideoPlayer.cpp">
       <Filter>GameObject\Component\VideoPlayer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)SkeletonMecanim.cpp">
+      <Filter>GameObject\Component\Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)SpineAnimation.cpp">
+      <Filter>Resource\Animation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

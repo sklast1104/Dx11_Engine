@@ -390,7 +390,7 @@ namespace Jun {
 		int        sampleCount = 0;
 		DWORD      sampleFlags = 0;
 
-		RenderTexture* target_texture = nullptr;
+		std::shared_ptr<RenderTexture> target_texture = nullptr;
 		uint32_t  width = 0;
 		uint32_t  height = 0;
 		float     fps = 0.0f;
@@ -606,8 +606,9 @@ namespace Jun {
 				if (!target_texture) {
 
 					// 捞何盒篮 流立 技泼
-					target_texture = Resources::Find<RenderTexture>(L"RenderTexture").get();
-					//target_texture = std::make_shared<RenderTexture>().get();
+					target_texture = Resources::Find<RenderTexture>(L"RenderTexture");
+					//target_texture = std::make_shared<RenderTexture>();
+					//target_texture->SetSlotNum(1);
 					int texture_height = height * 2;
 					if (!target_texture->create(width, texture_height, DXGI_FORMAT_R8_UNORM, true))
 						return;

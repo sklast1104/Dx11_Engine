@@ -49,7 +49,7 @@ namespace Jun
 				= Resources::Load<Texture>(L"LinkSprite", L"..\\Resources\\Texture\\linkSprites.png");
 
 			Animator* at = player->AddComponent<Animator>();
-			at->Create(L"Idle", atlas, Vector2(0.0f, 0.0f), Vector2(120.0f, 130.0f), 3);
+			at->Create(L"Idle", atlas, Vector2(0.0f, 0.0f), Vector2(120.0f, 130.0f), 3, Vector2::Zero, 0.33f);
 
 			//at->CompleteEvent(L"Idle") = std::bind();
 

@@ -20,6 +20,27 @@
     <ClCompile Include="MenuScene.cpp">
       <Filter>Contents\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="QuestScene.cpp">
+      <Filter>Contents\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="BattleScene.cpp">
+      <Filter>Contents\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveState.cpp">
+      <Filter>Contents\Script\StateMachine\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerStateMachine.cpp">
+      <Filter>Contents\Script\StateMachine\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="IdleState.cpp">
+      <Filter>Contents\Script\StateMachine\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="StateMachine.cpp">
+      <Filter>Contents\Script\StateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="AttackState.cpp">
+      <Filter>Contents\Script\StateMachine\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -44,6 +65,30 @@
     <ClInclude Include="MenuScene.h">
       <Filter>Contents\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="QuestScene.h">
+      <Filter>Contents\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleScene.h">
+      <Filter>Contents\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveState.h">
+      <Filter>Contents\Script\StateMachine\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStateMachine.h">
+      <Filter>Contents\Script\StateMachine\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="IdleState.h">
+      <Filter>Contents\Script\StateMachine\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="StateMachine.h">
+      <Filter>Contents\Script\StateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>Contents\Script\StateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="AttackState.h">
+      <Filter>Contents\Script\StateMachine\Player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Contents">
@@ -57,6 +102,12 @@
     </Filter>
     <Filter Include="Contents\Scene">
       <UniqueIdentifier>{26df5010-d5e1-4ed3-9b8b-ad716c76e190}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\StateMachine">
+      <UniqueIdentifier>{f3716907-9f5c-4c92-977e-88189d3946df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\StateMachine\Player">
+      <UniqueIdentifier>{1380f985-9c11-48e9-9837-f79af611ecfe}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

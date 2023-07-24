@@ -9,7 +9,7 @@ namespace Jun {
 	public :
 
 		Script();
-		~Script();
+		virtual ~Script();
 
 		virtual void Initialize() override;
 		virtual void Update() override;

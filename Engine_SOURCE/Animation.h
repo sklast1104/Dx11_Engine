@@ -35,11 +35,16 @@ namespace Jun
 
 		virtual HRESULT Load(const std::wstring& path) { return S_FALSE; };
 
-		void Update();
-		void LateUpdate();
-		void Render();
+		virtual void Update();
+		virtual void LateUpdate();
+		virtual void Render();
 
-		void Create(std::wstring name
+		virtual void CreateSpineAnim(std::wstring name,
+						const std::wstring& atlasPath,
+						float duration = 0.0f,
+						Vector2 offset = Vector2::Zero) {};
+
+		virtual void Create(std::wstring name
 			, std::shared_ptr<graphics::Texture> atlas
 			, Vector2 leftTop
 			, Vector2 size
@@ -47,12 +52,17 @@ namespace Jun
 			, Vector2 offset = Vector2::Zero
 			, float duration = 0.0f);
 
-		void Binds();
-		void Reset();
+		void CreateSpineAnim(std::wstring name,
+			std::shared_ptr<graphics::Texture> atlas,
+			const std::wstring& atlasPath,
+			float duration = 0.0f);
+
+		virtual void Binds();
+		virtual void Reset();
 
 		bool IsComplete() { return mbComplete; }
 
-	private:
+	protected:
 		std::shared_ptr<graphics::Texture> mAtlas;
 		Animator* mAnimator;
 		std::vector<Sprite> mSprites;
