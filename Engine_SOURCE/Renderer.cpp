@@ -438,6 +438,26 @@ namespace renderer
 		Resources::Insert(L"Quest_TopNav_Alpha_Material", material);
 	}
 
+	void LoadMapRes() {
+
+		std::shared_ptr<Shader> spriteShader
+			= Resources::Find<Shader>(L"SpriteShader");
+
+		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"QuestMap_WorldMap_Tex", L"..\\Resources\\Texture\\QuestMap\\WorldMap.png");
+		std::shared_ptr<Material> material = std::make_shared<Material>();
+		material->SetShader(spriteShader);
+		material->SetTexture(texture);
+		Resources::Insert(L"QuestMap_WorldMap_Material", material);
+
+		texture = Resources::Load<Texture>(L"Quest_QuestMapUI_Edit_Tex", L"..\\Resources\\Texture\\QuestMap\\QuestMapUI_Edit.png");
+		material = std::make_shared<Material>();
+		material->SetShader(spriteShader);
+		material->SetTexture(texture);
+
+		Resources::Insert(L"Quest_QuestMapUI_Edit_Material", material);
+
+	}
+
 	void LoadBattleRes() {
 
 		std::shared_ptr<Shader> spriteShader
@@ -503,7 +523,9 @@ namespace renderer
 		LoadTitle();
 		LoadMenuRes();
 		LoadQuestRes();
+		LoadMapRes();
 		LoadBattleRes();
+		
 	}
 
 	void Initialize()

@@ -162,6 +162,7 @@
     <ClInclude Include="PlayerScript.h" />
     <ClInclude Include="PlayerStateMachine.h" />
     <ClInclude Include="PlayScene.h" />
+    <ClInclude Include="QuestMapScene.h" />
     <ClInclude Include="QuestScene.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="StateMachine.h" />
@@ -179,6 +180,7 @@
     <ClCompile Include="PlayerScript.cpp" />
     <ClCompile Include="PlayerStateMachine.cpp" />
     <ClCompile Include="PlayScene.cpp" />
+    <ClCompile Include="QuestMapScene.cpp" />
     <ClCompile Include="QuestScene.cpp" />
     <ClCompile Include="StateMachine.cpp" />
   </ItemGroup>

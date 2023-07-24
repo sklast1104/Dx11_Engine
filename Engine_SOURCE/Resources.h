@@ -52,6 +52,10 @@ namespace Jun
 		template <typename T>
 		static void Insert(const std::wstring& key, std::shared_ptr<T> resource)
 		{
+			//if (mResources.find(key) == mResources.end()) {
+			//	return;
+			//}
+			
 			mResources.insert(std::make_pair(key, resource));
 		}
 

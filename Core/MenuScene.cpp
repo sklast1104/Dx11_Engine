@@ -3,6 +3,8 @@
 #include "Object.h"
 #include "MeshRenderer.h"
 #include "Resources.h"
+#include "SceneManager.h"
+#include "Input.h"
 
 namespace Jun {
 
@@ -65,6 +67,10 @@ namespace Jun {
 	void MenuScene::Update()
 	{
 		Scene::Update();
+
+		if (Input::GetKeyDown(eKeyCode::N)) {
+			SceneManager::LoadScene(L"QuestScene");
+		}
 	}
 
 	void MenuScene::LateUpdate()

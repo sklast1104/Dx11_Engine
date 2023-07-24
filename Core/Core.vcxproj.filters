@@ -41,6 +41,9 @@
     <ClCompile Include="AttackState.cpp">
       <Filter>Contents\Script\StateMachine\Player</Filter>
     </ClCompile>
+    <ClCompile Include="QuestMapScene.cpp">
+      <Filter>Contents\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -88,6 +91,9 @@
     </ClInclude>
     <ClInclude Include="AttackState.h">
       <Filter>Contents\Script\StateMachine\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="QuestMapScene.h">
+      <Filter>Contents\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

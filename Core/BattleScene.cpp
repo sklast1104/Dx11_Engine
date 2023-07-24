@@ -5,6 +5,7 @@
 #include "Resources.h"
 #include "SkeletonMecanim.h"
 #include "PlayerStateMachine.h"
+#include "Input.h"
 
 namespace Jun {
 
@@ -46,7 +47,7 @@ namespace Jun {
 
 		SkeletonMecanim* anim = princess->AddComponent<SkeletonMecanim>();
 		anim->Create(L"Idle", L"..\\Resources\\Texture\\Spine\\Pecorinne\\Pecorinne_Idle.atlas", 0.04f);
-		anim->Create(L"Attack", L"..\\Resources\\Texture\\Spine\\Pecorinne\\Pecorinne_Attack.atlas", 0.03f, Vector2(0, 35.f));
+		anim->Create(L"Attack", L"..\\Resources\\Texture\\Spine\\Pecorinne\\Pecorinne_Attack.atlas", 0.025f, Vector2(0, 35.f));
 		anim->Create(L"Walk", L"..\\Resources\\Texture\\Spine\\Pecorinne\\walk\\Pecorinne_walk.atlas", 0.03f);
 
 		princess->AddComponent<PlayerStateMachine>();
@@ -67,6 +68,10 @@ namespace Jun {
 	void BattleScene::Update()
 	{
 		Scene::Update();
+
+		if (Input::GetKeyDown(eKeyCode::N)) {
+			SceneManager::LoadScene(L"MainScene");
+		}
 	}
 
 	void BattleScene::LateUpdate()
