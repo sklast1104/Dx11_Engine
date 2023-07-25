@@ -3,6 +3,7 @@
 #include "Texture.h"
 #include "Material.h"
 #include "RenderTexture.h"
+#include "StructedBuffer.h"
 
 namespace renderer
 {
@@ -16,6 +17,10 @@ namespace renderer
 	Microsoft::WRL::ComPtr<ID3D11RasterizerState> rasterizerStates[(UINT)eRSType::End] = {};
 	Microsoft::WRL::ComPtr<ID3D11DepthStencilState> depthStencilStates[(UINT)eDSType::End] = {};
 	Microsoft::WRL::ComPtr<ID3D11BlendState> blendStates[(UINT)eBSType::End] = {};
+
+	// light
+	std::vector<Light*> lights = {};
+	StructedBuffer* lightsBuffer = nullptr;
 
 	Jun::Camera* mainCamera = nullptr;
 	std::vector<Jun::Camera*> cameras = {};
@@ -274,20 +279,6 @@ namespace renderer
 			vertexes.push_back(center);
 		}
 
-		//for (UINT i = 0; i < (UINT)iSlice; ++i)
-		//{
-		//	indexes.push_back(0);
-		//	if (i == iSlice - 1)
-		//	{
-		//		indexes.push_back(1);
-		//	}
-		//	else
-		//	{
-		//		indexes.push_back(i + 2);
-		//	}
-		//	indexes.push_back(i + 1);
-		//}
-
 		for (int i = 0; i < vertexes.size() - 2; ++i)
 		{
 			indexes.push_back(i + 1);
@@ -313,6 +304,10 @@ namespace renderer
 		// Grid Buffer
 		constantBuffer[(UINT)eCBType::Animator] = new ConstantBuffer(eCBType::Animator);
 		constantBuffer[(UINT)eCBType::Animator]->Create(sizeof(AnimatorCB));
+
+		// light structed buffer
+		lightsBuffer = new StructedBuffer();
+		lightsBuffer->Create(sizeof(LightAttribute), 2, eSRVType::None);
 	}
 
 	void LoadShader()
@@ -538,6 +533,20 @@ namespace renderer
 		LoadMaterial();
 	}
 
+	void BindLights()
+	{
+		std::vector<LightAttribute> lightsAttributes = {};
+		for (Light* light : lights)
+		{
+			LightAttribute attribute = light->GetAttribute();
+			lightsAttributes.push_back(attribute);
+		}
+
+		lightsBuffer->SetData(lightsAttributes.data(), lightsAttributes.size());
+		lightsBuffer->Bind(eShaderStage::VS, 13);
+		lightsBuffer->Bind(eShaderStage::PS, 13);
+	}
+
 	void PushDebugMeshAttribute(DebugMesh mesh)
 	{
 		debugMeshs.push_back(mesh);
@@ -545,6 +554,8 @@ namespace renderer
 
 	void Render()
 	{
+		BindLights();
+
 		for (Camera* cam : cameras)
 		{
 			if (cam == nullptr)
@@ -554,6 +565,7 @@ namespace renderer
 		}
 
 		cameras.clear();
+		lights.clear();
 	}
 
 	void Release()
@@ -566,6 +578,9 @@ namespace renderer
 			delete buff;
 			buff = nullptr;
 		}
+
+		delete lightsBuffer;
+		lightsBuffer = nullptr;
 	}
 }
 

@@ -13,6 +13,7 @@
 #include "PlayerScript.h"
 #include "CollisionManager.h"
 #include "Animator.h"
+#include "Light.h"
 
 namespace Jun
 {
@@ -68,6 +69,15 @@ namespace Jun
 			Collider2D* cd = player->AddComponent<Collider2D>();
 			//cd->SetSize(Vector2(1.2f, 1.2f));
 			//player->AddComponent<PlayerScript>();
+		}
+
+		{
+			GameObject* light = new GameObject();
+			light->SetName(L"Smile");
+			AddGameObject(eLayerType::Light, light);
+			Light* lightComp = light->AddComponent<Light>();
+			lightComp->SetType(eLightType::Directional);
+			lightComp->SetColor(Vector4(1.0f, 0.0f, 1.0f, 1.0f));
 		}
 
 		//{

@@ -97,6 +97,12 @@
     <Filter Include="GameObject\Component\VideoPlayer">
       <UniqueIdentifier>{ef26c272-301b-4da2-85f7-e5a00cc4a44b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\Component\Light">
+      <UniqueIdentifier>{97c7db75-0702-4387-92aa-05ef8b084fd3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\StructedBuffer">
+      <UniqueIdentifier>{d9cc2c73-1216-4af4-8d9a-e4db05df9788}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h">
@@ -207,6 +213,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)SpineAnimation.h">
       <Filter>Resource\Animation</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Light.h">
+      <Filter>GameObject\Component\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StructedBuffer.h">
+      <Filter>Graphics\StructedBuffer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)MyMath.cpp">
@@ -301,6 +313,12 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)SpineAnimation.cpp">
       <Filter>Resource\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Light.cpp">
+      <Filter>GameObject\Component\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StructedBuffer.cpp">
+      <Filter>Graphics\StructedBuffer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -6,6 +6,7 @@
 #include "Shader.h"
 #include "ConstantBuffer.h"
 #include "Camera.h"
+#include "Light.h"
 
 using namespace Jun::math;
 using namespace Jun::graphics;
@@ -48,11 +49,13 @@ namespace renderer
 	extern Microsoft::WRL::ComPtr<ID3D11DepthStencilState> depthStencilStates[];
 	extern Microsoft::WRL::ComPtr<ID3D11BlendState> blendStates[];
 
+	extern std::vector<Jun::Light*> lights;
 	extern Jun::Camera* mainCamera;
 	extern std::vector<Jun::Camera*> cameras;
 	extern std::vector<DebugMesh> debugMeshs;
 
 	void Initialize();
+	void BindLights();
 	void Render();
 	void Release();
 

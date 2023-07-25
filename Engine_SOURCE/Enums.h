@@ -13,6 +13,7 @@ namespace Jun::enums {
 		VideoPlayer,
 		Animator,
 		Script,
+		Light,
 		Camera,
 		End,
 	};
@@ -21,6 +22,7 @@ namespace Jun::enums {
 		Grid,
 		Player,
 		Monster,
+		Light,
 		UI,
 		Camera,
 		End = 16,
@@ -41,6 +43,14 @@ namespace Jun::enums {
 		Circle,
 		Sphere,
 		Cube,
+		End,
+	};
+
+	enum class eLightType
+	{
+		Directional,
+		Point,
+		Spot,
 		End,
 	};
 }
