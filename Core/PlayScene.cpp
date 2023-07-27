@@ -14,6 +14,7 @@
 #include "CollisionManager.h"
 #include "Animator.h"
 #include "Light.h"
+#include "ComputeShader.h"
 
 namespace Jun
 {
@@ -27,7 +28,11 @@ namespace Jun
 	{
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
 
+		ComputeShader* cs = new ComputeShader();
+		cs->Create(L"PaintCS.hlsl", "main");
+
 		{
+
 			GameObject* player
 				= object::Instantiate<GameObject>(Vector3(0.0f, 0.0f, 1.0001f), eLayerType::Player);
 

@@ -34,6 +34,7 @@ namespace Jun::enums {
 		Material,
 		Mesh,
 		Animation,
+		ComputeShader,
 		End,
 	};
 
