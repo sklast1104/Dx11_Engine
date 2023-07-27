@@ -23,8 +23,9 @@ namespace Jun {
 		SceneManager::CreateScene<QuestScene>(L"QuestScene");
 		//
 		SceneManager::CreateScene <BattleScene>(L"BattleScene");
-		SceneManager::CreateScene<MainScene>(L"MainScene");
+		
 		SceneManager::CreateScene<QuestMapScene>(L"QuestMapScene");
 		SceneManager::CreateScene<PlayScene>(L"PlayScene");
+		SceneManager::CreateScene<MainScene>(L"MainScene");
 	}
 }
