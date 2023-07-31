@@ -4,6 +4,7 @@
 #include "Material.h"
 #include "RenderTexture.h"
 #include "StructedBuffer.h"
+#include "PaintShader.h"
 
 namespace renderer
 {
@@ -344,6 +345,10 @@ namespace renderer
 		videoShader->Create(eShaderStage::VS, L"VideoVS.hlsl", "main");
 		videoShader->Create(eShaderStage::PS, L"VideoPS.hlsl", "main");
 		Jun::Resources::Insert(L"VideoShader", videoShader);
+
+		std::shared_ptr<PaintShader> paintShader = std::make_shared<PaintShader>();
+		paintShader->Create(L"PaintCS.hlsl", "main");
+		Jun::Resources::Insert(L"PaintShader", paintShader);
 	}
 
 	void LoadTitle() {
@@ -473,6 +478,13 @@ namespace renderer
 
 	}
 
+	void LoadTexture() {
+		//paint texture
+		std::shared_ptr<Texture> uavTexture = std::make_shared<Texture>();
+		uavTexture->Create(1024, 1024, DXGI_FORMAT_R8G8B8A8_UNORM, D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS);
+		Jun::Resources::Insert(L"PaintTexuture", uavTexture);
+	}
+
 	void LoadMaterial()
 	{
 		std::shared_ptr<Shader> spriteShader
@@ -487,7 +499,8 @@ namespace renderer
 		material->SetTexture(texture);
 		Resources::Insert(L"SpriteMaterial", material);
 
-		texture = Resources::Load<Texture>(L"Smile", L"..\\Resources\\Texture\\Smile.png");
+		//texture = Resources::Load<Texture>(L"Smile", L"..\\Resources\\Texture\\Smile.png");
+		texture = Resources::Find<Texture>(L"PaintTexuture");
 		material = std::make_shared<Material>();
 		material->SetShader(spriteShader);
 		material->SetTexture(texture);
@@ -530,6 +543,7 @@ namespace renderer
 		LoadBuffer();
 		LoadShader();
 		SetupState();
+		LoadTexture();
 		LoadMaterial();
 	}
 

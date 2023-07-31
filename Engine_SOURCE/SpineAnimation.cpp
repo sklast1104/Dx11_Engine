@@ -125,7 +125,7 @@ namespace Jun {
 
 	void SpineAnimation::Binds()
 	{
-		mSpineSprites[mIndex].texture->BindShader(graphics::eShaderStage::PS, 12);
+		mSpineSprites[mIndex].texture->BindShaderResource(graphics::eShaderStage::PS, 12);
 
 		// AnimationCB
 		renderer::AnimatorCB data = {};

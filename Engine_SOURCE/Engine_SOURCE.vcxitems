@@ -39,6 +39,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)MyMath.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Engine.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Object.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)PaintShader.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Renderer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RenderTexture.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Resource.h" />
@@ -75,6 +76,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Mesh.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)MeshRenderer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)MyMath.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)PaintShader.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Renderer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RenderTexture.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Resource.cpp" />

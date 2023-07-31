@@ -22,7 +22,7 @@ namespace Jun::graphics {
 	void Material::Binds()
 	{
 		if (mTexture)
-			mTexture->BindShader(eShaderStage::PS, mTexture->GetSlotNum());
+			mTexture->BindShaderResource(eShaderStage::PS, mTexture->GetSlotNum());
 
 		if (mShader)
 			mShader->Binds();

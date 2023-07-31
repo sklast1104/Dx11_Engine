@@ -103,6 +103,12 @@
     <Filter Include="Graphics\StructedBuffer">
       <UniqueIdentifier>{d9cc2c73-1216-4af4-8d9a-e4db05df9788}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource\Shader\CS">
+      <UniqueIdentifier>{8a3ebeaa-d050-4303-be5f-47d2517eff46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Shader\PS">
+      <UniqueIdentifier>{4e74d58e-51fa-464f-81d9-59e957d75ebb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h">
@@ -220,7 +226,10 @@
       <Filter>Graphics\StructedBuffer</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)ComputeShader.h">
-      <Filter>Resource\Shader</Filter>
+      <Filter>Resource\Shader\CS</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)PaintShader.h">
+      <Filter>Resource\Shader\PS</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -324,7 +333,10 @@
       <Filter>Graphics\StructedBuffer</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)ComputeShader.cpp">
-      <Filter>Resource\Shader</Filter>
+      <Filter>Resource\Shader\CS</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)PaintShader.cpp">
+      <Filter>Resource\Shader\PS</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
