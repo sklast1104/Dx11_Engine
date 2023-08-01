@@ -84,6 +84,11 @@ namespace renderer
 			, shader->GetVSCode()
 			, shader->GetInputLayoutAddressOf());
 
+		shader = Jun::Resources::Find<Shader>(L"ParticleShader");
+		Jun::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
+			, shader->GetVSCode()
+			, shader->GetInputLayoutAddressOf());
+
 #pragma endregion
 #pragma region Sampler State
 		//Sampler State
@@ -318,10 +323,10 @@ namespace renderer
 		shader->Create(eShaderStage::PS, L"TrianglePS.hlsl", "main");
 		Jun::Resources::Insert(L"TriangleShader", shader);
 
-		std::shared_ptr<Shader> spriteShader = std::make_shared<Shader>();
-		spriteShader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
-		spriteShader->Create(eShaderStage::PS, L"SpritePS.hlsl", "main");
-		Jun::Resources::Insert(L"SpriteShader", spriteShader);
+		shader = std::make_shared<Shader>();
+		shader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
+		shader->Create(eShaderStage::PS, L"SpritePS.hlsl", "main");
+		Jun::Resources::Insert(L"SpriteShader", shader);
 
 		std::shared_ptr<Shader> spriteAniShader = std::make_shared<Shader>();
 		spriteAniShader->Create(eShaderStage::VS, L"SpriteAnimationVS.hlsl", "main");
@@ -349,6 +354,15 @@ namespace renderer
 		std::shared_ptr<PaintShader> paintShader = std::make_shared<PaintShader>();
 		paintShader->Create(L"PaintCS.hlsl", "main");
 		Jun::Resources::Insert(L"PaintShader", paintShader);
+
+		std::shared_ptr<Shader> paritcleShader = std::make_shared<Shader>();
+		paritcleShader->Create(eShaderStage::VS, L"ParticleVS.hlsl", "main");
+		paritcleShader->Create(eShaderStage::PS, L"ParticlePS.hlsl", "main");
+		paritcleShader->SetRSState(eRSType::SolidNone);
+		paritcleShader->SetDSState(eDSType::NoWrite);
+		paritcleShader->SetBSState(eBSType::AlphaBlend);
+
+		Jun::Resources::Insert(L"ParticleShader", paritcleShader);
 	}
 
 	void LoadTitle() {
@@ -487,7 +501,7 @@ namespace renderer
 
 	void LoadMaterial()
 	{
-		std::shared_ptr<Shader> spriteShader
+		std::shared_ptr<Shader> shader
 			= Resources::Find<Shader>(L"SpriteShader");
 
 
@@ -495,22 +509,22 @@ namespace renderer
 			= Resources::Load<Texture>(L"Link", L"..\\Resources\\Texture\\Link.png");
 
 		std::shared_ptr<Material> material = std::make_shared<Material>();
-		material->SetShader(spriteShader);
+		material->SetShader(shader);
 		material->SetTexture(texture);
 		Resources::Insert(L"SpriteMaterial", material);
 
 		//texture = Resources::Load<Texture>(L"Smile", L"..\\Resources\\Texture\\Smile.png");
 		texture = Resources::Find<Texture>(L"PaintTexuture");
 		material = std::make_shared<Material>();
-		material->SetShader(spriteShader);
+		material->SetShader(shader);
 		material->SetTexture(texture);
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		Resources::Insert(L"SpriteMaterial02", material);
 
-		spriteShader
+		shader
 			= Resources::Find<Shader>(L"SpriteAnimationShader");
 		material = std::make_shared<Material>();
-		material->SetShader(spriteShader);
+		material->SetShader(shader);
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		Resources::Insert(L"SpriteAnimaionMaterial", material);
 
@@ -527,6 +541,13 @@ namespace renderer
 		material = std::make_shared<Material>();
 		material->SetShader(debugShader);
 		Resources::Insert(L"DebugMaterial", material);
+
+		shader
+			= Resources::Find<Shader>(L"ParticleShader");
+		material = std::make_shared<Material>();
+		material->SetShader(shader);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert(L"ParticleMaterial", material);
 
 		LoadTitle();
 		LoadMenuRes();

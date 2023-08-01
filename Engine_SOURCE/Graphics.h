@@ -122,5 +122,16 @@ namespace Jun::graphics {
 		float angle;
 		int pad;
 	};
+
+	struct Particle
+	{
+		math::Vector4 position;
+		math::Vector4 direction;
+
+		float endTime;
+		float time;
+		float speed;
+		UINT active;
+	};
 }
 

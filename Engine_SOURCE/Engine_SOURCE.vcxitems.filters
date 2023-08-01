@@ -109,6 +109,9 @@
     <Filter Include="Resource\Shader\PS">
       <UniqueIdentifier>{4e74d58e-51fa-464f-81d9-59e957d75ebb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\Component\ParticleSystem">
+      <UniqueIdentifier>{4946b3a7-8faf-4fdd-90ba-caeb3c70ac95}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h">
@@ -231,6 +234,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)PaintShader.h">
       <Filter>Resource\Shader\PS</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ParticleSystem.h">
+      <Filter>GameObject\Component\ParticleSystem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)MyMath.cpp">
@@ -337,6 +343,9 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)PaintShader.cpp">
       <Filter>Resource\Shader\PS</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ParticleSystem.cpp">
+      <Filter>GameObject\Component\ParticleSystem</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
