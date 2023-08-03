@@ -237,6 +237,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)ParticleSystem.h">
       <Filter>GameObject\Component\ParticleSystem</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ParticleShader.h">
+      <Filter>Resource\Shader\CS</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)MyMath.cpp">
@@ -346,6 +349,9 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)ParticleSystem.cpp">
       <Filter>GameObject\Component\ParticleSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ParticleShader.cpp">
+      <Filter>Resource\Shader\CS</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

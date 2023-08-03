@@ -25,6 +25,13 @@ cbuffer Animator : register(b3)
     float3 pad;
 }
 
+cbuffer ParticleSystem : register(b4)
+{
+    uint elementCount;
+    float elapsedTime;
+    int padd;
+    int padd2;
+}
 
 Texture2D albedoTexture : register(t0);
 Texture2D txYUV : register(t1);
