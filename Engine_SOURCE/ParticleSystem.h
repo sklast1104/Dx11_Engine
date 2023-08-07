@@ -18,6 +18,8 @@ namespace Jun
 
 	private:
 		graphics::StructedBuffer* mBuffer;
+		graphics::StructedBuffer* mSharedBuffer;
+
 		std::shared_ptr<ParticleShader> mCS;
 
 		UINT    mCount;
@@ -27,5 +29,7 @@ namespace Jun
 		Vector4 mEndColor;
 		float   mLifeTime;
 		float	mFrequency;
+
+		float mTime;
 	};
 }
