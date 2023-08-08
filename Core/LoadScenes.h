@@ -6,6 +6,7 @@
 #include "QuestScene.h"
 #include "BattleScene.h"
 #include "QuestMapScene.h"
+#include "DebugScene.h"
 
 #ifdef _DEBUG
 #pragma comment(lib, "..\\x64\\Debug\\Core.lib")
@@ -28,7 +29,8 @@ namespace Jun {
 		
 		SceneManager::CreateScene<MainScene>(L"MainScene");
 
-		SceneManager::CreateScene <BattleScene>(L"BattleScene");
+		//SceneManager::CreateScene <BattleScene>(L"BattleScene");
 		
+		SceneManager::CreateScene<DebugScene>(L"DebugScene");
 	}
 }

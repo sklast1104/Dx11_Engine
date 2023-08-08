@@ -44,10 +44,16 @@ namespace Jun {
 			, Vector2 offset = Vector2::Zero
 			, float duration = 0.0f) {};
 
-		virtual void CreateSpineAnim(std::wstring name,
+		void CreateSpineAnim(std::wstring name,
 			const std::wstring& atlasPath,
 			float duration = 0.0f,
-			Vector2 offset = Vector2::Zero) override;
+			Vector2 offset = Vector2::Zero, 
+			bool isPack = false);
+
+		void CreatePackAnim(std::wstring name,
+			const std::wstring& atlasPath,
+			float duration = 0.0f,
+			Vector2 offset = Vector2::Zero);
 
 		virtual void Binds();
 		virtual void Reset();

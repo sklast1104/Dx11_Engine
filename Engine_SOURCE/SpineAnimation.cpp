@@ -54,7 +54,82 @@ namespace Jun {
 		return path;
 	}
 
-	void SpineAnimation::CreateSpineAnim(std::wstring name, const std::wstring& atlasPath, float duration, Vector2 offset)
+	void SpineAnimation::CreateSpineAnim(std::wstring name, const std::wstring& atlasPath, float duration, Vector2 offset, bool isPack)
+	{
+		if (isPack) {
+			CreatePackAnim(name, atlasPath, duration, offset);
+		}
+		else {
+
+			SetKey(name);
+
+			std::wifstream file(atlasPath);
+
+			assert(file.is_open());
+
+			std::wstring line;
+
+			std::shared_ptr<Jun::Texture> curTexture = nullptr;
+			float width = 0.f;
+			float height = 0.f;
+
+			std::wstring path = ExtractPath(atlasPath);
+
+			// name;
+			while (std::getline(file, line)) {
+
+				if (IsPng(line)) {
+
+					std::wstring newPath = path + line;
+					std::wstring newKey = L"Spine_" + line + L"_Tex";
+
+					curTexture = Jun::Resources::Load<Texture>(newKey, newPath);
+
+					// Size
+					std::getline(file, line);
+
+					width = (float)curTexture->GetWidth();
+					height = (float)curTexture->GetHeight();
+
+					// filter
+					std::getline(file, line);
+				}
+
+
+				// Name
+				while (std::getline(file, line) && line != L"") {
+
+					SpineSprite sprite = {};
+
+					// Bounds
+					std::getline(file, line);
+					std::wstringstream wss(line);
+
+					wchar_t dummy;
+					Vector2 bounds;
+
+					wss.ignore(7) >> sprite.leftTop.x >> dummy >> sprite.leftTop.y >> dummy >> sprite.size.x >> dummy >> sprite.size.y;
+
+					std::getline(file, line);
+
+					sprite.leftTop.x = sprite.leftTop.x / width;
+					sprite.leftTop.y = sprite.leftTop.y / height;
+					sprite.size.x = sprite.size.x / width;
+					sprite.size.y = sprite.size.y / height;
+
+					sprite.texture = curTexture;
+					sprite.atlasSize = Vector2(600.0f / width, 600.0f / height);
+					sprite.duration = duration;
+					sprite.offset.x = offset.x / width;
+					sprite.offset.y = offset.y / height;
+
+					mSpineSprites.push_back(sprite);
+				}
+			}
+		}
+	}
+
+	void SpineAnimation::CreatePackAnim(std::wstring name, const std::wstring& atlasPath, float duration, Vector2 offset)
 	{
 		SetKey(name);
 
@@ -89,7 +164,7 @@ namespace Jun {
 				// filter
 				std::getline(file, line);
 			}
-			 
+
 
 			// Name
 			while (std::getline(file, line) && line != L"") {

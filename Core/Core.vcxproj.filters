@@ -47,6 +47,9 @@
     <ClCompile Include="StartState.cpp">
       <Filter>Contents\Script\StateMachine\Player</Filter>
     </ClCompile>
+    <ClCompile Include="DebugScene.cpp">
+      <Filter>Contents\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -100,6 +103,9 @@
     </ClInclude>
     <ClInclude Include="StartState.h">
       <Filter>Contents\Script\StateMachine\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugScene.h">
+      <Filter>Contents\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

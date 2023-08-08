@@ -3,10 +3,15 @@
 #include "Animator.h"
 #include "Renderer.h"
 #include "ConstantBuffer.h"
+#include "Resources.h"
 #include <fstream>
 
 namespace Jun
 {
+	bool IsPng(const std::wstring& wstrline);
+
+	std::wstring ExtractPath(const std::wstring filePath);
+
 	Animation::Animation()
 		: Resource(enums::eResourceType::Animation)
 		, mAtlas(nullptr)
@@ -78,54 +83,94 @@ namespace Jun
 
 	}
 
-	void Animation::CreateSpineAnim(std::wstring name, std::shared_ptr<graphics::Texture> atlas, const std::wstring& atlasPath, float duration)
+	void Animation::CreateSpineAnim(std::wstring name,
+		const std::wstring& atlasPath, float duration, Vector2 offset, bool isPack)
 	{
 		SetKey(name);
-		mAtlas = atlas;
-
-		
+		//mAtlas = atlas;
 
 		std::wifstream file(atlasPath);
 
 		assert(file.is_open());
 
-		float width = (float)atlas->GetWidth();
-		float height = (float)atlas->GetHeight();
+		float width = 0.f;
+		float height = 0.f;
 
 		std::wstring line;
-		for (int i = 0; i < 2; i++) {
-			std::getline(file, line);
-		}
+
+		std::wstring path = ExtractPath(atlasPath);
+
+		std::shared_ptr<Jun::Texture> curTexture = nullptr;
 
 		while (std::getline(file, line)) {
 
-			Sprite sprite = {};
-			sprite.atlasSize = Vector2(600.0f / width, 600.0f / height);
-			sprite.duration = duration;
+			if (IsPng(line)) {
 
-			// 1036 ~
-			std::getline(file, line);
+				std::wstring newPath = path + line;
+				std::wstring newKey = L"Spine_" + line + L"_Tex";
 
-			// bounds ~
-			std::getline(file, line);
-			std::wstringstream wss(line);
+				curTexture = Jun::Resources::Load<Texture>(newKey, newPath);
 
-			wchar_t dummy;
-			Vector2 bounds;
+				// Size
+				std::getline(file, line);
 
-			wss.ignore(7) >> sprite.leftTop.x >> dummy >> sprite.leftTop.y >> dummy >> sprite.size.x >> dummy >> sprite.size.y;
+				width = (float)curTexture->GetWidth();
+				height = (float)curTexture->GetHeight();
 
-			std::getline(file, line);
+				// filter
+				std::getline(file, line);
+			}
 
-			sprite.leftTop.x = sprite.leftTop.x / width;
-			sprite.leftTop.y = sprite.leftTop.y / height;
-			sprite.size.x = sprite.size.x / width;
-			sprite.size.y = sprite.size.y / height;
+			while (std::getline(file, line) && line != L"") {
 
-			mSprites.push_back(sprite);
+				Sprite sprite = {};
+
+				// Bounds
+				std::getline(file, line);
+				std::wstringstream wss(line);
+
+				wchar_t dummy;
+				Vector2 bounds;
+
+				wss.ignore(7) >> sprite.leftTop.x >> dummy >> sprite.leftTop.y >> dummy >> sprite.size.x >> dummy >> sprite.size.y;
+
+				std::getline(file, line);
+
+				float offsetX;
+				float offsetY;
+
+				float originSizeX;
+				float originSizeY;
+
+				{
+					std::wstringstream wss(line);
+					wss.ignore(8) >> offsetX >> dummy >> offsetY >> dummy >> originSizeX >> dummy >> originSizeY;
+				}
+
+				sprite.leftTop.x = sprite.leftTop.x / width;
+				sprite.leftTop.y = sprite.leftTop.y / height;
+				sprite.size.x = sprite.size.x / width;
+				sprite.size.y = sprite.size.y / height;
+
+				float realOffsetX = (originSizeX / width) - sprite.size.x - (offsetX / width);
+				float realOffsetY = (originSizeY / height) - sprite.size.y + (offsetY / height) - 0.06;
+
+				mAtlas = curTexture;
+				sprite.atlasSize = Vector2(1600.0f / width, 1600.0f / height);
+				sprite.duration = duration;
+
+				sprite.offset.x = 0;
+				sprite.offset.y = 0;
+
+				sprite.offset.x = -realOffsetX;
+				sprite.offset.y = realOffsetY;
+
+				mSprites.push_back(sprite);
+
+				// origin;
+				std::getline(file, line);
+			}
 		}
-
-		mSprites.pop_back();
 	}
 
 	void Animation::Binds()

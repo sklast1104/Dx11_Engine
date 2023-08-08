@@ -53,9 +53,10 @@ namespace Jun
 			, float duration = 0.0f);
 
 		void CreateSpineAnim(std::wstring name,
-			std::shared_ptr<graphics::Texture> atlas,
 			const std::wstring& atlasPath,
-			float duration = 0.0f);
+			float duration = 0.0f, 
+			Vector2 offset = Vector2::Zero,
+			bool isPack = false);
 
 		virtual void Binds();
 		virtual void Reset();
