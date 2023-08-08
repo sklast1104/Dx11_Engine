@@ -44,6 +44,9 @@
     <ClCompile Include="QuestMapScene.cpp">
       <Filter>Contents\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="StartState.cpp">
+      <Filter>Contents\Script\StateMachine\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -94,6 +97,9 @@
     </ClInclude>
     <ClInclude Include="QuestMapScene.h">
       <Filter>Contents\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="StartState.h">
+      <Filter>Contents\Script\StateMachine\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

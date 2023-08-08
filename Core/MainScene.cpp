@@ -55,6 +55,15 @@ namespace Jun {
 		title->GetComponent<Transform>()->SetPosition(Vector3(0, -0.83, 0.9f));
 		title->GetComponent<Transform>()->SetScale(Vector3(4.61f, 1.6f, 1.f) * 0.8f);
 
+		// Light
+		{
+			GameObject* light = new GameObject();
+			AddGameObject(eLayerType::Light, light);
+			Light* lightComp = light->AddComponent<Light>();
+			lightComp->SetType(eLightType::Directional);
+			lightComp->SetColor(Vector4(0.8f, 0.8f, 0.8f, 1.0f));
+		}
+
 		//UI Camera
 		{
 			GameObject* camera = new GameObject();

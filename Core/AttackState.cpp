@@ -5,7 +5,7 @@
 
 namespace Jun {
 
-	float delay = 0.8f;
+	float delay = 2.6f;
 	float elapsedTime = 0.f;
 
 	void AttackState::Enter()

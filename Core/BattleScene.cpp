@@ -6,6 +6,7 @@
 #include "SkeletonMecanim.h"
 #include "PlayerStateMachine.h"
 #include "Input.h"
+#include "Light.h"
 
 namespace Jun {
 
@@ -39,23 +40,129 @@ namespace Jun {
 
 		baseUI->GetComponent<Transform>()->SetScale(Vector3(12.9f, 7.25f, 1.f) * 0.5f);
 
-		GameObject* princess = object::Instantiate<GameObject>(Vector3(0.f, 0.f, 0.5f), eLayerType::UI);
+		// Light (나중에 지울것)
+		{
+			GameObject* light = new GameObject();
+			AddGameObject(eLayerType::Light, light);
+			Light* lightComp = light->AddComponent<Light>();
+			lightComp->SetType(eLightType::Directional);
+			lightComp->SetColor(Vector4(0.8f, 0.8f, 0.8f, 1.0f));
+		}
 
-		mr = princess->AddComponent<MeshRenderer>();
-		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+		// Princesses
+		{
+			Vector3 prinCessScale = { 1.f, 1.f, 1.f };
+			prinCessScale *= 2.1f;
 
-		SkeletonMecanim* anim = princess->AddComponent<SkeletonMecanim>();
-		anim->Create(L"Idle", L"..\\Resources\\Texture\\Spine\\Pecorinne\\Pecorinne_Idle.atlas", 0.04f);
-		anim->Create(L"Attack", L"..\\Resources\\Texture\\Spine\\Pecorinne\\Pecorinne_Attack.atlas", 0.025f, Vector2(0, 35.f));
-		anim->Create(L"Walk", L"..\\Resources\\Texture\\Spine\\Pecorinne\\walk\\Pecorinne_walk.atlas", 0.03f);
+			Vector3 posOffset = { 0.f, 0.1f, 0.f };
 
-		princess->AddComponent<PlayerStateMachine>();
+			{
+				GameObject* pecorinne = object::Instantiate<GameObject>(Vector3(0.f, 0.2f, 0.5f) + posOffset, eLayerType::UI);
 
-		//anim->PlayAnimation(L"Idle", true);
+				mr = pecorinne->AddComponent<MeshRenderer>();
+				mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+				mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
 
-		princess->GetComponent<Transform>()->SetScale(Vector3(1.f, 1.f, 1.f) * 2.f);
-		princess->AddComponent<Collider2D>();
+				SkeletonMecanim* anim = pecorinne->AddComponent<SkeletonMecanim>();
+				anim->Create(L"Idle", L"..\\Resources\\Texture\\Spine\\Pecorinne\\Peco_Idle.atlas", 0.04f);
+				anim->Create(L"Attack", L"..\\Resources\\Texture\\Spine\\Pecorinne\\Peco_Attack.atlas", 0.025f, Vector2(0, 35.f));
+				anim->Create(L"Run", L"..\\Resources\\Texture\\Spine\\Pecorinne\\Peco_Run.atlas", 0.03f, Vector2(0, 45.f));
+				anim->Create(L"Damage", L"..\\Resources\\Texture\\Spine\\Pecorinne\\Peco_Damage.atlas", 0.03f, Vector2(0, 0));
+				anim->Create(L"JoyResult", L"..\\Resources\\Texture\\Spine\\Pecorinne\\Peco_JoyResult.atlas", 0.03f, Vector2(0, 0));
+				anim->Create(L"RunGS", L"..\\Resources\\Texture\\Spine\\Pecorinne\\Peco_RunGS.atlas", 0.03f, Vector2(0, 0));
+				anim->Create(L"StandBy", L"..\\Resources\\Texture\\Spine\\Pecorinne\\Peco_StandBy.atlas", 0.03f, Vector2(0, 0));
+
+				pecorinne->AddComponent<PlayerStateMachine>();
+
+				pecorinne->GetComponent<Transform>()->SetScale(prinCessScale);
+			}
+
+			{
+				GameObject* saren = object::Instantiate<GameObject>(Vector3(-0.3f, 0.f, 0.4f) + posOffset, eLayerType::UI);
+
+				mr = saren->AddComponent<MeshRenderer>();
+				mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+				mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+
+				SkeletonMecanim* anim = saren->AddComponent<SkeletonMecanim>();
+				anim->Create(L"Idle", L"..\\Resources\\Texture\\Spine\\Saren\\Saren_Idle.atlas", 0.04f);
+				anim->Create(L"Attack", L"..\\Resources\\Texture\\Spine\\Saren\\Saren_Attack.atlas", 0.025f, Vector2(0, 35.f));
+				anim->Create(L"Run", L"..\\Resources\\Texture\\Spine\\Saren\\Saren_Run.atlas", 0.03f, Vector2(0, 45.f));
+				anim->Create(L"Damage", L"..\\Resources\\Texture\\Spine\\Saren\\Saren_Damage.atlas", 0.03f, Vector2(0, 0.f));
+				anim->Create(L"JoyResult", L"..\\Resources\\Texture\\Spine\\Saren\\Saren_JoyResult.atlas", 0.03f, Vector2(0, 0.f));
+				anim->Create(L"RunGS", L"..\\Resources\\Texture\\Spine\\Saren\\Saren_RunGS.atlas", 0.03f, Vector2(0, 0.f));
+				anim->Create(L"StandBy", L"..\\Resources\\Texture\\Spine\\Saren\\Saren_StandBy.atlas", 0.03f, Vector2(0, 0.f));
+
+				saren->AddComponent<PlayerStateMachine>();
+
+				saren->GetComponent<Transform>()->SetScale(prinCessScale);
+			}
+
+			{
+				GameObject* kotkoro = object::Instantiate<GameObject>(Vector3(-0.6f, 0.4f, 0.5f) + posOffset, eLayerType::UI);
+
+				mr = kotkoro->AddComponent<MeshRenderer>();
+				mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+				mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+
+				SkeletonMecanim* anim = kotkoro->AddComponent<SkeletonMecanim>();
+				anim->Create(L"Idle", L"..\\Resources\\Texture\\Spine\\Kotkoro\\Kokoro_Idle.atlas", 0.04f);
+				anim->Create(L"Attack", L"..\\Resources\\Texture\\Spine\\Kotkoro\\Kokoro_Attack.atlas", 0.025f, Vector2(0, 35.f));
+				anim->Create(L"Run", L"..\\Resources\\Texture\\Spine\\Kotkoro\\Kokoro_Run.atlas", 0.03f, Vector2(0, 45.f));
+				anim->Create(L"Damage", L"..\\Resources\\Texture\\Spine\\Kotkoro\\Kokoro_Damage.atlas", 0.03f, Vector2(0, 0.f));
+				anim->Create(L"JoyResult", L"..\\Resources\\Texture\\Spine\\Kotkoro\\Kokoro_JoyResult.atlas", 0.03f, Vector2(0, 0.f));
+				anim->Create(L"RunGS", L"..\\Resources\\Texture\\Spine\\Kotkoro\\Kokoro_RunGS.atlas", 0.03f, Vector2(0, 0.f));
+				anim->Create(L"StandBy", L"..\\Resources\\Texture\\Spine\\Kotkoro\\Kokoro_Stanby.atlas", 0.03f, Vector2(0, 0.f));
+
+				kotkoro->AddComponent<PlayerStateMachine>();
+
+				kotkoro->GetComponent<Transform>()->SetScale(prinCessScale);
+			}
+			
+			{
+				GameObject* kyouka = object::Instantiate<GameObject>(Vector3(-0.9f, 0.0f, 0.4f) + posOffset, eLayerType::UI);
+
+				mr = kyouka->AddComponent<MeshRenderer>();
+				mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+				mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+
+				SkeletonMecanim* anim = kyouka->AddComponent<SkeletonMecanim>();
+				anim->Create(L"Idle", L"..\\Resources\\Texture\\Spine\\Kyouka\\Kyouka_Idle.atlas", 0.04f);
+				anim->Create(L"Attack", L"..\\Resources\\Texture\\Spine\\Kyouka\\Kyouka_Attack.atlas", 0.025f, Vector2(0, 35.f));
+				anim->Create(L"Run", L"..\\Resources\\Texture\\Spine\\Kyouka\\Kyouka_Run.atlas", 0.03f, Vector2(0, 45.f));
+				anim->Create(L"Damage", L"..\\Resources\\Texture\\Spine\\Kyouka\\Kyouka_Damage.atlas", 0.03f, Vector2(0, 0.f));
+				anim->Create(L"JoyResult", L"..\\Resources\\Texture\\Spine\\Kyouka\\Kyouka_JoyResult.atlas", 0.03f, Vector2(0, 0.f));
+				anim->Create(L"RunGS", L"..\\Resources\\Texture\\Spine\\Kyouka\\Kyouka_RunGS.atlas", 0.03f, Vector2(0, 0.f));
+				anim->Create(L"StandBy", L"..\\Resources\\Texture\\Spine\\Kyouka\\Kyouka_StandBy.atlas", 0.03f, Vector2(0, 0.f));
+
+				kyouka->AddComponent<PlayerStateMachine>();
+
+				kyouka->GetComponent<Transform>()->SetScale(prinCessScale);
+			}
+
+			{
+				GameObject* kyaru = object::Instantiate<GameObject>(Vector3(-1.2f, 0.2f, 0.5f) + posOffset, eLayerType::UI);
+
+				mr = kyaru->AddComponent<MeshRenderer>();
+				mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+				mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+
+				SkeletonMecanim* anim = kyaru->AddComponent<SkeletonMecanim>();
+				anim->Create(L"Idle", L"..\\Resources\\Texture\\Spine\\Kyaru\\Kyaru_idle.atlas", 0.04f);
+				anim->Create(L"Attack", L"..\\Resources\\Texture\\Spine\\Kyaru\\Kyaru_Attack.atlas", 0.025f, Vector2(0, 35.f));
+				anim->Create(L"Run", L"..\\Resources\\Texture\\Spine\\Kyaru\\Kyaru_Run.atlas", 0.03f, Vector2(0, 45.f));
+				anim->Create(L"Damage", L"..\\Resources\\Texture\\Spine\\Kyaru\\Kyaru_Run.atlas", 0.03f, Vector2(0, 0.f));
+				anim->Create(L"JoyResult", L"..\\Resources\\Texture\\Spine\\Kyaru\\Kyaru_Joy.atlas", 0.03f, Vector2(0, 0.f));
+				anim->Create(L"RunGS", L"..\\Resources\\Texture\\Spine\\Kyaru\\Kyaru_RunGS.atlas", 0.03f, Vector2(0, 0.f));
+				anim->Create(L"StandBy", L"..\\Resources\\Texture\\Spine\\Kyaru\\Kyaru_StanBy.atlas", 0.03f, Vector2(0, 0.f));
+
+				kyaru->AddComponent<PlayerStateMachine>();
+
+				kyaru->GetComponent<Transform>()->SetScale(prinCessScale);
+			}
+
+		}
+
 
 		{
 			GameObject* camera = new GameObject();

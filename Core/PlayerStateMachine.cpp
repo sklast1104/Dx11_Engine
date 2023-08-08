@@ -2,6 +2,7 @@
 #include "IdleState.h"
 #include "MoveState.h"
 #include "AttackState.h"
+#include "StartState.h"
 
 namespace Jun {
 
@@ -26,8 +27,10 @@ namespace Jun {
 		stateMap[L"AttackState"] = std::make_shared<AttackState>();
 		stateMap[L"AttackState"].get()->owner = GetOwner();
 
+		stateMap[L"StartState"] = std::make_shared<StartState>();
+		stateMap[L"StartState"].get()->owner = GetOwner();
 
-		currentState = stateMap[L"IdleState"].get();
+		currentState = stateMap[L"StartState"].get();
 		currentState->Enter();
 
 	}
