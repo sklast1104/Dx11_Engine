@@ -19,10 +19,10 @@ namespace Jun {
         if (nullptr != animation)
             return;
 
-        animation = new Animation();
+        animation = new SpineAnimation();
         animation->SetKey(name);
 
-        animation->CreateSpineAnim(name, atlasPath, duration, offset, true);
+        animation->CreateSpineAnim(name, atlasPath, duration, offset, false);
 
         mAnimations.insert(std::make_pair(name, animation));
 

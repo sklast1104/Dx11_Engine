@@ -152,7 +152,6 @@
     <ClInclude Include="AttackState.h" />
     <ClInclude Include="BattleScene.h" />
     <ClInclude Include="CameraScript.h" />
-    <ClInclude Include="DebugScene.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="GridScript.h" />
     <ClInclude Include="IdleState.h" />
@@ -174,7 +173,6 @@
     <ClCompile Include="BattleScene.cpp" />
     <ClCompile Include="CameraScript.cpp" />
     <ClCompile Include="Core.cpp" />
-    <ClCompile Include="DebugScene.cpp" />
     <ClCompile Include="GridScript.cpp" />
     <ClCompile Include="IdleState.cpp" />
     <ClCompile Include="MainScene.cpp" />

@@ -17,7 +17,7 @@ namespace Jun {
 			, Vector2 offset = Vector2::Zero
 			, float duration = 0.1f) {};
 
-		void Create(const std::wstring& name,
+		virtual void Create(const std::wstring& name,
 			const std::wstring& atlasPath,
 			float duration = 0.1f,
 			Vector2 offset = Vector2::Zero);
