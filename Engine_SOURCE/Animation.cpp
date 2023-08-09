@@ -152,8 +152,8 @@ namespace Jun
 				sprite.size.x = sprite.size.x / width;
 				sprite.size.y = sprite.size.y / height;
 
-				float realOffsetX = (originSizeX / width) - sprite.size.x - (offsetX / width);
-				float realOffsetY = (originSizeY / height) - sprite.size.y + (offsetY / height) - 0.06;
+				float realOffsetX = (originSizeX / width) - sprite.size.x - (offsetX / width) + (offset.x / width);
+				float realOffsetY = (originSizeY / height) - sprite.size.y + (offsetY / height) - 0.06 + (offset.y / height);
 
 				mAtlas = curTexture;
 				sprite.atlasSize = Vector2(1600.0f / width, 1600.0f / height);

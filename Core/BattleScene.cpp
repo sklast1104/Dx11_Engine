@@ -10,8 +10,6 @@
 
 namespace Jun {
 
-
-
 	BattleScene::BattleScene()
 	{
 	}
@@ -56,6 +54,8 @@ namespace Jun {
 
 			Vector3 posOffset = { 0.f, 0.1f, 0.f };
 
+			float runGSFrame = 0.035;
+
 			{
 				GameObject* pecorinne = object::Instantiate<GameObject>(Vector3(0.f, 0.2f, 0.5f) + posOffset, eLayerType::UI);
 
@@ -67,10 +67,10 @@ namespace Jun {
 				anim->Create(L"Idle", L"..\\Resources\\Texture\\Spine\\Pecorinne\\Peco_Idle.atlas", 0.04f);
 				anim->Create(L"Attack", L"..\\Resources\\Texture\\Spine\\Pecorinne\\Peco_Attack.atlas", 0.025f, Vector2(0, 35.f));
 				anim->Create(L"Run", L"..\\Resources\\Texture\\Spine\\Pecorinne\\Peco_Run.atlas", 0.03f, Vector2(0, 45.f));
-				anim->Create(L"Damage", L"..\\Resources\\Texture\\Spine\\Pecorinne\\Peco_Damage.atlas", 0.03f, Vector2(0, 0));
+				anim->Create(L"Damage", L"..\\Resources\\Texture\\Spine\\Pecorinne\\Peco_Damage.atlas", 0.03f, Vector2(0, -15));
 				anim->Create(L"JoyResult", L"..\\Resources\\Texture\\Spine\\Pecorinne\\Peco_JoyResult.atlas", 0.03f, Vector2(0, 0));
-				anim->Create(L"RunGS", L"..\\Resources\\Texture\\Spine\\Pecorinne\\Peco_RunGS.atlas", 0.03f, Vector2(0, 0));
-				anim->Create(L"StandBy", L"..\\Resources\\Texture\\Spine\\Pecorinne\\Peco_StandBy.atlas", 0.03f, Vector2(0, 0));
+				anim->Create(L"RunGS", L"..\\Resources\\Texture\\Spine\\Pecorinne\\Peco_RunGS.atlas", runGSFrame, Vector2(0, 30));
+				anim->Create(L"StandBy", L"..\\Resources\\Texture\\Spine\\Pecorinne\\Peco_StandBy.atlas", 0.03f, Vector2(0, 65));
 
 				pecorinne->AddComponent<PlayerStateMachine>();
 
@@ -89,9 +89,9 @@ namespace Jun {
 				anim->Create(L"Attack", L"..\\Resources\\Texture\\Spine\\Saren\\Saren_Attack.atlas", 0.025f, Vector2(0, 35.f));
 				anim->Create(L"Run", L"..\\Resources\\Texture\\Spine\\Saren\\Saren_Run.atlas", 0.03f, Vector2(0, 45.f));
 				anim->Create(L"Damage", L"..\\Resources\\Texture\\Spine\\Saren\\Saren_Damage.atlas", 0.03f, Vector2(0, 0.f));
-				anim->Create(L"JoyResult", L"..\\Resources\\Texture\\Spine\\Saren\\Saren_JoyResult.atlas", 0.03f, Vector2(0, 0.f));
-				anim->Create(L"RunGS", L"..\\Resources\\Texture\\Spine\\Saren\\Saren_RunGS.atlas", 0.03f, Vector2(0, 0.f));
-				anim->Create(L"StandBy", L"..\\Resources\\Texture\\Spine\\Saren\\Saren_StandBy.atlas", 0.03f, Vector2(0, 0.f));
+				anim->Create(L"JoyResult", L"..\\Resources\\Texture\\Spine\\Saren\\Saren_JoyResult.atlas", 0.03f, Vector2(0, 40.f));
+				anim->Create(L"RunGS", L"..\\Resources\\Texture\\Spine\\Saren\\Saren_RunGS.atlas", runGSFrame, Vector2(0, 70.f));
+				anim->Create(L"StandBy", L"..\\Resources\\Texture\\Spine\\Saren\\Saren_StandBy.atlas", 0.03f, Vector2(0, -5.f));
 
 				saren->AddComponent<PlayerStateMachine>();
 
@@ -107,12 +107,12 @@ namespace Jun {
 
 				SkeletonMecanim* anim = kotkoro->AddComponent<SkeletonMecanim>();
 				anim->Create(L"Idle", L"..\\Resources\\Texture\\Spine\\Kotkoro\\Kokoro_Idle.atlas", 0.04f);
-				anim->Create(L"Attack", L"..\\Resources\\Texture\\Spine\\Kotkoro\\Kokoro_Attack.atlas", 0.025f, Vector2(0, 35.f));
-				anim->Create(L"Run", L"..\\Resources\\Texture\\Spine\\Kotkoro\\Kokoro_Run.atlas", 0.03f, Vector2(0, 45.f));
-				anim->Create(L"Damage", L"..\\Resources\\Texture\\Spine\\Kotkoro\\Kokoro_Damage.atlas", 0.03f, Vector2(0, 0.f));
+				anim->Create(L"Attack", L"..\\Resources\\Texture\\Spine\\Kotkoro\\Kokoro_Attack.atlas", 0.025f, Vector2(0, 15.f));
+				anim->Create(L"Run", L"..\\Resources\\Texture\\Spine\\Kotkoro\\Kokoro_Run.atlas", 0.03f, Vector2(0, 27.f));
+				anim->Create(L"Damage", L"..\\Resources\\Texture\\Spine\\Kotkoro\\Kokoro_Damage.atlas", 0.03f, Vector2(0, 10.f));
 				anim->Create(L"JoyResult", L"..\\Resources\\Texture\\Spine\\Kotkoro\\Kokoro_JoyResult.atlas", 0.03f, Vector2(0, 0.f));
-				anim->Create(L"RunGS", L"..\\Resources\\Texture\\Spine\\Kotkoro\\Kokoro_RunGS.atlas", 0.03f, Vector2(0, 0.f));
-				anim->Create(L"StandBy", L"..\\Resources\\Texture\\Spine\\Kotkoro\\Kokoro_Stanby.atlas", 0.03f, Vector2(0, 0.f));
+				anim->Create(L"RunGS", L"..\\Resources\\Texture\\Spine\\Kotkoro\\Kokoro_RunGS.atlas", runGSFrame, Vector2(0, -5.f));
+				anim->Create(L"StandBy", L"..\\Resources\\Texture\\Spine\\Kotkoro\\Kokoro_Stanby.atlas", 0.03f, Vector2(0, -35.f));
 
 				kotkoro->AddComponent<PlayerStateMachine>();
 
@@ -128,12 +128,12 @@ namespace Jun {
 
 				SkeletonMecanim* anim = kyouka->AddComponent<SkeletonMecanim>();
 				anim->Create(L"Idle", L"..\\Resources\\Texture\\Spine\\Kyouka\\Kyouka_Idle.atlas", 0.04f);
-				anim->Create(L"Attack", L"..\\Resources\\Texture\\Spine\\Kyouka\\Kyouka_Attack.atlas", 0.025f, Vector2(0, 35.f));
-				anim->Create(L"Run", L"..\\Resources\\Texture\\Spine\\Kyouka\\Kyouka_Run.atlas", 0.03f, Vector2(0, 45.f));
+				anim->Create(L"Attack", L"..\\Resources\\Texture\\Spine\\Kyouka\\Kyouka_Attack.atlas", 0.025f, Vector2(0, 25.f));
+				anim->Create(L"Run", L"..\\Resources\\Texture\\Spine\\Kyouka\\Kyouka_Run.atlas", 0.03f, Vector2(0, 50.f));
 				anim->Create(L"Damage", L"..\\Resources\\Texture\\Spine\\Kyouka\\Kyouka_Damage.atlas", 0.03f, Vector2(0, 0.f));
-				anim->Create(L"JoyResult", L"..\\Resources\\Texture\\Spine\\Kyouka\\Kyouka_JoyResult.atlas", 0.03f, Vector2(0, 0.f));
-				anim->Create(L"RunGS", L"..\\Resources\\Texture\\Spine\\Kyouka\\Kyouka_RunGS.atlas", 0.03f, Vector2(0, 0.f));
-				anim->Create(L"StandBy", L"..\\Resources\\Texture\\Spine\\Kyouka\\Kyouka_StandBy.atlas", 0.03f, Vector2(0, 0.f));
+				anim->Create(L"JoyResult", L"..\\Resources\\Texture\\Spine\\Kyouka\\Kyouka_JoyResult.atlas", 0.03f, Vector2(0, -25.f));
+				anim->Create(L"RunGS", L"..\\Resources\\Texture\\Spine\\Kyouka\\Kyouka_RunGS.atlas", runGSFrame, Vector2(0, 95.f));
+				anim->Create(L"StandBy", L"..\\Resources\\Texture\\Spine\\Kyouka\\Kyouka_StandBy.atlas", 0.03f, Vector2(0, 40.f));
 
 				kyouka->AddComponent<PlayerStateMachine>();
 
@@ -149,12 +149,12 @@ namespace Jun {
 
 				SkeletonMecanim* anim = kyaru->AddComponent<SkeletonMecanim>();
 				anim->Create(L"Idle", L"..\\Resources\\Texture\\Spine\\Kyaru\\Kyaru_idle.atlas", 0.04f);
-				anim->Create(L"Attack", L"..\\Resources\\Texture\\Spine\\Kyaru\\Kyaru_Attack.atlas", 0.025f, Vector2(0, 35.f));
+				anim->Create(L"Attack", L"..\\Resources\\Texture\\Spine\\Kyaru\\Kyaru_Attack.atlas", 0.025f, Vector2(0, 25.f));
 				anim->Create(L"Run", L"..\\Resources\\Texture\\Spine\\Kyaru\\Kyaru_Run.atlas", 0.03f, Vector2(0, 45.f));
-				anim->Create(L"Damage", L"..\\Resources\\Texture\\Spine\\Kyaru\\Kyaru_Run.atlas", 0.03f, Vector2(0, 0.f));
-				anim->Create(L"JoyResult", L"..\\Resources\\Texture\\Spine\\Kyaru\\Kyaru_Joy.atlas", 0.03f, Vector2(0, 0.f));
-				anim->Create(L"RunGS", L"..\\Resources\\Texture\\Spine\\Kyaru\\Kyaru_RunGS.atlas", 0.03f, Vector2(0, 0.f));
-				anim->Create(L"StandBy", L"..\\Resources\\Texture\\Spine\\Kyaru\\Kyaru_StanBy.atlas", 0.03f, Vector2(0, 0.f));
+				anim->Create(L"Damage", L"..\\Resources\\Texture\\Spine\\Kyaru\\Kyaru_Damage.atlas", 0.03f, Vector2(0, -10.f));
+				anim->Create(L"JoyResult", L"..\\Resources\\Texture\\Spine\\Kyaru\\Kyaru_Joy.atlas", 0.03f, Vector2(0, 20.f));
+				anim->Create(L"RunGS", L"..\\Resources\\Texture\\Spine\\Kyaru\\Kyaru_RunGS.atlas", runGSFrame, Vector2(0, 90.f));
+				anim->Create(L"StandBy", L"..\\Resources\\Texture\\Spine\\Kyaru\\Kyaru_StanBy.atlas", 0.03f, Vector2(0, 30.f));
 
 				kyaru->AddComponent<PlayerStateMachine>();
 

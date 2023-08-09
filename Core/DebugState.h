@@ -3,21 +3,14 @@
 
 namespace Jun {
 
-	class StartState : public State 
+	class DebugState : public State
 	{
-
-	private :
-		class Transform* ownerTransform;
-		float elapsedTime;
-
 	public :
 
 		virtual void Enter() override;
 		virtual void Update() override;
 		virtual void Exit() override;
-
 	};
-
 }
 
 
