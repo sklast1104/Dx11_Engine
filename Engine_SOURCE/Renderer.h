@@ -46,13 +46,19 @@ namespace renderer
 	{
 		UINT elementCount;
 		float elpasedTime;
-		int padd;
+		float deltaTime;
 		int padd2;
+	};
+
+	CBUFFER(NoiseCB, CBSLOT_NOISE)
+	{
+		Vector4 size;
 	};
 
 	CBUFFER(SpriteCB, CBSLOT_SPRITE)
 	{
 		Vector4 color;
+		float hpPercent;
 	};
 
 	CBUFFER(FaderCB, CBSLOT_FADER)

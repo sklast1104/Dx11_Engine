@@ -18,7 +18,7 @@ namespace Jun {
 
 	void InitializeScenes() {
 
-		SceneManager::CreateScene<PlayScene>(L"PlayScene");
+		
 
 		SceneManager::CreateScene<MenuScene>(L"MenuScene");
 
@@ -33,5 +33,7 @@ namespace Jun {
 		SceneManager::CreateScene<MainScene>(L"MainScene");
 
 		//SceneManager::CreateScene<DebugScene>(L"DebugScene");
+
+		SceneManager::CreateScene<PlayScene>(L"PlayScene");
 	}
 }

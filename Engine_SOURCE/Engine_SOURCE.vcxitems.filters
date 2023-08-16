@@ -243,6 +243,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)FaderMaterial.h">
       <Filter>Resource\Material</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)HpBarMaterial.h">
+      <Filter>Resource\Material</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)MyMath.cpp">
@@ -357,6 +360,9 @@
       <Filter>Resource\Shader\CS</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)FaderMaterial.cpp">
+      <Filter>Resource\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)HpBarMaterial.cpp">
       <Filter>Resource\Material</Filter>
     </ClCompile>
   </ItemGroup>

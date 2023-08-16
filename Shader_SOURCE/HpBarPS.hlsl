@@ -23,7 +23,7 @@ float4 main(VSOut In) : SV_TARGET
     color = albedoTexture.Sample(anisotropicSampler, In.UV);
     float alpha;
     
-    if (In.UV.x > 0.8)
+    if (In.UV.x > hpPercent)
     {
         alpha = 1;
     }
