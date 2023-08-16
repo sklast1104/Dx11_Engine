@@ -3,6 +3,7 @@
 #include "MonsterStateMachine.h"
 #include "Transform.h"
 #include "StageManager.h"
+#include "BattleManager.h"
 
 namespace Jun {
 
@@ -71,6 +72,7 @@ namespace Jun {
 		float closestDist = 100.f;
 
 		//auto monsters = FindObjectsOfType<MonsterStateMachine>();
+		stageManager = FindObjectOfType<StageManager>();
 		std::vector<GameObject*> monsters = stageManager->GetCurrentStageMon();
 
 		for (auto mon : monsters) {

@@ -1,6 +1,9 @@
 #pragma once
 #include "State.h"
-#include "BattleManager.h"
+
+namespace Jun {
+	class BattleManager;
+}
 
 namespace Jun::PlayerState {
 
@@ -9,7 +12,7 @@ namespace Jun::PlayerState {
 	private :
 		float delay;
 		float elapsedTime;
-		BattleManager* manager;
+		Jun::BattleManager* manager;
 
 		bool canAttack;
 

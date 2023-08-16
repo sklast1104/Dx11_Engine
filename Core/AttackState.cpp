@@ -4,6 +4,7 @@
 #include "PlayerStateMachine.h"
 #include "MonsterStateMachine.h"
 #include "Health.h"
+#include "BattleManager.h"
 
 #include <iostream>
 

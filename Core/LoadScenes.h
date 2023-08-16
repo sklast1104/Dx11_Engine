@@ -21,17 +21,16 @@ namespace Jun {
 		SceneManager::CreateScene<PlayScene>(L"PlayScene");
 
 		SceneManager::CreateScene<MenuScene>(L"MenuScene");
+
 		SceneManager::CreateScene<QuestScene>(L"QuestScene");
-		//
+		
 		SceneManager::CreateScene<QuestMapScene>(L"QuestMapScene");
 
 		
 
-		
+		SceneManager::CreateScene <BattleScene>(L"BattleScene");
 
 		SceneManager::CreateScene<MainScene>(L"MainScene");
-
-		SceneManager::CreateScene <BattleScene>(L"BattleScene");
 
 		//SceneManager::CreateScene<DebugScene>(L"DebugScene");
 	}

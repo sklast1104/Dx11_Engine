@@ -65,6 +65,7 @@ namespace Jun {
 
 	void Scene::OnEnter()
 	{
+		Start();
 	}
 
 	void Scene::OnExit()
