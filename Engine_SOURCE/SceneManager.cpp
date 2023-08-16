@@ -7,7 +7,11 @@ namespace Jun
 
 	void SceneManager::Initialize()
 	{
-
+		//mActiveScene->Initialize();
+	}
+	void SceneManager::Start()
+	{
+		mActiveScene->Start();
 	}
 	void SceneManager::Update()
 	{

@@ -6,6 +6,7 @@
 #include "StructedBuffer.h"
 #include "PaintShader.h"
 #include "ParticleShader.h"
+#include "FaderMaterial.h"
 
 namespace renderer
 {
@@ -81,6 +82,16 @@ namespace renderer
 			, shader->GetInputLayoutAddressOf());
 
 		shader = Jun::Resources::Find<Shader>(L"VideoShader");
+		Jun::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
+			, shader->GetVSCode()
+			, shader->GetInputLayoutAddressOf());
+
+		shader = Jun::Resources::Find<Shader>(L"FaderShader");
+		Jun::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
+			, shader->GetVSCode()
+			, shader->GetInputLayoutAddressOf());
+
+		shader = Jun::Resources::Find<Shader>(L"HpBarShader");
 		Jun::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
 			, shader->GetVSCode()
 			, shader->GetInputLayoutAddressOf());
@@ -330,6 +341,14 @@ namespace renderer
 		constantBuffer[(UINT)eCBType::Particle] = new ConstantBuffer(eCBType::Particle);
 		constantBuffer[(UINT)eCBType::Particle]->Create(sizeof(ParticleCB));
 
+		//SpriteCB
+		constantBuffer[(UINT)eCBType::Sprite] = new ConstantBuffer(eCBType::Sprite);
+		constantBuffer[(UINT)eCBType::Sprite]->Create(sizeof(SpriteCB));
+
+		//FaderCB
+		constantBuffer[(UINT)eCBType::Fader] = new ConstantBuffer(eCBType::Fader);
+		constantBuffer[(UINT)eCBType::Fader]->Create(sizeof(FaderCB));
+
 		// light structed buffer
 		lightsBuffer = new StructedBuffer();
 		lightsBuffer->Create(sizeof(LightAttribute), 2, eViewType::SRV, nullptr, true);
@@ -370,6 +389,16 @@ namespace renderer
 		videoShader->Create(eShaderStage::PS, L"VideoPS.hlsl", "main");
 		Jun::Resources::Insert(L"VideoShader", videoShader);
 
+		std::shared_ptr<Shader> faderShader = std::make_shared<Shader>();
+		faderShader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
+		faderShader->Create(eShaderStage::PS, L"FaderPS.hlsl", "main");
+		Jun::Resources::Insert(L"FaderShader", faderShader);
+
+		std::shared_ptr<Shader> hpBarShader = std::make_shared<Shader>();
+		hpBarShader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
+		hpBarShader->Create(eShaderStage::PS, L"HpBarPS.hlsl", "main");
+		Jun::Resources::Insert(L"HpBarShader", hpBarShader);
+
 		std::shared_ptr<PaintShader> paintShader = std::make_shared<PaintShader>();
 		paintShader->Create(L"PaintCS.hlsl", "main");
 		Jun::Resources::Insert(L"PaintShader", paintShader);
@@ -393,6 +422,9 @@ namespace renderer
 
 		std::shared_ptr<Shader> spriteShader
 			= Resources::Find<Shader>(L"SpriteShader");
+
+		std::shared_ptr<Shader> faderShader
+			= Resources::Find<Shader>(L"FaderShader");
 
 		std::shared_ptr<RenderTexture> renderTexture = std::make_shared<RenderTexture>();
 		renderTexture->SetSlotNum(1);
@@ -419,6 +451,12 @@ namespace renderer
 		material->SetTexture(texture);
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		Resources::Insert(L"Title_Material", material);
+
+		material = std::make_shared<FaderMaterial>();
+		material->SetShader(faderShader);
+		material->SetTexture(nullptr);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert(L"Fader_Material", material);
 	}
 
 	void LoadMenuRes() {
@@ -514,6 +552,31 @@ namespace renderer
 		
 		Resources::Insert(L"Battle_BattleBaseUI_Material", material);
 
+		texture = Resources::Load<Texture>(L"Battle_HpUI_Tex", L"..\\Resources\\Texture\\Battle\\HpUI.png");
+		material = std::make_shared<Material>();
+		material->SetShader(spriteShader);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+
+		Resources::Insert(L"Battle_HpUI_Material", material);
+
+		texture = Resources::Load<Texture>(L"Battle_HpVal_Tex", L"..\\Resources\\Texture\\Battle\\HpVal.png");
+		material = std::make_shared<Material>();
+		material->SetShader(spriteShader);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+
+		Resources::Insert(L"Battle_HpVal_Material", material);
+
+		std::shared_ptr<Shader> hpBarSahder
+			= Resources::Find<Shader>(L"HpBarShader");
+
+		material = std::make_shared<Material>();
+		material->SetShader(hpBarSahder);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+
+		Resources::Insert(L"Battle_HpValTest_Material", material);
 	}
 
 	void LoadTexture() {

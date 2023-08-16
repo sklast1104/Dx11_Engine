@@ -17,6 +17,10 @@ namespace Jun {
 	{
 	}
 
+	void Script::Start()
+	{
+	}
+
 	void Script::Update()
 	{
 	}

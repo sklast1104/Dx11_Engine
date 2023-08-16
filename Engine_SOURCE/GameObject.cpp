@@ -30,6 +30,13 @@ namespace Jun
 			delete script;
 			script = nullptr;
 		}
+
+		for (GameObject* child : childObjects) {
+			delete child;
+			child = nullptr;
+		}
+
+		childObjects.clear();
 	}
 
 	void GameObject::Initialize()
@@ -37,8 +44,29 @@ namespace Jun
 
 	}
 
+	void GameObject::Start()
+	{
+		if (mState == eState::Dead) return;
+
+		for (Component* comp : mComponents)
+		{
+			comp->Start();
+		}
+
+		for (Script* script : mScripts)
+		{
+			script->Start();
+		}
+
+		for (GameObject* child : childObjects) {
+			child->Start();
+		}
+	}
+
 	void GameObject::Update()
 	{
+		if (mState == eState::Dead) return;
+
 		for (Component* comp : mComponents)
 		{
 			comp->Update();
@@ -48,10 +76,16 @@ namespace Jun
 		{
 			script->Update();
 		}
+
+		for (GameObject* child : childObjects) {
+			child->Update();
+		}
 	}
 
 	void GameObject::LateUpdate()
 	{
+		if (mState == eState::Dead) return;
+
 		for (Component* comp : mComponents)
 		{
 			comp->LateUpdate();
@@ -61,10 +95,16 @@ namespace Jun
 		{
 			script->LateUpdate();
 		}
+
+		for (GameObject* child : childObjects) {
+			child->LateUpdate();
+		}
 	}
 
 	void GameObject::Render()
 	{
+		if (mState == eState::Dead) return;
+
 		for (Component* comp : mComponents)
 		{
 			comp->Render();
@@ -75,5 +115,36 @@ namespace Jun
 		{
 			script->Render();
 		}
+
+		for (GameObject* child : childObjects) {
+			child->Render();
+		}
+	}
+	void GameObject::SetState(eState state)
+	{
+		mState = state;
+
+		if (mState == eState::Dead) {
+		
+			for (auto child : childObjects) {
+				child->SetState(state);
+			}
+
+		}
+		else if (mState == eState::Active) {
+
+			for (auto child : childObjects) {
+				child->SetState(state);
+			}
+
+		}
+	}
+	void GameObject::AddChild(GameObject* _child)
+	{
+		if (mState == eState::Dead) _child->SetState(eState::Dead);
+
+		_child->parent = this;
+		_child->GetComponent<Transform>()->SetParent(GetComponent<Transform>());
+		childObjects.push_back(_child);
 	}
 }

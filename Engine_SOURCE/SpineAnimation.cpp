@@ -112,10 +112,12 @@ namespace Jun {
 
 					std::getline(file, line);
 
-					sprite.leftTop.x = sprite.leftTop.x / width;
-					sprite.leftTop.y = sprite.leftTop.y / height;
-					sprite.size.x = sprite.size.x / width;
-					sprite.size.y = sprite.size.y / height;
+					float scale = 1.f;
+
+					sprite.leftTop.x = sprite.leftTop.x / width * scale;
+					sprite.leftTop.y = sprite.leftTop.y / height * scale;
+					sprite.size.x = sprite.size.x / width * scale;
+					sprite.size.y = sprite.size.y / height * scale;
 
 					sprite.texture = curTexture;
 					sprite.atlasSize = Vector2(600.0f / width, 600.0f / height);
@@ -182,6 +184,28 @@ namespace Jun {
 
 				std::getline(file, line);
 
+				float offsetX;
+				float offsetY;
+
+				float originSizeX;
+				float originSizeY;
+
+				{
+					std::wstringstream wss(line);
+					wss.ignore(8) >> offsetX >> dummy >> offsetY >> dummy >> originSizeX >> dummy >> originSizeY;
+				}
+
+				float whiteSpaceX = originSizeX - sprite.size.x;
+				float whiteSpaceY = originSizeY - sprite.size.y;
+
+				float leftOffset = offsetX;
+				float bottomOffset = offsetY;
+				float rightOffset = whiteSpaceX - leftOffset;
+				float topOffset = whiteSpaceY - offsetY;
+
+				float realOffsetX = (leftOffset-rightOffset) / 2;
+				float realOffsetY = (topOffset-bottomOffset) / 2;
+
 				sprite.leftTop.x = sprite.leftTop.x / width;
 				sprite.leftTop.y = sprite.leftTop.y / height;
 				sprite.size.x = sprite.size.x / width;
@@ -190,10 +214,13 @@ namespace Jun {
 				sprite.texture = curTexture;
 				sprite.atlasSize = Vector2(600.0f / width, 600.0f / height);
 				sprite.duration = duration;
-				sprite.offset.x = offset.x / width;
-				sprite.offset.y = offset.y / height;
+				sprite.offset.x = (realOffsetX + offset.x) / width;
+				sprite.offset.y = (realOffsetY + offset.y) / height;
 
 				mSpineSprites.push_back(sprite);
+
+				// origin;
+				std::getline(file, line);
 			}
 		}
 	}

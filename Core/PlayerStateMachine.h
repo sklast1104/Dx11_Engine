@@ -1,7 +1,8 @@
 #pragma once
 #include "StateMachine.h"
+#include "StageManager.h"
 
-namespace Jun {
+namespace Jun::PlayerState {
 
 	class PlayerStateMachine : public StateMachine
 	{
@@ -10,15 +11,14 @@ namespace Jun {
 		virtual ~PlayerStateMachine();
 
 		virtual void Initialize() override;
-
-
+		virtual void Start() override;
 
 	public:
+
+		StageManager* stageManager;
 		GameObject* player;
-		std::unordered_map<std::wstring, std::shared_ptr<State>> stateMap;
+		float delay;
 	};
-
-
 }
 
 

@@ -144,9 +144,9 @@ namespace Jun
 		{
 			if (mLayerMask[i] == true)
 			{
-				Layer& layer = scene->GetLayer((eLayerType)i);
+				Layer* layer = scene->GetLayer((eLayerType)i);
 				const std::vector<GameObject*> gameObjs
-					= layer.GetGameObjects();
+					= layer->GetGameObjects();
 				// layer에 있는 게임오브젝트를 들고온다.
 
 				DivideAlphaBlendGameObjects(gameObjs);
@@ -168,6 +168,8 @@ namespace Jun
 	{
 		for (GameObject* obj : gameObjs)
 		{
+			DivideAlphaBlendGameObjects(obj->GetChilds());
+
 			//렌더러 컴포넌트가 없다면?
 			MeshRenderer* mr
 				= obj->GetComponent<MeshRenderer>();

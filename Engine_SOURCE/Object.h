@@ -64,4 +64,62 @@ namespace Jun::object
 	{
 		gameObj->SetState(Jun::GameObject::eState::Dead);
 	}
+
+	template <typename T>
+	static __forceinline T* FindObjectOfType()
+	{
+		Scene* scene = SceneManager::GetActiveScene();
+		
+		std::vector<Layer*> mLayers = scene->GetLayers();
+
+		for (Layer* layer : mLayers)
+		{
+			auto gameObjs = layer->GetGameObjects();
+			for (GameObject* obj : gameObjs)
+			{
+				T* buff = obj->GetComponent<T>();
+				if (buff != nullptr)
+					return buff;
+
+				for (GameObject* child : obj->GetChilds()) {
+					T* buff = child->GetComponent<T>();
+					if (buff != nullptr)
+						return buff;
+				}
+			}
+		}
+
+		return nullptr;
+	}
+
+	template <typename T>
+	static __forceinline std::vector<T*> FindObjectsOfType() {
+
+		Scene* scene = SceneManager::GetActiveScene();
+
+		std::vector<Layer*> mLayers = scene->GetLayers();
+
+		std::vector<T*> objs;
+
+		for (Layer* layer : mLayers)
+		{
+			auto gameObjs = layer->GetGameObjects();
+			for (GameObject* obj : gameObjs)
+			{
+				T* buff = obj->GetComponent<T>();
+				if (buff != nullptr)
+					objs.push_back(buff);
+
+				for (GameObject* child : obj->GetChilds()) {
+					T* buff = child->GetComponent<T>();
+					if (buff != nullptr)
+						objs.push_back(buff);
+				}
+			}
+		}
+
+		std::vector<T*> objs2 = std::move(objs);
+
+		return objs2;
+	}
 }

@@ -14,6 +14,8 @@ namespace Jun {
 		virtual void LateUpdate() override;
 		virtual void Render() override;
 
+	private :
+		void InitMoster(Vector3 pos, GameObject* parent, int index, bool isActive);
 	};
 
 }

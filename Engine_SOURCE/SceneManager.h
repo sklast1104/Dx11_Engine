@@ -7,6 +7,7 @@ namespace Jun {
 	{
 	public :
 		static void Initialize();
+		static void Start();
 		static void Update();
 		static void LateUpdate();
 		static void Render();

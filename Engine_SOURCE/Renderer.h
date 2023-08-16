@@ -50,6 +50,16 @@ namespace renderer
 		int padd2;
 	};
 
+	CBUFFER(SpriteCB, CBSLOT_SPRITE)
+	{
+		Vector4 color;
+	};
+
+	CBUFFER(FaderCB, CBSLOT_FADER)
+	{
+		float fadeVal;
+	};
+
 	extern Jun::graphics::ConstantBuffer* constantBuffer[(UINT)eCBType::End];
 
 	extern Microsoft::WRL::ComPtr<ID3D11SamplerState> samplerState[];

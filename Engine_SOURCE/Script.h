@@ -12,6 +12,7 @@ namespace Jun {
 		virtual ~Script();
 
 		virtual void Initialize() override;
+		virtual void Start() override;
 		virtual void Update() override;
 		virtual void LateUpdate() override;
 		virtual void Render() override;

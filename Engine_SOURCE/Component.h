@@ -14,6 +14,7 @@ namespace Jun {
 		~Component();
 
 		virtual void Initialize();
+		virtual void Start();
 		virtual void Update();
 		virtual void LateUpdate();
 		virtual void Render();

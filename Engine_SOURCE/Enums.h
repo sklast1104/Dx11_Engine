@@ -20,6 +20,7 @@ namespace Jun::enums {
 
 	enum class eLayerType {
 		Grid,
+		Logic,
 		Player,
 		Monster,
 		Light,

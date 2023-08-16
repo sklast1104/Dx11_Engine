@@ -3,44 +3,47 @@
 #include "SkeletonMecanim.h"
 #include "Input.h"
 #include "PlayerStateMachine.h"
+#include "Object.h"
+#include "MonsterStateMachine.h"
+#include "BattleManager.h"
+#include "MyTime.h"
 
-namespace Jun {
+#include <iostream>
 
+namespace Jun::PlayerState {
+
+	using namespace Jun::object;
 
 	void IdleState::Enter()
 	{
 		owner->GetComponent<SkeletonMecanim>()->PlayAnimation(L"Idle", true);
+
+		Scene* scene = SceneManager::GetActiveScene();
+
+		battleManager = owner->GetComponent<BattleManager>();
+
+		elapsedTime = 0.f;
+		delay = 1.f;
+
+		machine = owner->GetComponent<PlayerStateMachine>();
 	}
 
 	void IdleState::Update()
 	{
-		if (Input::GetKeyDown(eKeyCode::SPACE)) {
-			PlayerStateMachine* machine = owner->GetComponent<PlayerStateMachine>();
-			machine->SwitchState(machine->stateMap[L"AttackState"].get());
-		}
+		elapsedTime += Time::DeltaTime();
 
-		if (Input::GetKey(eKeyCode::LEFT))
-		{
+		if (battleManager->IsMove()) {
+
 			PlayerStateMachine* machine = owner->GetComponent<PlayerStateMachine>();
 			machine->SwitchState(machine->stateMap[L"MoveState"].get());
-		}
-		else if (Input::GetKey(eKeyCode::RIGHT))
-		{
-			PlayerStateMachine* machine = owner->GetComponent<PlayerStateMachine>();
-			machine->SwitchState(machine->stateMap[L"MoveState"].get());
-		}
-		else if (Input::GetKey(eKeyCode::DOWN))
-		{
-			PlayerStateMachine* machine = owner->GetComponent<PlayerStateMachine>();
-			machine->SwitchState(machine->stateMap[L"MoveState"].get());
-		}
-		else if (Input::GetKey(eKeyCode::UP))
-		{
-			PlayerStateMachine* machine = owner->GetComponent<PlayerStateMachine>();
-			machine->SwitchState(machine->stateMap[L"MoveState"].get());
+
 		}
 		else {
 
+			if (elapsedTime > delay) {
+				PlayerStateMachine* machine = owner->GetComponent<PlayerStateMachine>();
+				machine->SwitchState(machine->stateMap[L"AttackState"].get());
+			}
 		}
 	}
 

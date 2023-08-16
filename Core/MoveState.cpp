@@ -3,50 +3,32 @@
 #include "PlayerStateMachine.h"
 #include "SkeletonMecanim.h"
 #include "MyTime.h"
+#include "Transform.h"
 
-void Jun::MoveState::Enter()
+void Jun::PlayerState::MoveState::Enter()
 {
-	owner->GetComponent<SkeletonMecanim>()->PlayAnimation(L"Walk", true);
+	transform = owner->GetComponent<Transform>();
+
+	owner->GetComponent<SkeletonMecanim>()->PlayAnimation(L"Run", true);
+	battleManager = owner->GetComponent<BattleManager>();
 }
 
-void Jun::MoveState::Update()
+void Jun::PlayerState::MoveState::Update()
 {
-	Transform* tr = owner->GetComponent<Transform>();
-	Vector3 pos = tr->GetPosition();
-
-	float speed = 2.f;
-
-	if (Input::GetKeyDown(eKeyCode::SPACE)) {
-		PlayerStateMachine* machine = owner->GetComponent<PlayerStateMachine>();
-		machine->SwitchState(machine->stateMap[L"AttackState"].get());
-	}
-
-	if (Input::GetKey(eKeyCode::LEFT))
-	{
-		pos.x -= speed * Time::DeltaTime();
-		tr->SetPosition(pos);
-	}
-	else if (Input::GetKey(eKeyCode::RIGHT))
-	{
-		pos.x += speed * Time::DeltaTime();
-		tr->SetPosition(pos);
-	}
-	else if (Input::GetKey(eKeyCode::DOWN))
-	{
-		pos.y -= speed * Time::DeltaTime();
-		tr->SetPosition(pos);
-	}
-	else if (Input::GetKey(eKeyCode::UP))
-	{
-		pos.y += speed * Time::DeltaTime();
-		tr->SetPosition(pos);
-	}
-	else {
+	if (!battleManager->IsMove()) {
 		PlayerStateMachine* machine = owner->GetComponent<PlayerStateMachine>();
 		machine->SwitchState(machine->stateMap[L"IdleState"].get());
 	}
+
+	Transform* tr = owner->GetComponent<Transform>();
+
+	float speed = 0.3f;
+
+	Vector3 movVec = dir * Time::DeltaTime() * speed;
+
+	tr->SetPosition(tr->GetPosition() + movVec);
 }
 
-void Jun::MoveState::Exit()
+void Jun::PlayerState::MoveState::Exit()
 {
 }

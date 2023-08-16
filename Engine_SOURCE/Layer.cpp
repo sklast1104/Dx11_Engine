@@ -20,6 +20,17 @@ namespace Jun
 	void Layer::Initialize()
 	{
 	}
+	void Layer::Start()
+	{
+		for (GameObject* gameObj : mGameObjects) {
+
+			if (gameObj->GetState() != GameObject::eState::Active)
+				continue;
+
+			// start¾²±â
+			gameObj->Start();
+		}
+	}
 	void Layer::Update()
 	{
 		for (GameObject* gameObj : mGameObjects)

@@ -4,30 +4,43 @@
 #include "Input.h"
 #include <iostream>
 #include "MyTime.h"
+#include "MyMath.h"
+#include "PlayerStateMachine.h"
+#include "TransContainer.h"
+#include "StageManager.h"
+#include "Object.h"
 
 using namespace Jun::math;
 
-Vector3 backOffset = { -1.f, 0.f, 0.f };
-Vector3 prevPos;
+Vector3 backOffset = { -2.f, 0.f, 0.f };
 Vector3 dir = { 1.f, 0.f, 0.f };
-float speed = 0.3f;
+float speed = 1.f;
 
-void Jun::StartState::Enter()
+void Jun::PlayerState::StartState::Enter()
 {
-	ownerTransform =  owner->GetComponent<Transform>();
+	using namespace Jun::object;
 
-	ownerTransform->SetPosition(ownerTransform->GetPosition() + backOffset);
+	ownerTransform = owner->GetComponent<Transform>();
 
-	prevPos = ownerTransform->GetPosition() + backOffset;
+	destPos = owner->GetComponent<TransContainer>()->Pos;
+
+	ownerTransform->SetPosition(destPos + backOffset);
 
 	owner->GetComponent<SkeletonMecanim>()->PlayAnimation(L"RunGS", true);
 
 	elapsedTime = 0.f;
 }
 
-void Jun::StartState::Update()
+void Jun::PlayerState::StartState::Update()
 {
 	elapsedTime += Time::DeltaTime();
+
+	float dist = Vector3::Distance(destPos, ownerTransform->GetPosition());
+
+	if (dist < 0.1f) {
+		PlayerStateMachine* machine = owner->GetComponent<PlayerStateMachine>();
+		machine->SwitchState(machine->stateMap[L"StandByState"].get());
+	}
 
 	Vector3 movVec = dir * Time::DeltaTime() * speed;
 
@@ -35,6 +48,7 @@ void Jun::StartState::Update()
 
 }
 
-void Jun::StartState::Exit()
+void Jun::PlayerState::StartState::Exit()
 {
+	owner->GetComponent<PlayerStateMachine>()->stageManager->ResetStageConfig();
 }

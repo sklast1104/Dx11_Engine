@@ -150,6 +150,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    application.Initialize();
    Jun::InitializeScenes();
    gui::Editor::Initialize();
+   application.Start();
 
    return TRUE;
 }

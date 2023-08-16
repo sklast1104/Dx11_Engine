@@ -40,6 +40,11 @@ namespace Jun
 		SceneManager::Initialize();
 	}
 
+	void Application::Start()
+	{
+		SceneManager::Start();
+	}
+
 	void Application::Update()
 	{
 		Time::Update();

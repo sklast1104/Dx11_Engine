@@ -3,8 +3,15 @@
 #include "MoveState.h"
 #include "AttackState.h"
 #include "StartState.h"
+#include "DebugState.h"
+#include "StandByState.h"
+#include "NextState.h"
+#include "Object.h"
+#include "StageManager.h"
 
-namespace Jun {
+namespace Jun::PlayerState {
+
+	using namespace Jun::object;
 
 	PlayerStateMachine::PlayerStateMachine()
 	{
@@ -30,8 +37,21 @@ namespace Jun {
 		stateMap[L"StartState"] = std::make_shared<StartState>();
 		stateMap[L"StartState"].get()->owner = GetOwner();
 
+		stateMap[L"DebugState"] = std::make_shared<DebugState>();
+		stateMap[L"DebugState"].get()->owner = GetOwner();
+
+		stateMap[L"StandByState"] = std::make_shared<StandByState>();
+		stateMap[L"StandByState"].get()->owner = GetOwner();
+
+		stateMap[L"NextState"] = std::make_shared<NextState>();
+		stateMap[L"NextState"].get()->owner = GetOwner();
+
 		currentState = stateMap[L"StartState"].get();
 		currentState->Enter();
 
+	}
+	void PlayerStateMachine::Start()
+	{
+		stageManager = FindObjectOfType<StageManager>();
 	}
 }

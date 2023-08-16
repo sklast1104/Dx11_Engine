@@ -9,19 +9,19 @@ namespace Jun::graphics {
 	{
 	public :
 		Material();
-		~Material();
+		virtual ~Material();
 
 		virtual HRESULT Load(const std::wstring& path) override;
 
-		void Binds();
-		void Clear();
+		virtual void Binds();
+		virtual void Clear();
 
 		void SetShader(std::shared_ptr<Shader> shader) { mShader = shader; }
 		void SetTexture(std::shared_ptr<Texture> texture) { mTexture = texture; }
 		void SetRenderingMode(eRenderingMode mode) { mMode = mode; }
 		eRenderingMode GetRenderingMode() { return mMode; }
 
-	private :
+	protected :
 		std::shared_ptr<Shader> mShader;
 		std::shared_ptr<Texture> mTexture;
 

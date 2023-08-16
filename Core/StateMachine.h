@@ -17,10 +17,10 @@ namespace Jun {
 		virtual void Render() override;
 
 		void SwitchState(State* newState);
-
+		
 	public:
 		State* currentState;
-
+		std::unordered_map<std::wstring, std::shared_ptr<State>> stateMap;
 	};
 
 }

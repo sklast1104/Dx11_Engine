@@ -35,9 +35,9 @@ namespace Jun
 		Scene* activeScene = SceneManager::GetActiveScene();
 
 		const std::vector<GameObject*>& lefts
-			= activeScene->GetLayer(left).GetGameObjects();
+			= activeScene->GetLayer(left)->GetGameObjects();
 		const std::vector<GameObject*>& rights
-			= activeScene->GetLayer(right).GetGameObjects();
+			= activeScene->GetLayer(right)->GetGameObjects();
 
 		for (GameObject* leftObj : lefts)
 		{

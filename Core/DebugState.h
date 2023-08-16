@@ -1,10 +1,14 @@
 #pragma once
 #include "State.h"
 
-namespace Jun {
+namespace Jun::PlayerState {
 
 	class DebugState : public State
 	{
+	private :
+		int index;
+		bool animFlag;
+
 	public :
 
 		virtual void Enter() override;

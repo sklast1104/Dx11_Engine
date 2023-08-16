@@ -14,6 +14,7 @@ namespace Jun
 		void Run();
 
 		void Initialize();
+		void Start();
 		void Update();
 		void LateUpdate();
 		void Render();

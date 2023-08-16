@@ -2,23 +2,46 @@
 #include "SkeletonMecanim.h"
 #include "MyTime.h"
 #include "PlayerStateMachine.h"
+#include "MonsterStateMachine.h"
+#include "Health.h"
 
-namespace Jun {
+#include <iostream>
 
-	float delay = 2.6f;
-	float elapsedTime = 0.f;
+namespace Jun::PlayerState {
 
 	void AttackState::Enter()
 	{
+		delay = 1.f;
 		elapsedTime = 0.f;
 		owner->GetComponent<SkeletonMecanim>()->PlayAnimation(L"Attack", false);
+		manager = owner->GetComponent<BattleManager>();
+
+		canAttack = true;
 	}
 
 	void AttackState::Update()
 	{
 		elapsedTime += Time::DeltaTime();
 
+		if (elapsedTime > 0.3f && canAttack) {
+
+			canAttack = false;
+
+			GameObject* monster = manager->FindTarget();
+
+			if (monster != nullptr) {
+				MonsterStateMachine* monMachine = monster->GetComponent<MonsterStateMachine>();
+
+				Health* monHealth = monster->GetComponent<Health>();
+				monHealth->DealDamage(10.f);
+
+				monMachine->SwitchState(monMachine->stateMap[L"AttackedState"].get());
+			}
+		}
+
 		if (elapsedTime > delay) {
+			
+
 			PlayerStateMachine* machine = owner->GetComponent<PlayerStateMachine>();
 			machine->SwitchState(machine->stateMap[L"IdleState"].get());
 		}

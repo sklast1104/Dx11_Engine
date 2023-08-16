@@ -147,13 +147,21 @@ namespace Jun
 					wss.ignore(8) >> offsetX >> dummy >> offsetY >> dummy >> originSizeX >> dummy >> originSizeY;
 				}
 
+				float whiteSpaceX = originSizeX - sprite.size.x;
+				float whiteSpaceY = originSizeY - sprite.size.y;
+
+				float leftOffset = offsetX;
+				float bottomOffset = offsetY;
+				float rightOffset = whiteSpaceX - leftOffset;
+				float topOffset = whiteSpaceY - offsetY;
+
 				sprite.leftTop.x = sprite.leftTop.x / width;
 				sprite.leftTop.y = sprite.leftTop.y / height;
 				sprite.size.x = sprite.size.x / width;
 				sprite.size.y = sprite.size.y / height;
 
-				float realOffsetX = (originSizeX / width) - sprite.size.x - (offsetX / width) + (offset.x / width);
-				float realOffsetY = (originSizeY / height) - sprite.size.y + (offsetY / height) - 0.06 + (offset.y / height);
+				float realOffsetX = leftOffset;
+				float realOffsetY = topOffset / 2;
 
 				mAtlas = curTexture;
 				sprite.atlasSize = Vector2(1600.0f / width, 1600.0f / height);
@@ -162,8 +170,8 @@ namespace Jun
 				sprite.offset.x = 0;
 				sprite.offset.y = 0;
 
-				sprite.offset.x = -realOffsetX;
-				sprite.offset.y = realOffsetY;
+				sprite.offset.x = realOffsetX / width;
+				sprite.offset.y = realOffsetY / height;
 
 				mSprites.push_back(sprite);
 

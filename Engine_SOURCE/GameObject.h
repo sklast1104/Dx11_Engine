@@ -19,6 +19,7 @@ namespace Jun
 		virtual ~GameObject();
 
 		virtual void Initialize();
+		virtual void Start();
 		virtual void Update();
 		virtual void LateUpdate();
 		virtual void Render();
@@ -91,12 +92,20 @@ namespace Jun
 			return comp;
 		}
 
-		void SetState(eState state) { mState = state; }
+		void SetState(eState state);
 		eState GetState() { return mState; }
+
+		// 메모리 이슈있을수도 있음 체크
+		void AddChild(GameObject* _child);
+
+		std::vector<GameObject*> GetChilds() { return childObjects; }
 
 	private:
 		eState mState;
 		std::vector<Component*> mComponents;
 		std::vector<Script*> mScripts;
+
+		GameObject* parent;
+		std::vector<GameObject*> childObjects;
 	};
 }

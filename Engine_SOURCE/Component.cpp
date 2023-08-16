@@ -11,6 +11,9 @@ namespace Jun{
 	void Component::Initialize()
 	{
 	}
+	void Component::Start()
+	{
+	}
 	void Component::Update()
 	{
 	}

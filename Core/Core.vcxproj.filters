@@ -5,15 +5,6 @@
     <ClCompile Include="PlayScene.cpp">
       <Filter>Contents\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="CameraScript.cpp">
-      <Filter>Contents\Script</Filter>
-    </ClCompile>
-    <ClCompile Include="GridScript.cpp">
-      <Filter>Contents\Script</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerScript.cpp">
-      <Filter>Contents\Script</Filter>
-    </ClCompile>
     <ClCompile Include="MainScene.cpp">
       <Filter>Contents\Scene</Filter>
     </ClCompile>
@@ -50,6 +41,57 @@
     <ClCompile Include="DebugScene.cpp">
       <Filter>Contents\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="DebugState.cpp">
+      <Filter>Contents\Script\StateMachine\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterIdleState.cpp">
+      <Filter>Contents\Script\StateMachine\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterStartState.cpp">
+      <Filter>Contents\Script\StateMachine\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterStateMachine.cpp">
+      <Filter>Contents\Script\StateMachine\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="BattleManager.cpp">
+      <Filter>Contents\Script\Combat</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraScript.cpp">
+      <Filter>Contents\Script\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="GridScript.cpp">
+      <Filter>Contents\Script\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerScript.cpp">
+      <Filter>Contents\Script\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Health.cpp">
+      <Filter>Contents\Script\Combat</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterAttackedState.cpp">
+      <Filter>Contents\Script\StateMachine\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterAttackState.cpp">
+      <Filter>Contents\Script\StateMachine\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="StandByState.cpp">
+      <Filter>Contents\Script\StateMachine\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="NextState.cpp">
+      <Filter>Contents\Script\StateMachine\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Fader.cpp">
+      <Filter>Contents\Script\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="StageManager.cpp">
+      <Filter>Contents\Script\Combat</Filter>
+    </ClCompile>
+    <ClCompile Include="TransContainer.cpp">
+      <Filter>Contents\Script\Combat</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterContainer.cpp">
+      <Filter>Contents\Script\Combat</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -58,15 +100,6 @@
     </ClInclude>
     <ClInclude Include="PlayScene.h">
       <Filter>Contents\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="CameraScript.h">
-      <Filter>Contents\Script</Filter>
-    </ClInclude>
-    <ClInclude Include="GridScript.h">
-      <Filter>Contents\Script</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerScript.h">
-      <Filter>Contents\Script</Filter>
     </ClInclude>
     <ClInclude Include="MainScene.h">
       <Filter>Contents\Scene</Filter>
@@ -107,6 +140,57 @@
     <ClInclude Include="DebugScene.h">
       <Filter>Contents\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="DebugState.h">
+      <Filter>Contents\Script\StateMachine\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterIdleState.h">
+      <Filter>Contents\Script\StateMachine\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterStartState.h">
+      <Filter>Contents\Script\StateMachine\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterStateMachine.h">
+      <Filter>Contents\Script\StateMachine\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraScript.h">
+      <Filter>Contents\Script\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="GridScript.h">
+      <Filter>Contents\Script\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerScript.h">
+      <Filter>Contents\Script\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleManager.h">
+      <Filter>Contents\Script\Combat</Filter>
+    </ClInclude>
+    <ClInclude Include="Health.h">
+      <Filter>Contents\Script\Combat</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterAttackedState.h">
+      <Filter>Contents\Script\StateMachine\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterAttackState.h">
+      <Filter>Contents\Script\StateMachine\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="StandByState.h">
+      <Filter>Contents\Script\StateMachine\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="NextState.h">
+      <Filter>Contents\Script\StateMachine\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Fader.h">
+      <Filter>Contents\Script\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="StageManager.h">
+      <Filter>Contents\Script\Combat</Filter>
+    </ClInclude>
+    <ClInclude Include="TransContainer.h">
+      <Filter>Contents\Script\Combat</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterContainer.h">
+      <Filter>Contents\Script\Combat</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Contents">
@@ -126,6 +210,18 @@
     </Filter>
     <Filter Include="Contents\Script\StateMachine\Player">
       <UniqueIdentifier>{1380f985-9c11-48e9-9837-f79af611ecfe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\StateMachine\Monster">
+      <UniqueIdentifier>{8e719f0d-887a-4812-83f6-49de00376d38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\Combat">
+      <UniqueIdentifier>{f9688809-2258-4659-afc4-dca46a519262}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\Misc">
+      <UniqueIdentifier>{1c06b7ae-4a8c-4a89-8fd0-0838e420e44e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\Effect">
+      <UniqueIdentifier>{93ad9e2f-eed7-45cd-bdbe-769864f784bb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
