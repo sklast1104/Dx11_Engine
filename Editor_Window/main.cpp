@@ -8,7 +8,8 @@
 #include "Resources.h"
 #include "LoadScenes.h"
 #include "guiEditor.h"
-
+#include "Fmod.h"
+#include "FontWrapper.h"
 
 
 #ifdef UNICODE
@@ -88,6 +89,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     renderer::Release();
     Jun::SceneManager::Release();
+    Jun::Fmod::Release();
+    Jun::FontWrapper::Release();
     gui::Editor::Release();
 
     return (int) msg.wParam;

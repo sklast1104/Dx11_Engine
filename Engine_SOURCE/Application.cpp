@@ -5,6 +5,8 @@
 #include "SceneManager.h"
 #include "CollisionManager.h"
 #include "VideoPlayer.h"
+#include "Fmod.h"
+#include "FontWrapper.h"
 
 namespace Jun
 {
@@ -34,6 +36,9 @@ namespace Jun
 	{
 		Time::Initiailize();
 		Input::Initialize();
+		Fmod::Initialize();
+		FontWrapper::Initialize();
+
 		CollisionManager::Initialize();
 		VideoPlayer::CreateAPI();
 		renderer::Initialize();

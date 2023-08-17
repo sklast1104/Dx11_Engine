@@ -15,6 +15,8 @@ namespace Jun::enums {
 		Script,
 		Light,
 		Camera,
+		AudioListener,
+		AudioSource,
 		End,
 	};
 
@@ -36,6 +38,7 @@ namespace Jun::enums {
 		Mesh,
 		Animation,
 		ComputeShader,
+		AudioClip,
 		End,
 	};
 

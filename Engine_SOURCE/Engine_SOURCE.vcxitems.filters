@@ -112,6 +112,12 @@
     <Filter Include="GameObject\Component\ParticleSystem">
       <UniqueIdentifier>{4946b3a7-8faf-4fdd-90ba-caeb3c70ac95}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource\Sound">
+      <UniqueIdentifier>{b4b582ba-b640-4137-87f4-50ac48447ed5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Font">
+      <UniqueIdentifier>{9ce6ef88-cc84-4225-b2d6-b5ac46bb680c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h">
@@ -246,6 +252,21 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)HpBarMaterial.h">
       <Filter>Resource\Material</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Fmod.h">
+      <Filter>Resource\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)AudioClip.h">
+      <Filter>Resource\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)AudioListener.h">
+      <Filter>Resource\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)AudioSource.h">
+      <Filter>Resource\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)FontWrapper.h">
+      <Filter>Resource\Font</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)MyMath.cpp">
@@ -364,6 +385,21 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)HpBarMaterial.cpp">
       <Filter>Resource\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Fmod.cpp">
+      <Filter>Resource\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)AudioClip.cpp">
+      <Filter>Resource\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)AudioListener.cpp">
+      <Filter>Resource\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)AudioSource.cpp">
+      <Filter>Resource\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)FontWrapper.cpp">
+      <Filter>Resource\Font</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -17,6 +17,9 @@
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Animation.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Animator.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)AudioClip.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)AudioListener.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)AudioSource.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Camera.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Collider2D.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)CollisionManager.h" />
@@ -28,6 +31,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Entity.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Enums.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)FaderMaterial.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Fmod.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)FontWrapper.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GameObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GraphicDevice_Dx11.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Graphics.h" />
@@ -64,6 +69,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Animation.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Animator.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Application.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)AudioClip.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)AudioListener.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)AudioSource.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Camera.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Collider2D.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)CollisionManager.cpp" />
@@ -72,6 +80,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)ConstantBuffer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Entity.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)FaderMaterial.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Fmod.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)FontWrapper.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GameObject.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GraphicDevice_Dx11.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)HpBarMaterial.cpp" />
