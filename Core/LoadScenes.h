@@ -28,12 +28,16 @@ namespace Jun {
 
 		
 
-		SceneManager::CreateScene <BattleScene>(L"BattleScene");
+		
 
-		SceneManager::CreateScene<MainScene>(L"MainScene");
+		
 
 		//SceneManager::CreateScene<DebugScene>(L"DebugScene");
 
 		SceneManager::CreateScene<PlayScene>(L"PlayScene");
+
+		SceneManager::CreateScene<MainScene>(L"MainScene");
+
+		SceneManager::CreateScene <BattleScene>(L"BattleScene");
 	}
 }

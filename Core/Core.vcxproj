@@ -159,6 +159,7 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="GridScript.h" />
     <ClInclude Include="Health.h" />
+    <ClInclude Include="HpValController.h" />
     <ClInclude Include="IdleState.h" />
     <ClInclude Include="LoadScenes.h" />
     <ClInclude Include="MainScene.h" />
@@ -194,6 +195,7 @@
     <ClCompile Include="Fader.cpp" />
     <ClCompile Include="GridScript.cpp" />
     <ClCompile Include="Health.cpp" />
+    <ClCompile Include="HpValController.cpp" />
     <ClCompile Include="IdleState.cpp" />
     <ClCompile Include="MainScene.cpp" />
     <ClCompile Include="MenuScene.cpp" />

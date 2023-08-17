@@ -1,5 +1,6 @@
 #include "HpBarMaterial.h"
 #include "Renderer.h"
+#include <iostream>
 
 namespace Jun::graphics {
 

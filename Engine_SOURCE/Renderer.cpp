@@ -566,12 +566,6 @@ namespace renderer
 		Resources::Insert(L"Battle_HpUI_Material", material);
 
 		texture = Resources::Load<Texture>(L"Battle_HpVal_Tex", L"..\\Resources\\Texture\\Battle\\HpVal.png");
-		material = std::make_shared<Material>();
-		material->SetShader(spriteShader);
-		material->SetTexture(texture);
-		material->SetRenderingMode(eRenderingMode::Transparent);
-
-		Resources::Insert(L"Battle_HpVal_Material", material);
 
 		std::shared_ptr<Shader> hpBarSahder
 			= Resources::Find<Shader>(L"HpBarShader");
@@ -581,7 +575,21 @@ namespace renderer
 		material->SetTexture(texture);
 		material->SetRenderingMode(eRenderingMode::Transparent);
 
-		Resources::Insert(L"Battle_HpValTest_Material", material);
+		Resources::Insert(L"Battle_HpVal_Material", material);
+
+		material = std::make_shared<HpBarMaterial>();
+		material->SetShader(hpBarSahder);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+
+		Resources::Insert(L"Battle_HpVal_Material2", material);
+
+		material = std::make_shared<HpBarMaterial>();
+		material->SetShader(hpBarSahder);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+
+		Resources::Insert(L"Battle_HpVal_Material3", material);
 	}
 
 	void LoadTexture() {

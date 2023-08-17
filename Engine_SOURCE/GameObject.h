@@ -69,6 +69,54 @@ namespace Jun
 		}
 
 		template <typename T>
+		T* GetComponentInChild() {
+
+			T* component = GetComponent<T>();
+
+			if (component) return component;
+
+			for (GameObject* child : childObjects) {
+				component = child->GetComponentInChild<T>();
+
+				if (component) return component;
+			}
+
+			return nullptr;
+		}
+
+		template <typename T>
+		const std::vector<T*> GetComponentsInChild() {
+
+			std::vector<T*> comps;
+
+			T* component;
+			for (Component* comp : mComponents)
+			{
+				component = dynamic_cast<T*>(comp);
+				if (component != nullptr)
+					comps.push_back(component);
+			}
+
+			for (Script* script : mScripts)
+			{
+				component = dynamic_cast<T*>(script);
+				if (component != nullptr)
+					comps.push_back(component);
+			}
+
+			for (GameObject* child : childObjects) {
+
+				std::vector<T*> childCompos = child->GetComponentsInChild<T>();
+
+				for (T* item : childCompos) {
+					comps.push_back(item);
+				}
+			}
+
+			return comps;
+		}
+
+		template <typename T>
 		T* AddComponent()
 		{
 			T* comp = new T();

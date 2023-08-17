@@ -15,6 +15,7 @@
 #include "BattleManager.h"
 #include "StageManager.h"
 #include "MonsterContainer.h"
+#include "HpValController.h"
 
 namespace Jun {
 
@@ -75,15 +76,15 @@ namespace Jun {
 			wavePoses.push_back(Vector3(1.f, 0.f, 0.2f));
 
 			for (int i = 0; i < 2; i++) {
-				InitMoster(wavePoses[i], monParent, 0, true);
+				InitMoster(wavePoses[i], monParent, 0, true, i);
 			}
 
 			for (int i = 0; i < 2; i++) {
-				InitMoster(wavePoses[i], monParent, 1, false);
+				InitMoster(wavePoses[i], monParent, 1, false, i);
 			}
 
 			for (int i = 0; i < 2; i++) {
-				InitMoster(wavePoses[i], monParent, 2, false);
+				InitMoster(wavePoses[i], monParent, 2, false, i);
 			}
 		}
 
@@ -259,7 +260,7 @@ namespace Jun {
 		Scene::Render();
 	}
 
-	void BattleScene::InitMoster(Vector3 pos, GameObject* parent, int index, bool isActive)
+	void BattleScene::InitMoster(Vector3 pos, GameObject* parent, int index, bool isActive, int hpIndex)
 	{
 		Vector3 monsterOffset = { -0.1f, 0.f, 0.f };
 
@@ -304,7 +305,15 @@ namespace Jun {
 
 		mr = hpVal->AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		mr->SetMaterial(Resources::Find<Material>(L"Battle_HpValTest_Material"));
+
+		if (hpIndex == 0)
+			mr->SetMaterial(Resources::Find<Material>(L"Battle_HpVal_Material"));
+		else if (hpIndex == 1)
+			mr->SetMaterial(Resources::Find<Material>(L"Battle_HpVal_Material2"));
+		else if (hpIndex == 2)
+			mr->SetMaterial(Resources::Find<Material>(L"Battle_HpVal_Material3"));
+
+		hpVal->AddComponent<HpValController>();
 
 		hpVal->GetComponent<Transform>()->SetScale(Vector3(0.9f, 0.52f, 1.f));
 		hpVal->GetComponent<Transform>()->SetPosition(Vector3(-0.015f, -0.02f, -0.1f));

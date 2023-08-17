@@ -15,7 +15,7 @@ namespace Jun {
 		virtual void Render() override;
 
 	private :
-		void InitMoster(Vector3 pos, GameObject* parent, int index, bool isActive);
+		void InitMoster(Vector3 pos, GameObject* parent, int index, bool isActive, int hpIndex);
 	};
 
 }

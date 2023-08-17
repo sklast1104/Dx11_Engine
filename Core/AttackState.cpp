@@ -5,6 +5,7 @@
 #include "MonsterStateMachine.h"
 #include "Health.h"
 #include "BattleManager.h"
+#include "HpValController.h"
 
 #include <iostream>
 
@@ -34,7 +35,10 @@ namespace Jun::PlayerState {
 				MonsterStateMachine* monMachine = monster->GetComponent<MonsterStateMachine>();
 
 				Health* monHealth = monster->GetComponent<Health>();
-				monHealth->DealDamage(10.f);
+				HpValController* con = monster->GetComponentInChild<HpValController>();
+
+				monHealth->DealDamage(1.f);
+				con->SetPercent(0.1f);
 
 				monMachine->SwitchState(monMachine->stateMap[L"AttackedState"].get());
 			}

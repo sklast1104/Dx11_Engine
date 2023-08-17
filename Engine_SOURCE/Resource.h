@@ -18,7 +18,7 @@ namespace Jun
 
 		enums::eResourceType GetType() { return mType; }
 
-	private:
+	protected:
 		const enums::eResourceType mType;
 		std::wstring mKey;
 		std::wstring mPath;

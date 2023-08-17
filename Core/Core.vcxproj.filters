@@ -92,6 +92,9 @@
     <ClCompile Include="MonsterContainer.cpp">
       <Filter>Contents\Script\Combat</Filter>
     </ClCompile>
+    <ClCompile Include="HpValController.cpp">
+      <Filter>Contents\Script\Combat\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -191,6 +194,9 @@
     <ClInclude Include="MonsterContainer.h">
       <Filter>Contents\Script\Combat</Filter>
     </ClInclude>
+    <ClInclude Include="HpValController.h">
+      <Filter>Contents\Script\Combat\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Contents">
@@ -222,6 +228,9 @@
     </Filter>
     <Filter Include="Contents\Script\Effect">
       <UniqueIdentifier>{93ad9e2f-eed7-45cd-bdbe-769864f784bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\Combat\UI">
+      <UniqueIdentifier>{8c0dae00-fdd8-4e8d-9c01-603030b700b0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
