@@ -11,6 +11,10 @@ namespace Jun {
 		virtual void Update() override;
 		virtual void Exit() override;
 
+	private :
+		class MonsterBattleManager* manager;
+		float elapsedTime;
+		float delay;
 	};
 }
 

@@ -11,6 +11,7 @@ namespace Jun {
 		virtual ~MonsterStateMachine();
 
 		virtual void Initialize() override;
+		virtual void Start() override;
 
 
 	public :

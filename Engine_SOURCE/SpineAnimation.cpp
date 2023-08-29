@@ -212,7 +212,7 @@ namespace Jun {
 				sprite.size.y = sprite.size.y / height;
 
 				sprite.texture = curTexture;
-				sprite.atlasSize = Vector2(600.0f / width, 600.0f / height);
+				sprite.atlasSize = Vector2(800.0f / width, 800.0f / height);
 				sprite.duration = duration;
 				sprite.offset.x = (realOffsetX + offset.x) / width;
 				sprite.offset.y = (realOffsetY + offset.y) / height;

@@ -57,8 +57,9 @@ namespace renderer
 
 	CBUFFER(SpriteCB, CBSLOT_SPRITE)
 	{
-		Vector4 color;
+		Vector4 spriteColor;
 		float hpPercent;
+		float delta;
 	};
 
 	CBUFFER(FaderCB, CBSLOT_FADER)
@@ -77,11 +78,16 @@ namespace renderer
 	extern Jun::Camera* mainCamera;
 	extern std::vector<Jun::Camera*> cameras;
 	extern std::vector<DebugMesh> debugMeshs;
+	extern std::shared_ptr<Texture> postProcessing;
+	extern std::shared_ptr<Texture> renderTarget;
 
 	void Initialize();
 	void BindLights();
+	void LateUpdate();
 	void Render();
 	void Release();
 
 	void PushDebugMeshAttribute(DebugMesh mesh);
+
+	void CopyRenderTarget();
 }

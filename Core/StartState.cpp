@@ -10,6 +10,8 @@
 #include "StageManager.h"
 #include "Object.h"
 
+#include <iostream>
+
 using namespace Jun::math;
 
 Vector3 backOffset = { -2.f, 0.f, 0.f };
@@ -43,6 +45,7 @@ void Jun::PlayerState::StartState::Update()
 	}
 
 	Vector3 movVec = dir * Time::DeltaTime() * speed;
+	Vector3 position = ownerTransform->GetPosition();
 
 	ownerTransform->SetPosition(ownerTransform->GetPosition() + movVec);
 

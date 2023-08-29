@@ -29,6 +29,9 @@ namespace Jun::math
 		return radian * (180.0 / XM_PI);
 	}
 
+    static float Lerp(float start, float end, float t) {
+        return (1 - t) * start + t * end;
+    }
 
     struct Vector2;
     struct Vector4;

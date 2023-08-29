@@ -8,6 +8,13 @@
 #include "ParticleShader.h"
 #include "FaderMaterial.h"
 #include "HpBarMaterial.h"
+#include "SpriteAnimMaterial.h"
+#include "BgEffectMaterial.h"
+#include "SwordTrailMaterial.h"
+#include "SimpleFadeMaterial.h"
+#include "Application.h"
+
+extern Jun::Application application;
 
 namespace renderer
 {
@@ -29,6 +36,9 @@ namespace renderer
 	Jun::Camera* mainCamera = nullptr;
 	std::vector<Jun::Camera*> cameras = {};
 	std::vector<DebugMesh> debugMeshs = {};
+
+	std::shared_ptr<Texture> postProcessing = nullptr;
+	std::shared_ptr<Texture> renderTarget = nullptr;
 
 	void SetupState()
 	{
@@ -97,7 +107,52 @@ namespace renderer
 			, shader->GetVSCode()
 			, shader->GetInputLayoutAddressOf());
 
+		shader = Jun::Resources::Find<Shader>(L"SkillBgShader");
+		Jun::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
+			, shader->GetVSCode()
+			, shader->GetInputLayoutAddressOf());
+
+		shader = Jun::Resources::Find<Shader>(L"GradationShader");
+		Jun::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
+			, shader->GetVSCode()
+			, shader->GetInputLayoutAddressOf());
+
+		shader = Jun::Resources::Find<Shader>(L"SwordTrailShader");
+		Jun::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
+			, shader->GetVSCode()
+			, shader->GetInputLayoutAddressOf());
+
 		shader = Jun::Resources::Find<Shader>(L"ParticleShader");
+		Jun::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
+			, shader->GetVSCode()
+			, shader->GetInputLayoutAddressOf());
+
+		shader = Jun::Resources::Find<Shader>(L"PostProcessShader");
+		Jun::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
+			, shader->GetVSCode()
+			, shader->GetInputLayoutAddressOf());
+
+		shader = Jun::Resources::Find<Shader>(L"BlurShader");
+		Jun::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
+			, shader->GetVSCode()
+			, shader->GetInputLayoutAddressOf());
+
+		shader = Jun::Resources::Find<Shader>(L"SamplerShader");
+		Jun::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
+			, shader->GetVSCode()
+			, shader->GetInputLayoutAddressOf());
+
+		shader = Jun::Resources::Find<Shader>(L"BloomExtractShader");
+		Jun::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
+			, shader->GetVSCode()
+			, shader->GetInputLayoutAddressOf());
+
+		shader = Jun::Resources::Find<Shader>(L"CombineShader");
+		Jun::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
+			, shader->GetVSCode()
+			, shader->GetInputLayoutAddressOf());
+
+		shader = Jun::Resources::Find<Shader>(L"SimpleFadeShader");
 		Jun::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
 			, shader->GetVSCode()
 			, shader->GetInputLayoutAddressOf());
@@ -404,6 +459,21 @@ namespace renderer
 		hpBarShader->Create(eShaderStage::PS, L"HpBarPS.hlsl", "main");
 		Jun::Resources::Insert(L"HpBarShader", hpBarShader);
 
+		std::shared_ptr<Shader> skillBgShader = std::make_shared<Shader>();
+		skillBgShader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
+		skillBgShader->Create(eShaderStage::PS, L"EffectBgPS.hlsl", "main");
+		Jun::Resources::Insert(L"SkillBgShader", skillBgShader);
+
+		std::shared_ptr<Shader> gradationShader = std::make_shared<Shader>();
+		gradationShader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
+		gradationShader->Create(eShaderStage::PS, L"GradationPS.hlsl", "main");
+		Jun::Resources::Insert(L"GradationShader", gradationShader);
+
+		std::shared_ptr<Shader> swordTrailShader = std::make_shared<Shader>();
+		swordTrailShader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
+		swordTrailShader->Create(eShaderStage::PS, L"SwordTrailPS.hlsl", "main");
+		Jun::Resources::Insert(L"SwordTrailShader", swordTrailShader);
+
 		std::shared_ptr<PaintShader> paintShader = std::make_shared<PaintShader>();
 		paintShader->Create(L"PaintCS.hlsl", "main");
 		Jun::Resources::Insert(L"PaintShader", paintShader);
@@ -421,6 +491,41 @@ namespace renderer
 		paritcleShader->SetBSState(eBSType::AlphaBlend);
 		paritcleShader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D_PRIMITIVE_TOPOLOGY_POINTLIST);
 		Jun::Resources::Insert(L"ParticleShader", paritcleShader);
+
+		std::shared_ptr<Shader> postProcessShader = std::make_shared<Shader>();
+		postProcessShader->Create(eShaderStage::VS, L"PostProcessVS.hlsl", "main");
+		postProcessShader->Create(eShaderStage::PS, L"PostProcessPS.hlsl", "main");
+		postProcessShader->SetDSState(eDSType::NoWrite);
+		Jun::Resources::Insert(L"PostProcessShader", postProcessShader);
+
+		std::shared_ptr<Shader> blurShader = std::make_shared<Shader>();
+		blurShader->Create(eShaderStage::VS, L"PostProcessVS.hlsl", "main");
+		blurShader->Create(eShaderStage::PS, L"BlurPS.hlsl", "main");
+		blurShader->SetDSState(eDSType::NoWrite);
+		Jun::Resources::Insert(L"BlurShader", blurShader);
+
+		std::shared_ptr<Shader> samplerShader = std::make_shared<Shader>();
+		samplerShader->Create(eShaderStage::VS, L"PostProcessVS.hlsl", "main");
+		samplerShader->Create(eShaderStage::PS, L"SamplePS.hlsl", "main");
+		samplerShader->SetDSState(eDSType::NoWrite);
+		Jun::Resources::Insert(L"SamplerShader", samplerShader);
+
+		std::shared_ptr<Shader> bloomExtractShader = std::make_shared<Shader>();
+		bloomExtractShader->Create(eShaderStage::VS, L"PostProcessVS.hlsl", "main");
+		bloomExtractShader->Create(eShaderStage::PS, L"BloomExtractPS.hlsl", "main");
+		bloomExtractShader->SetDSState(eDSType::NoWrite);
+		Jun::Resources::Insert(L"BloomExtractShader", bloomExtractShader);
+
+		std::shared_ptr<Shader> combineShader = std::make_shared<Shader>();
+		combineShader->Create(eShaderStage::VS, L"PostProcessVS.hlsl", "main");
+		combineShader->Create(eShaderStage::PS, L"CombinePS.hlsl", "main");
+		combineShader->SetDSState(eDSType::NoWrite);
+		Jun::Resources::Insert(L"CombineShader", combineShader);
+
+		std::shared_ptr<Shader> simpleFadeShader = std::make_shared<Shader>();
+		simpleFadeShader->Create(eShaderStage::VS, L"PostProcessVS.hlsl", "main");
+		simpleFadeShader->Create(eShaderStage::PS, L"SimpleFaderPS.hlsl", "main");
+		Jun::Resources::Insert(L"SimpleFadeShader", simpleFadeShader);
 	}
 
 	void LoadTitle() {
@@ -517,6 +622,12 @@ namespace renderer
 		material->SetShader(spriteShader);
 		material->SetTexture(texture);
 		Resources::Insert(L"Quest_TopNav_Alpha_Material", material);
+
+		texture = Resources::Load<Texture>(L"Quest_BotNav_Alpha_Tex", L"..\\Resources\\Texture\\Quest\\QuestNav.png");
+		material = std::make_shared<Material>();
+		material->SetShader(spriteShader);
+		material->SetTexture(texture);
+		Resources::Insert(L"Quest_BotNav_Alpha_Material", material);
 	}
 
 	void LoadMapRes() {
@@ -554,6 +665,7 @@ namespace renderer
 		material = std::make_shared<Material>();
 		material->SetShader(spriteShader);
 		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
 		
 		Resources::Insert(L"Battle_BattleBaseUI_Material", material);
 
@@ -590,9 +702,67 @@ namespace renderer
 		material->SetRenderingMode(eRenderingMode::Transparent);
 
 		Resources::Insert(L"Battle_HpVal_Material3", material);
+
+		texture = Resources::Load<Texture>(L"Battle_PortraitPanel_Tex", L"..\\Resources\\Texture\\Battle\\PortraitPanel.png");
+		material = std::make_shared<Material>();
+		material->SetShader(spriteShader);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+
+		Resources::Insert(L"Battle_PortraitPanel_Material", material);
+
+		std::shared_ptr<Shader> bgEffectShader = Resources::Find<Shader>(L"SkillBgShader");
+		texture = Resources::Load<Texture>(L"Battle_BgEffect_Tex", L"..\\Resources\\Texture\\Effect\\Bg_Effect.png");
+		material = std::make_shared<BgEffectMaterial>();
+		material->SetShader(bgEffectShader);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+
+		Resources::Insert(L"Battle_BgEffect_Material", material);
+
+		std::shared_ptr<Shader> gradationShader = Resources::Find<Shader>(L"GradationShader");
+		texture = Resources::Load<Texture>(L"Battle_GradationEffect_Tex", L"..\\Resources\\Texture\\Effect\\gradation.png");
+		material = std::make_shared<Material>();
+		material->SetShader(gradationShader);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+
+		Resources::Insert(L"Battle_GradationEffect_Material", material);
+
+		texture = Resources::Load<Texture>(L"Battle_BgEffect2_Tex", L"..\\Resources\\Texture\\Effect\\BgEffect2.png");
+		material = std::make_shared<Material>();
+		material->SetShader(spriteShader);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+
+		Resources::Insert(L"Battle_BgEffect2_Material", material);
+
+		std::shared_ptr<Shader> swordTrailShader = Resources::Find<Shader>(L"SwordTrailShader");
+
+		texture = Resources::Load<Texture>(L"Battle_SwordTrail_Tex", L"..\\Resources\\Texture\\Effect\\sword_trail_effect.png");
+		material = std::make_shared<Material>();
+		material->SetShader(swordTrailShader);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+
+		Resources::Insert(L"Battle_SworldTrail_Material", material);
+
+
+		//SkillBgShader
 	}
 
 	void LoadTexture() {
+
+		postProcessing = std::make_shared<Texture>();
+		postProcessing->Create(application.GetWidth() , application.GetHeight(), DXGI_FORMAT_R8G8B8A8_UNORM, D3D11_BIND_SHADER_RESOURCE);
+		//postProcessing->BindShaderResource(eShaderStage::PS, 60);
+
+		// PostProcesTex
+		//std::shared_ptr<Texture> postProcessTexture = std::make_shared<Texture>();
+		//postProcessTexture->Create(application.GetWidth(), application.GetHeight(), DXGI_FORMAT_R8G8B8A8_UNORM, D3D11_BIND_SHADER_RESOURCE);
+		//postProcessTexture->BindShaderResource(eShaderStage::PS, 0);
+		//Jun::Resources::Insert(L"PostProcessTexture", postProcessTexture);
+
 		//paint texture
 		std::shared_ptr<Texture> uavTexture = std::make_shared<Texture>();
 		uavTexture->Create(1024, 1024, DXGI_FORMAT_R8G8B8A8_UNORM, D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS);
@@ -630,7 +800,7 @@ namespace renderer
 
 		shader
 			= Resources::Find<Shader>(L"SpriteAnimationShader");
-		material = std::make_shared<Material>();
+		material = std::make_shared<SpriteAnimMaterial>();
 		material->SetShader(shader);
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		Resources::Insert(L"SpriteAnimaionMaterial", material);
@@ -660,6 +830,48 @@ namespace renderer
 		material->SetTexture(particleTexx);
 		Resources::Insert(L"ParticleMaterial", material);
 
+		shader = Resources::Find<Shader>(L"PostProcessShader");
+		material = std::make_shared<Material>();
+		material->SetShader(shader);
+		material->SetRenderingMode(eRenderingMode::PostProcess);
+
+		Resources::Insert(L"PostProcessMaterial", material);
+
+		shader = Resources::Find<Shader>(L"BlurShader");
+		material = std::make_shared<Material>();
+		material->SetShader(shader);
+		material->SetRenderingMode(eRenderingMode::PostProcess);
+
+		Resources::Insert(L"BlurMaterial", material);
+
+		shader = Resources::Find<Shader>(L"SamplerShader");
+		material = std::make_shared<Material>();
+		material->SetShader(shader);
+		material->SetRenderingMode(eRenderingMode::PostProcess);
+
+		Resources::Insert(L"SamplerMaterial", material);
+
+		shader = Resources::Find<Shader>(L"BloomExtractShader");
+		material = std::make_shared<Material>();
+		material->SetShader(shader);
+		material->SetRenderingMode(eRenderingMode::PostProcess);
+
+		Resources::Insert(L"BloomExtractMaterial", material);
+
+		shader = Resources::Find<Shader>(L"CombineShader");
+		material = std::make_shared<Material>();
+		material->SetShader(shader);
+		material->SetRenderingMode(eRenderingMode::PostProcess);
+
+		Resources::Insert(L"CombineMaterial", material);
+
+		shader = Resources::Find<Shader>(L"SimpleFadeShader");
+		material = std::make_shared<SimpleFadeMaterial>();
+		material->SetShader(shader);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+
+		Resources::Insert(L"SimpleFadeMaterial", material);
+
 		LoadTitle();
 		LoadMenuRes();
 		LoadQuestRes();
@@ -682,6 +894,17 @@ namespace renderer
 	void PushDebugMeshAttribute(DebugMesh mesh)
 	{
 		debugMeshs.push_back(mesh);
+	}
+
+	void CopyRenderTarget()
+	{
+		if (renderTarget == nullptr)
+			return;
+
+		GetDevice()->CopyResource(postProcessing->GetTexture().Get()
+			, renderTarget->GetTexture().Get());
+
+		postProcessing->BindShaderResource(eShaderStage::PS, 60);
 	}
 
 	void BindLights()
@@ -722,8 +945,14 @@ namespace renderer
 		cb->Bind(eShaderStage::CS);
 	}
 
+	void LateUpdate()
+	{
+		
+	}
+
 	void Render()
 	{
+		
 		BindNoiseTexture();
 		BindLights();
 

@@ -1,21 +1,22 @@
 #pragma once
-
-#include "Scene.h"
+#include "Script.h"
 
 namespace Jun {
 
-	class BattleScene : public Scene
+	class MonsterBattleManager : public Script
 	{
 	public :
-		BattleScene();
-		virtual ~BattleScene();
+
 		virtual void Initialize() override;
+		virtual void Start() override;
 		virtual void Update() override;
 		virtual void LateUpdate() override;
 		virtual void Render() override;
 
+		class GameObject* FindTarget();
+
 	private :
-		void InitMoster(Vector3 pos, GameObject* parent, int index, bool isActive, int hpIndex);
+
 	};
 
 }

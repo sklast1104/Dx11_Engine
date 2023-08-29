@@ -21,6 +21,11 @@ namespace Jun {
 		virtual void OnCollisionStay(Collider2D* other) {};
 		virtual void OnCollisionExit(Collider2D* other) {};
 
+		virtual void MouseOn() {};
+		virtual void MouseLbtnUp() {};
+		virtual void MouseLbtnDown() {};
+		virtual void MouseLbtnClicked() {};
+
 	private :
 
 

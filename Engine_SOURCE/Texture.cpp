@@ -32,7 +32,7 @@ namespace Jun::graphics {
 			mDesc.SampleDesc.Count = 1;
 			mDesc.SampleDesc.Quality = 0;
 
-			mDesc.MipLevels = 0;
+			mDesc.MipLevels = 1;
 			mDesc.MiscFlags = 0;
 
 			mWidth = width;

@@ -133,6 +133,8 @@ namespace Jun
 		}
 		else if (mState == eState::Active) {
 
+			Start();
+
 			for (auto child : childObjects) {
 				child->SetState(state);
 			}
@@ -141,7 +143,9 @@ namespace Jun
 	}
 	void GameObject::AddChild(GameObject* _child)
 	{
-		if (mState == eState::Dead) _child->SetState(eState::Dead);
+		if (mState == eState::Dead) {
+			_child->SetState(eState::Dead);
+		}
 
 		_child->parent = this;
 		_child->GetComponent<Transform>()->SetParent(GetComponent<Transform>());

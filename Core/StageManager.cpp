@@ -71,8 +71,8 @@ namespace Jun {
 
 		}
 		else {
-			assert(false);
-			return container->wave3;
+			//assert(false);
+			return container->wave1;
 		}
 	}
 
@@ -88,7 +88,7 @@ namespace Jun {
 
 		}
 		else {
-			assert(false);
+			//assert(false);
 			return container->wave3;
 		}
 	}

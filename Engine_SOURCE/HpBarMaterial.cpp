@@ -5,7 +5,7 @@
 namespace Jun::graphics {
 
 	HpBarMaterial::HpBarMaterial()
-		: hpPercent{0.5f}
+		: hpPercent{1.f}
 	{
 	}
 

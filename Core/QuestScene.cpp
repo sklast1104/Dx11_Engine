@@ -67,6 +67,17 @@ namespace Jun {
 		TopNav->GetComponent<Transform>()->SetScale(Vector3(7.3f, 0.7f, 1.f) * 0.5f);
 
 		{
+			GameObject* botNav = object::Instantiate<GameObject>(Vector3(0.f, -1.6f, 0.6f), eLayerType::UI);
+
+			mr = botNav->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"Quest_BotNav_Alpha_Material"));
+
+			botNav->GetComponent<Transform>()->SetScale(Vector3(1.27f, 0.1f, 1.f) * 4.95f);
+
+		}
+
+		{
 			GameObject* camera = new GameObject();
 			AddGameObject(eLayerType::Camera, camera);
 			camera->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -10.0f));

@@ -29,13 +29,15 @@ namespace Jun
 	}
 	void Collider2D::LateUpdate()
 	{
+		std::wstring name = GetOwner()->GetName();
+
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 
 		Vector3 scale = tr->GetScale();
 		scale.x *= mSize.x;
 		scale.y *= mSize.y;
 
-		Vector3 pos = tr->GetPosition();
+		Vector3 pos = tr->GetRelativePosition();
 		pos.x += mCenter.x;
 		pos.y += mCenter.y;
 

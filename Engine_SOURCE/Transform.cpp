@@ -2,6 +2,7 @@
 #include "Renderer.h"
 #include "ConstantBuffer.h"
 #include "Camera.h"
+#include "GameObject.h"
 
 namespace Jun
 {
@@ -56,7 +57,7 @@ namespace Jun
 
 	void Transform::Render()
 	{
-
+		BindConstantBuffer();
 	}
 
 	void Transform::BindConstantBuffer()
@@ -73,6 +74,20 @@ namespace Jun
 		cb->Bind(eShaderStage::DS);
 		cb->Bind(eShaderStage::GS);
 		cb->Bind(eShaderStage::PS);
+	}
+
+	Vector3 Transform::GetPosition()
+	{
+		return mPosition;
+	}
+
+	Vector3 Transform::GetRelativePosition()
+	{
+		float x =  mWorld._41;
+		float y = mWorld._42;
+		float z = mWorld._43;
+
+		return Vector3(x, y, z);
 	}
 
 }

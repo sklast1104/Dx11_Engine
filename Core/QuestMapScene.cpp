@@ -69,7 +69,7 @@ namespace Jun {
 		Scene::Update();
 
 		if (Input::GetKeyDown(eKeyCode::N)) {
-			SceneManager::LoadScene(L"BattleScene");
+			SceneManager::LoadScene(L"BattleScene2");
 		}
 	}
 

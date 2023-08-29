@@ -72,6 +72,8 @@ namespace Jun
 		DisableDepthStencilState();
 		RenderCutOut();
 		RenderTransparent();
+		RenderPostProcess();
+
 		EnableDepthStencilState();
 	}
 
@@ -137,7 +139,7 @@ namespace Jun
 		mOpaqueGameObjects.clear();
 		mCutOutGameObjects.clear();
 		mTransparentGameObjects.clear();
-
+		mPostProcessGameObjects.clear();
 		//alpha sorting
 		Scene* scene = SceneManager::GetActiveScene();
 		for (size_t i = 0; i < (UINT)eLayerType::End; i++)
@@ -189,6 +191,8 @@ namespace Jun
 			case Jun::graphics::eRenderingMode::Transparent:
 				mTransparentGameObjects.push_back(obj);
 				break;
+			case Jun::graphics::eRenderingMode::PostProcess:
+				mPostProcessGameObjects.push_back(obj);
 			default:
 				break;
 			}
@@ -235,6 +239,15 @@ namespace Jun
 				continue;
 
 			gameObj->Render();
+		}
+	}
+
+	void Camera::RenderPostProcess()
+	{
+		for (GameObject* obj : mPostProcessGameObjects)
+		{
+			//renderer::CopyRenderTarget();
+			obj->Render();
 		}
 	}
 

@@ -40,8 +40,9 @@ cbuffer Noise : register(b5)
 
 cbuffer SpriteBuffer : register(b6)
 {
-    float4 color;
+    float4 spriteColor;
     float hpPercent;
+    float delta;
 }
 
 cbuffer FadeBuffer : register(b7)
@@ -53,6 +54,10 @@ Texture2D albedoTexture : register(t0);
 Texture2D txYUV : register(t1);
 Texture2D atlasTexture : register(t12);
 Texture2D noiseTexture : register(t15);
+Texture2D postProcessSub1 : register(t51);
+Texture2D postProcessSub2 : register(t52);
+Texture2D postProcessTexture : register(t60);
+Texture2D postProcessTexture2 : register(t61);
 
 struct LightAttribute
 {

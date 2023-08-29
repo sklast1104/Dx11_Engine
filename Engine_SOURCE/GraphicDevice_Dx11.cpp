@@ -1,6 +1,7 @@
 #include "GraphicDevice_Dx11.h"
 #include "Application.h"
 #include "Renderer.h"
+#include "Resources.h"
 
 extern Jun::Application application;
 
@@ -39,6 +40,13 @@ namespace Jun::graphics
 		mDevice->CreateRenderTargetView((ID3D11Resource*)mRenderTarget->GetTexture().Get()
 			, nullptr, renderTargetView.GetAddressOf());
 		mRenderTarget->SetRTV(renderTargetView);
+
+		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_shaderResourceView = nullptr;
+		mDevice->CreateShaderResourceView(renderTarget.Get(), nullptr,
+			m_shaderResourceView.GetAddressOf());
+		mRenderTarget->SetSRV(m_shaderResourceView);
+		
+		renderer::renderTarget = mRenderTarget;
 
 		D3D11_TEXTURE2D_DESC depthStencilDesc = {};
 		depthStencilDesc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_DEPTH_STENCIL;
@@ -93,7 +101,7 @@ namespace Jun::graphics
 		dxgiDesc.BufferCount = desc->BufferCount;
 		dxgiDesc.SwapEffect = DXGI_SWAP_EFFECT::DXGI_SWAP_EFFECT_DISCARD;
 
-		dxgiDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
+		dxgiDesc.BufferUsage = DXGI_USAGE_SHADER_INPUT | DXGI_USAGE_RENDER_TARGET_OUTPUT;
 		dxgiDesc.BufferDesc.Width = desc->BufferDesc.Width;
 		dxgiDesc.BufferDesc.Height = desc->BufferDesc.Height;
 		dxgiDesc.BufferDesc.Format = DXGI_FORMAT::DXGI_FORMAT_R8G8B8A8_UNORM;

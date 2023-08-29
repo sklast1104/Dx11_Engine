@@ -5,6 +5,10 @@
 #include "MyMath.h"
 #include "MonsterStateMachine.h"
 #include "TransContainer.h"
+#include "MeshRenderer.h"
+#include "Material.h"
+#include "HpBarMaterial.h"
+#include "HpValController.h"
 
 #include <iostream>
 
@@ -23,6 +27,19 @@ namespace Jun {
 		owner->GetComponent<SkeletonMecanim>()->PlayAnimation(L"Run", true);
 
 		elapsedTime = 0.f;
+
+		// Material Edit
+		{
+			owner->GetComponentInChild<HpValController>();
+			GameObject* hpUI = owner->GetComponentInChild<HpValController>()->GetOwner();
+			
+
+			MeshRenderer* renderer = hpUI->GetComponent<MeshRenderer>();
+			Material* mt = renderer->GetMaterial().get();
+			HpBarMaterial* material = (HpBarMaterial*)mt;
+
+			material->hpPercent = 1.f;
+		}
 	}
 
 	void MonsterStartState::Update()
@@ -33,7 +50,7 @@ namespace Jun {
 
 		if (dist < 0.1f) {
 			MonsterStateMachine* machine = owner->GetComponent<MonsterStateMachine>();
-			machine->SwitchState(machine->stateMap[L"IdleState"].get());
+			machine->SwitchState(machine->stateMap[L"StandByState"].get());
 		}
 
 		Vector3 movVec = dir * Time::DeltaTime() * speed;

@@ -82,7 +82,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         {
             // 여기서 게임 로직이 돌아가야한다.
             application.Run();
-            gui::Editor::Run();
+            //gui::Editor::Run();
             application.Present();
         }
     }

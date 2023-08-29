@@ -6,6 +6,8 @@
 #include "Health.h"
 #include "BattleManager.h"
 #include "HpValController.h"
+#include "ColorChanger.h"
+#include "HpParentEffect.h"
 
 #include <iostream>
 
@@ -36,11 +38,27 @@ namespace Jun::PlayerState {
 
 				Health* monHealth = monster->GetComponent<Health>();
 				HpValController* con = monster->GetComponentInChild<HpValController>();
+				ColorChanger* changer = monster->GetComponent<ColorChanger>();
 
-				monHealth->DealDamage(1.f);
-				con->SetPercent(0.1f);
+				changer->AttackedEffect();
 
-				monMachine->SwitchState(monMachine->stateMap[L"AttackedState"].get());
+				monHealth->DealDamage(10.f);
+				float percent = monHealth->GetPercent();
+
+				GameObject* parentUI = con->GetOwner()->GetParent();
+				parentUI->SetState(GameObject::eState::Active);
+				con->SetPercent(percent);
+
+				parentUI->GetComponent<HpParentEffect>()->PlayEffect();
+
+				if (!monHealth->IsAlive()) {
+					monMachine->SwitchState(monMachine->stateMap[L"DieState"].get());
+				}
+				else {
+					monMachine->SwitchState(monMachine->stateMap[L"AttackedState"].get());
+				}
+
+				
 			}
 		}
 

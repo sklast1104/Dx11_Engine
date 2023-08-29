@@ -3,6 +3,8 @@
 #include "MonsterIdleState.h"
 #include "MonsterAttackState.h"
 #include "MonsterAttackedState.h"
+#include "MonsterDieState.h"
+#include "MonsterStandByState.h"
 
 Jun::MonsterStateMachine::MonsterStateMachine()
 {
@@ -28,6 +30,16 @@ void Jun::MonsterStateMachine::Initialize()
 	stateMap[L"AttackedState"] = std::make_shared<MonsterAttackedState>();
 	stateMap[L"AttackedState"].get()->owner = GetOwner();
 
+	stateMap[L"DieState"] = std::make_shared<MonsterDieState>();
+	stateMap[L"DieState"].get()->owner = GetOwner();
+
+	stateMap[L"StandByState"] = std::make_shared<MonsterStandByState>();
+	stateMap[L"StandByState"].get()->owner = GetOwner();
+
 	currentState = stateMap[L"StartState"].get();
+}
+
+void Jun::MonsterStateMachine::Start()
+{
 	currentState->Enter();
 }

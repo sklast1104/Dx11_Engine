@@ -83,6 +83,7 @@ namespace Jun::graphics {
 		Opaque,
 		CutOut,
 		Transparent,
+		PostProcess,
 		End,
 	};
 

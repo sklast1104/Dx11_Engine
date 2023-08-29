@@ -10,6 +10,7 @@ namespace Jun {
 
 	public :
 		float hp;
+		float maxHp;
 
 		virtual void Initialize() override;
 		virtual void Update() override;
@@ -19,6 +20,7 @@ namespace Jun {
 		bool IsAlive() { return isAlive; }
 
 		void DealDamage(float damage);
+		float GetPercent();
 	};
 }
 

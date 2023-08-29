@@ -41,10 +41,12 @@ namespace Jun
 		void RenderOpaque();
 		void RenderCutOut();
 		void RenderTransparent();
+		void RenderPostProcess();
 
 		void EnableDepthStencilState();
 		void DisableDepthStencilState();
 
+		void SetSize(float size) { mSize = size; }
 		float GetSize() { return mSize; }
 		Matrix& GetViewMatrix() { return mView; }
 		Matrix& GetProjectionMatrix() { return mProjection; }
@@ -66,5 +68,6 @@ namespace Jun
 		std::vector<GameObject*> mOpaqueGameObjects;
 		std::vector<GameObject*> mCutOutGameObjects;
 		std::vector<GameObject*> mTransparentGameObjects;
+		std::vector<GameObject*> mPostProcessGameObjects;
 	};
 }

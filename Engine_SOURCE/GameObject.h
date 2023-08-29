@@ -24,6 +24,8 @@ namespace Jun
 		virtual void LateUpdate();
 		virtual void Render();
 
+
+
 		template <typename T>
 		T* GetComponent()
 		{
@@ -147,6 +149,7 @@ namespace Jun
 		void AddChild(GameObject* _child);
 
 		std::vector<GameObject*> GetChilds() { return childObjects; }
+		GameObject* GetParent() { return parent; }
 
 	private:
 		eState mState;

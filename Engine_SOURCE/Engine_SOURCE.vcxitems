@@ -20,6 +20,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)AudioClip.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)AudioListener.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)AudioSource.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)BgEffectMaterial.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Camera.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Collider2D.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)CollisionManager.h" />
@@ -49,6 +50,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)PaintShader.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ParticleShader.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ParticleSystem.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)PostProcess.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Renderer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RenderTexture.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Resource.h" />
@@ -58,11 +60,16 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)SceneManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Script.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Shader.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)SimpleFadeMaterial.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SkeletonMecanim.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SpineAnimation.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)SpriteAnimMaterial.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StructedBuffer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)SwordTrailMaterial.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Texture.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Transform.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UI.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)VideoPlayer.h" />
   </ItemGroup>
   <ItemGroup>
@@ -72,6 +79,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)AudioClip.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)AudioListener.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)AudioSource.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)BgEffectMaterial.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Camera.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Collider2D.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)CollisionManager.cpp" />
@@ -95,6 +103,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)PaintShader.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ParticleShader.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ParticleSystem.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)PostProcess.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Renderer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RenderTexture.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Resource.cpp" />
@@ -104,11 +113,16 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)SceneManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Script.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Shader.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)SimpleFadeMaterial.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SkeletonMecanim.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SpineAnimation.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)SpriteAnimMaterial.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StructedBuffer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)SwordTrailMaterial.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Texture.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Transform.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)UI.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)VideoPlayer.cpp" />
   </ItemGroup>
   <ItemGroup>

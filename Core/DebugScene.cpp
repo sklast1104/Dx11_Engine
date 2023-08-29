@@ -21,13 +21,13 @@ namespace Jun {
 	void DebugScene::Initialize()
 	{
 		// Light (나중에 지울것)
-		{
-			GameObject* light = new GameObject();
-			AddGameObject(eLayerType::Light, light);
-			Light* lightComp = light->AddComponent<Light>();
-			lightComp->SetType(eLightType::Directional);
-			lightComp->SetColor(Vector4(0.8f, 0.8f, 0.8f, 1.0f));
-		}
+		//{
+		//	GameObject* light = new GameObject();
+		//	AddGameObject(eLayerType::Light, light);
+		//	Light* lightComp = light->AddComponent<Light>();
+		//	lightComp->SetType(eLightType::Directional);
+		//	lightComp->SetColor(Vector4(0.8f, 0.8f, 0.8f, 1.0f));
+		//}
 
 		MeshRenderer* mr = nullptr;
 

@@ -7,6 +7,7 @@
 #include "VideoPlayer.h"
 #include "Fmod.h"
 #include "FontWrapper.h"
+#include "UIManager.h"
 
 namespace Jun
 {
@@ -56,11 +57,13 @@ namespace Jun
 		Input::Update();
 		CollisionManager::Update();
 		SceneManager::Update();
+		UIManager::Update();
 	}
 
 	void Application::LateUpdate()
 	{
 		SceneManager::LateUpdate();
+		renderer::LateUpdate();
 	}
 
 	void Application::Render()

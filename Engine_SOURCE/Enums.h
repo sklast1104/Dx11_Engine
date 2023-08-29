@@ -17,11 +17,14 @@ namespace Jun::enums {
 		Camera,
 		AudioListener,
 		AudioSource,
+		UI,
+		PostProcess,
 		End,
 	};
 
 	enum class eLayerType {
 		Grid,
+		Default,
 		Logic,
 		Player,
 		Monster,

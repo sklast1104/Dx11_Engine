@@ -8,6 +8,7 @@
 #include "NextState.h"
 #include "Object.h"
 #include "StageManager.h"
+#include "SkillState.h"
 
 namespace Jun::PlayerState {
 
@@ -45,6 +46,9 @@ namespace Jun::PlayerState {
 
 		stateMap[L"NextState"] = std::make_shared<NextState>();
 		stateMap[L"NextState"].get()->owner = GetOwner();
+
+		stateMap[L"SkillState"] = std::make_shared<SkillState>();
+		stateMap[L"SkillState"].get()->owner = GetOwner();
 
 		currentState = stateMap[L"StartState"].get();
 		currentState->Enter();

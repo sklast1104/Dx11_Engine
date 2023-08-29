@@ -122,4 +122,24 @@ namespace Jun::object
 
 		return objs2;
 	}
+
+	static __forceinline GameObject* FindObjectByName(std::wstring name)
+	{
+		Scene* scene = SceneManager::GetActiveScene();
+
+		std::vector<Layer*> mLayers = scene->GetLayers();
+
+		for (Layer* layer : mLayers)
+		{
+			auto gameObjs = layer->GetGameObjects();
+			for (GameObject* obj : gameObjs)
+			{
+				if (obj->GetName() == name) {
+					return obj;
+				}
+			}
+		}
+
+		return nullptr;
+	}
 }

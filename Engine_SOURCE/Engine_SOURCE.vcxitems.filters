@@ -118,6 +118,12 @@
     <Filter Include="Resource\Font">
       <UniqueIdentifier>{9ce6ef88-cc84-4225-b2d6-b5ac46bb680c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\Component\UI">
+      <UniqueIdentifier>{e488bfac-3e76-44af-a5ea-6b3e5a98928d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Component\PostProcess">
+      <UniqueIdentifier>{205b8ac3-8943-4cb9-8ad3-2c924a62c4b0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h">
@@ -267,6 +273,27 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)FontWrapper.h">
       <Filter>Resource\Font</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SpriteAnimMaterial.h">
+      <Filter>Resource\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIManager.h">
+      <Filter>Scene\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UI.h">
+      <Filter>GameObject\Component\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)BgEffectMaterial.h">
+      <Filter>Resource\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SwordTrailMaterial.h">
+      <Filter>Resource\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)PostProcess.h">
+      <Filter>GameObject\Component\PostProcess</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SimpleFadeMaterial.h">
+      <Filter>Resource\Material</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)MyMath.cpp">
@@ -400,6 +427,27 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)FontWrapper.cpp">
       <Filter>Resource\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)SpriteAnimMaterial.cpp">
+      <Filter>Resource\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIManager.cpp">
+      <Filter>Scene\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UI.cpp">
+      <Filter>GameObject\Component\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)BgEffectMaterial.cpp">
+      <Filter>Resource\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)SwordTrailMaterial.cpp">
+      <Filter>Resource\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)PostProcess.cpp">
+      <Filter>GameObject\Component\PostProcess</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)SimpleFadeMaterial.cpp">
+      <Filter>Resource\Material</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

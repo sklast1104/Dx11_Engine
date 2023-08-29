@@ -14,9 +14,6 @@
     <ClCompile Include="QuestScene.cpp">
       <Filter>Contents\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="BattleScene.cpp">
-      <Filter>Contents\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="MoveState.cpp">
       <Filter>Contents\Script\StateMachine\Player</Filter>
     </ClCompile>
@@ -95,6 +92,45 @@
     <ClCompile Include="HpValController.cpp">
       <Filter>Contents\Script\Combat\UI</Filter>
     </ClCompile>
+    <ClCompile Include="ColorChanger.cpp">
+      <Filter>Contents\Script\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterDieState.cpp">
+      <Filter>Contents\Script\StateMachine\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="DieEffect.cpp">
+      <Filter>Contents\Script\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="HpParentEffect.cpp">
+      <Filter>Contents\Script\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterBattleManager.cpp">
+      <Filter>Contents\Script\Combat\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterStandByState.cpp">
+      <Filter>Contents\Script\StateMachine\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="BattleScene2.cpp">
+      <Filter>Contents\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="PortraitHandler.cpp">
+      <Filter>Contents\Script\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerController.cpp">
+      <Filter>Contents\Script\Combat\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterController.cpp">
+      <Filter>Contents\Script\Combat\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="SkillState.cpp">
+      <Filter>Contents\Script\StateMachine\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="MainUIHandler.cpp">
+      <Filter>Contents\Script\UI\MainScene</Filter>
+    </ClCompile>
+    <ClCompile Include="SimpleFadeHandler.cpp">
+      <Filter>Contents\Script\Effect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -111,9 +147,6 @@
       <Filter>Contents\Scene</Filter>
     </ClInclude>
     <ClInclude Include="QuestScene.h">
-      <Filter>Contents\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="BattleScene.h">
       <Filter>Contents\Scene</Filter>
     </ClInclude>
     <ClInclude Include="MoveState.h">
@@ -197,6 +230,46 @@
     <ClInclude Include="HpValController.h">
       <Filter>Contents\Script\Combat\UI</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="ColorChanger.h">
+      <Filter>Contents\Script\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterDieState.h">
+      <Filter>Contents\Script\StateMachine\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="DieEffect.h">
+      <Filter>Contents\Script\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="HpParentEffect.h">
+      <Filter>Contents\Script\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterBattleManager.h">
+      <Filter>Contents\Script\Combat\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterStandByState.h">
+      <Filter>Contents\Script\StateMachine\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleScene2.h">
+      <Filter>Contents\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="PortraitHandler.h">
+      <Filter>Contents\Script\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerController.h">
+      <Filter>Contents\Script\Combat\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterController.h">
+      <Filter>Contents\Script\Combat\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="SkillState.h">
+      <Filter>Contents\Script\StateMachine\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="MainUIHandler.h">
+      <Filter>Contents\Script\UI\MainScene</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleFadeHandler.h">
+      <Filter>Contents\Script\Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Contents">
@@ -232,5 +305,20 @@
     <Filter Include="Contents\Script\Combat\UI">
       <UniqueIdentifier>{8c0dae00-fdd8-4e8d-9c01-603030b700b0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\Script\Combat\Monster">
+      <UniqueIdentifier>{10dd872c-9005-4f58-89cb-c6f33b320cce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\UI">
+      <UniqueIdentifier>{fbbeecdd-a9b8-492e-86ed-8161299ce9e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\Combat\Player">
+      <UniqueIdentifier>{3c507998-8945-4e82-a228-549daef94ec3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\UI\MainScene">
+      <UniqueIdentifier>{7bbf41cb-9acb-4807-8748-599cb6380d82}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Core.rc" />
   </ItemGroup>
 </Project>

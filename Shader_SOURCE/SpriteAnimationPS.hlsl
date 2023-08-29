@@ -47,6 +47,10 @@ float4 main(VSOut In) : SV_TARGET
     
     color *= lightColor;
     
+    color *= spriteColor;
+    
+    //color *= float4(1, 1, 1, 1);
+    
     if (color.a <= 0.0f)
         discard;
         
