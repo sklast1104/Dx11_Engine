@@ -25,7 +25,7 @@ float4 main(VSOut In) : SV_TARGET
     
     float l = (color.r + color.g + color.b) / 3;
     
-    if (l > 0.7f)
+    if (l > 0.5f)
     {
         return float4(color, 1.0f);
         

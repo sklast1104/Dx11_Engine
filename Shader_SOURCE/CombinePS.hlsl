@@ -25,7 +25,7 @@ float4 main(VSOut In) : SV_TARGET
     
     //return float4(color0, 1.f);
     //return float4((1.f * color0), 1.0f);
-    float4 final = float4(color1 + (0.6f * color0), 1.0f);
+    float4 final = float4(color1 + (0.2f * color0), 1.0f);
     float r = saturate(final.r);
     float g = saturate(final.g);
     float b = saturate(final.b);
